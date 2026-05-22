@@ -1,0 +1,91 @@
+<section class="faq">
+  <div class="container">
+    <h2 class="section-title">{{ section.settings.title }}</h2>
+    <div class="faq__list">
+      {%- for block in section.blocks -%}
+        <details class="faq__item" {{ block.shopify_attributes }}>
+          <summary class="faq__question">{{ block.settings.question }}</summary>
+          <div class="faq__answer">{{ block.settings.answer }}</div>
+        </details>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+
+{% schema %}
+{
+  "name": "FAQ",
+  "class": "faq-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titolo",
+      "default": "Domande Frequenti"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Domanda",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Domanda",
+          "default": "Quanto tempo impiega la spedizione?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Risposta",
+          "default": "<p>La spedizione è gratuita e impiega 3-5 giorni lavorativi in tutta Italia.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ",
+      "blocks": [
+        {
+          "type": "question",
+          "settings": {
+            "question": "Il portafoglio è davvero incluso gratis?",
+            "answer": "<p>Sì! Con ogni borsa acquistata ricevi un portafoglio coordinato completamente in regalo, senza costi aggiuntivi.</p>"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "question": "Quanto tempo impiega la spedizione?",
+            "answer": "<p>La spedizione è gratuita e impiega 3-5 giorni lavorativi in tutta Italia. Riceverai un codice tracking appena il pacco sarà spedito.</p>"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "question": "Posso effettuare un reso?",
+            "answer": "<p>Certo! Hai 30 giorni dalla ricezione per restituire il prodotto. Il reso è semplice e senza domande. Ti rimborseremo completamente.</p>"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "question": "Come utilizzo il codice sconto REGALO?",
+            "answer": "<p>Inserisci il codice REGALO al momento del checkout per ottenere lo sconto immediato sul tuo ordine.</p>"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "question": "I pagamenti sono sicuri?",
+            "answer": "<p>Assolutamente sì. Accettiamo tutte le carte di credito, PayPal e altri metodi sicuri. I tuoi dati sono protetti con crittografia SSL.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

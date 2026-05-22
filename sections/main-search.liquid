@@ -1,0 +1,37 @@
+<section class="search-page">
+  <div class="container">
+    <h1 class="search-page__title">Cerca</h1>
+    <form action="/search" method="get" class="search-page__form">
+      <input type="text" name="q" value="{{ search.terms | escape }}" placeholder="Cerca prodotti..." class="search-page__input">
+      <button type="submit" class="btn btn--primary">Cerca</button>
+    </form>
+
+    {%- if search.performed -%}
+      {%- if search.results_count > 0 -%}
+        <p class="search-page__count">{{ search.results_count }} risultati per "{{ search.terms }}"</p>
+        <div class="search-page__results">
+          {%- for result in search.results -%}
+            {%- if result.object_type == 'product' -%}
+              {% render 'product-card', product: result %}
+            {%- else -%}
+              <div class="search-result">
+                <h3><a href="{{ result.url }}">{{ result.title }}</a></h3>
+                <p>{{ result.content | strip_html | truncatewords: 30 }}</p>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- else -%}
+        <p class="search-page__empty">Nessun risultato per "{{ search.terms }}"</p>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ricerca",
+  "class": "main-search-section",
+  "settings": []
+}
+{% endschema %}

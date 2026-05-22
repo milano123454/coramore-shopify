@@ -1,0 +1,15 @@
+{%- if settings.announcement_text != blank -%}
+<div class="announcement-bar">
+  <div class="container">
+    <p class="announcement-bar__text">{{ settings.announcement_text }}</p>
+  </div>
+</div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Barra Annuncio",
+  "class": "announcement-bar-section",
+  "settings": []
+}
+{% endschema %}

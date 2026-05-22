@@ -1,0 +1,39 @@
+<section class="order-page">
+  <div class="container">
+    <h1>Ordine {{ order.name }}</h1>
+    <p>Effettuato il {{ order.created_at | date: "%d/%m/%Y" }}</p>
+
+    <table class="order-table">
+      <thead>
+        <tr>
+          <th>Prodotto</th>
+          <th>Quantità</th>
+          <th>Prezzo</th>
+        </tr>
+      </thead>
+      <tbody>
+        {%- for line_item in order.line_items -%}
+          <tr>
+            <td>{{ line_item.title }}</td>
+            <td>{{ line_item.quantity }}</td>
+            <td>{{ line_item.final_line_price | money }}</td>
+          </tr>
+        {%- endfor -%}
+      </tbody>
+    </table>
+
+    <div class="order-summary">
+      <p><strong>Totale:</strong> {{ order.total_price | money }}</p>
+    </div>
+
+    <a href="/account" class="btn btn--secondary">← Torna all'account</a>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ordine",
+  "class": "main-order-section",
+  "settings": []
+}
+{% endschema %}

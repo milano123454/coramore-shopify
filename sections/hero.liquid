@@ -1,0 +1,82 @@
+<section class="hero">
+  <div class="container">
+    <div class="hero__grid">
+      <div class="hero__content">
+        <div class="hero__trust-mini">
+          <span class="hero__stars">★★★★★</span>
+          <span class="hero__trust-text">{{ settings.trust_rating }}/5 — {{ settings.trust_reviews_count }} recensioni</span>
+        </div>
+
+        <h1 class="hero__title">{{ section.settings.title }}</h1>
+        <p class="hero__subtitle">{{ section.settings.subtitle }}</p>
+
+        <div class="hero__cta-wrap">
+          <a href="{{ section.settings.cta_link }}" class="btn btn--primary btn--large">
+            {{ section.settings.cta_text }}
+          </a>
+        </div>
+
+        <div class="hero__badges">
+          {% render 'trust-badges' %}
+        </div>
+      </div>
+
+      <div class="hero__image">
+        {%- if section.settings.image -%}
+          <img src="{{ section.settings.image | image_url: width: 800 }}"
+               alt="{{ section.settings.title | escape }}"
+               width="800"
+               height="{{ 800 | divided_by: section.settings.image.aspect_ratio }}"
+               loading="eager"
+               class="hero__img">
+        {%- else -%}
+          <div class="hero__placeholder">
+            {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "class": "hero-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titolo",
+      "default": "Eleganza che ti accompagna ovunque"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Sottotitolo",
+      "default": "Borsa premium in pelle con portafoglio incluso. Design italiano, qualità superiore, spedizione gratuita."
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Testo CTA",
+      "default": "Scopri l'Offerta"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Link CTA"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Immagine hero"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero"
+    }
+  ]
+}
+{% endschema %}

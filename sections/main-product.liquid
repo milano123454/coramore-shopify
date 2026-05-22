@@ -1,0 +1,177 @@
+{%- assign product = product -%}
+
+<section class="product-page">
+  <div class="container">
+    <div class="product-page__grid">
+      <!-- Gallery -->
+      <div class="product-page__gallery">
+        <div class="product-page__main-image">
+          {%- if product.featured_image -%}
+            <img src="{{ product.featured_image | image_url: width: 1000 }}"
+                 alt="{{ product.featured_image.alt | escape }}"
+                 width="1000"
+                 height="{{ 1000 | divided_by: product.featured_image.aspect_ratio }}"
+                 id="product-main-image"
+                 class="product-page__img">
+          {%- endif -%}
+
+          {%- if product.compare_at_price > product.price -%}
+            <span class="product-page__badge-sale">
+              -{{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price }}%
+            </span>
+          {%- endif -%}
+        </div>
+
+        {%- if product.images.size > 1 -%}
+          <div class="product-page__thumbs">
+            {%- for image in product.images limit: 7 -%}
+              <button class="product-page__thumb{% if forloop.first %} is-active{% endif %}"
+                      data-image-url="{{ image | image_url: width: 1000 }}"
+                      data-thumb-btn>
+                <img src="{{ image | image_url: width: 150 }}"
+                     alt="{{ image.alt | escape }}"
+                     width="150"
+                     height="{{ 150 | divided_by: image.aspect_ratio }}"
+                     loading="lazy">
+              </button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+
+      <!-- Product Info -->
+      <div class="product-page__info">
+        <div class="product-page__rating">
+          {% render 'rating-stars' %}
+          <span>{{ settings.trust_reviews_count }} recensioni</span>
+        </div>
+
+        <h1 class="product-page__title">{{ product.title }}</h1>
+
+        <div class="product-page__price">
+          {%- if product.compare_at_price > product.price -%}
+            <span class="product-page__price-compare">{{ product.compare_at_price | money }}</span>
+            <span class="product-page__price-current">{{ product.price | money }}</span>
+            <span class="product-page__price-save">
+              Risparmi {{ product.compare_at_price | minus: product.price | money }}
+            </span>
+          {%- else -%}
+            <span class="product-page__price-current">{{ product.price | money }}</span>
+          {%- endif -%}
+        </div>
+
+        {%- if settings.show_countdown -%}
+          {% render 'countdown-timer' %}
+        {%- endif -%}
+
+
+        <div class="product-page__discount-code">
+          <span class="discount-code__label">Usa il codice</span>
+          <span class="discount-code__value">{{ settings.discount_code }}</span>
+          <span class="discount-code__label">per {{ settings.discount_percentage }} di sconto extra</span>
+        </div>
+
+        {%- if settings.show_stock_urgency -%}
+          {%- assign current_variant = product.selected_or_first_available_variant -%}
+          {%- if current_variant.inventory_quantity <= settings.stock_threshold and current_variant.inventory_quantity > 0 -%}
+            <div class="product-page__urgency">
+              <span class="urgency-dot"></span>
+              Solo {{ current_variant.inventory_quantity }} rimasti — Disponibilità limitata
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+
+        <form method="post" action="/cart/add" class="product-page__form">
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+          <input type="hidden" name="quantity" value="1">
+
+
+          {%- if product.variants.size > 1 -%}
+            <div class="product-page__variants">
+              <label class="product-page__variant-label">Seleziona variante:</label>
+              <div class="product-page__variant-options">
+                {%- for variant in product.variants -%}
+                  <label class="variant-option{% if variant == product.selected_or_first_available_variant %} is-active{% endif %}">
+                    <input type="radio" name="id" value="{{ variant.id }}"
+                           {% if variant == product.selected_or_first_available_variant %}checked{% endif %}
+                           {% unless variant.available %}disabled{% endunless %}>
+                    <span>{{ variant.title }}</span>
+                  </label>
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- endif -%}
+
+          <button type="submit" class="btn btn--primary btn--large btn--full product-page__atc"
+                  {% unless product.available %}disabled{% endunless %}>
+            {%- if product.available -%}
+              Aggiungi al Carrello — {{ product.price | money }}
+            {%- else -%}
+              Esaurito
+            {%- endif -%}
+          </button>
+        </form>
+
+
+        <div class="product-page__trust-inline">
+          {% render 'trust-badges' %}
+        </div>
+
+        <div class="product-page__details">
+          {%- if product.description != blank -%}
+            <details class="product-accordion" open>
+              <summary>Descrizione</summary>
+              <div class="product-accordion__content">
+                {{ product.description }}
+              </div>
+            </details>
+          {%- endif -%}
+
+          <details class="product-accordion">
+            <summary>Materiali & Dimensioni</summary>
+            <div class="product-accordion__content">
+              <ul>
+                <li>Pelle PU premium di alta qualità</li>
+                <li>Fodera interna in tessuto resistente</li>
+                <li>Hardware dorato antigraffio</li>
+                <li>Dimensioni: 30cm x 25cm x 12cm</li>
+              </ul>
+            </div>
+          </details>
+
+          <details class="product-accordion">
+            <summary>Spedizione & Resi</summary>
+            <div class="product-accordion__content">
+              <p><strong>Spedizione gratuita</strong> — Consegna in 3-5 giorni lavorativi.</p>
+              <p><strong>Reso facile</strong> — 30 giorni per restituire senza domande.</p>
+              <p><strong>Garanzia</strong> — 1 anno su difetti di fabbricazione.</p>
+            </div>
+          </details>
+
+          <details class="product-accordion">
+            <summary>Cosa include</summary>
+            <div class="product-accordion__content">
+              <ul>
+                <li>1x Borsa premium</li>
+                <li>1x Portafoglio coordinato (REGALO)</li>
+                <li>1x Dust bag protettivo</li>
+                <li>Confezione regalo premium</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+{% schema %}
+{
+  "name": "Prodotto Principale",
+  "class": "main-product-section",
+  "tag": "section",
+  "settings": []
+}
+{% endschema %}

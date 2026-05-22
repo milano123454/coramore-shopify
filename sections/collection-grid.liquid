@@ -1,0 +1,66 @@
+{%- assign collection = section.settings.collection -%}
+
+<section class="collection-grid">
+  <div class="container">
+    <div class="collection-grid__header">
+      <h2 class="section-title">{{ section.settings.title }}</h2>
+      {%- if collection -%}
+        <a href="{{ collection.url }}" class="collection-grid__link">Vedi Tutti →</a>
+      {%- endif -%}
+    </div>
+
+    <div class="collection-grid__items">
+      {%- if collection -%}
+        {%- for product in collection.products limit: section.settings.products_limit -%}
+          {% render 'product-card', product: product %}
+        {%- endfor -%}
+      {%- else -%}
+        {%- for i in (1..4) -%}
+          <div class="product-card product-card--placeholder">
+            <div class="product-card__image">
+              {{ 'product-' | append: i | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__title">Prodotto esempio {{ i }}</h3>
+              <p class="product-card__price">€99,00</p>
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Griglia Collezione",
+  "class": "collection-grid-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titolo",
+      "default": "I Nostri Prodotti"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collezione"
+    },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "label": "Numero prodotti",
+      "default": 4
+    }
+  ],
+  "presets": [
+    {
+      "name": "Griglia Collezione"
+    }
+  ]
+}
+{% endschema %}

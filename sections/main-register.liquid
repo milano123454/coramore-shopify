@@ -1,0 +1,36 @@
+<section class="register-page">
+  <div class="container">
+    <div class="register-page__form-wrap">
+      <h1>Crea Account</h1>
+      {%- form 'create_customer' -%}
+        {{ form.errors | default_errors }}
+        <div class="form-group">
+          <label for="first_name">Nome</label>
+          <input type="text" name="customer[first_name]" id="first_name" required>
+        </div>
+        <div class="form-group">
+          <label for="last_name">Cognome</label>
+          <input type="text" name="customer[last_name]" id="last_name" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" name="customer[email]" id="email" autocomplete="email" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" name="customer[password]" id="password" required>
+        </div>
+        <button type="submit" class="btn btn--primary btn--full">Registrati</button>
+      {%- endform -%}
+      <p><a href="/account/login">Hai già un account? Accedi</a></p>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Registrazione",
+  "class": "main-register-section",
+  "settings": []
+}
+{% endschema %}

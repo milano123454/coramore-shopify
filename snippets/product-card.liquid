@@ -1,0 +1,37 @@
+<div class="product-card">
+  <a href="{{ product.url }}" class="product-card__link">
+    <div class="product-card__image-wrap">
+      {%- if product.featured_image -%}
+        <img src="{{ product.featured_image | image_url: width: 600 }}"
+             alt="{{ product.featured_image.alt | escape }}"
+             width="600"
+             height="{{ 600 | divided_by: product.featured_image.aspect_ratio }}"
+             loading="lazy"
+             class="product-card__image">
+      {%- else -%}
+        <div class="product-card__placeholder">
+          {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        </div>
+      {%- endif -%}
+      {%- if product.compare_at_price > product.price -%}
+        <span class="product-card__badge">
+          -{{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price }}%
+        </span>
+      {%- endif -%}
+    </div>
+    <div class="product-card__info">
+      <h3 class="product-card__title">{{ product.title }}</h3>
+      <div class="product-card__price">
+        {%- if product.compare_at_price > product.price -%}
+          <span class="product-card__price-compare">{{ product.compare_at_price | money }}</span>
+          <span class="product-card__price-current">{{ product.price | money }}</span>
+        {%- else -%}
+          <span class="product-card__price-current">{{ product.price | money }}</span>
+        {%- endif -%}
+      </div>
+      <div class="product-card__rating">
+        <span class="product-card__stars">★★★★★</span>
+      </div>
+    </div>
+  </a>
+</div>

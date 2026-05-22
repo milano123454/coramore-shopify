@@ -1,0 +1,21 @@
+{
+  "sections": {
+    "main-product": {
+      "type": "main-product",
+      "settings": {}
+    },
+    "product-reviews": {
+      "type": "reviews",
+      "settings": {}
+    },
+    "product-faq": {
+      "type": "faq",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main-product",
+    "product-reviews",
+    "product-faq"
+  ]
+}

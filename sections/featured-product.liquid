@@ -1,0 +1,167 @@
+{%- assign product = section.settings.product -%}
+
+<section class="featured-product" id="prodotto">
+  <div class="container">
+    {%- if product != blank -%}
+      <div class="featured-product__grid">
+        <div class="featured-product__gallery">
+          <div class="featured-product__main-image">
+            {%- if product.featured_image -%}
+              <img src="{{ product.featured_image | image_url: width: 900 }}"
+                   alt="{{ product.featured_image.alt | escape }}"
+                   width="900"
+                   height="{{ 900 | divided_by: product.featured_image.aspect_ratio }}"
+                   loading="lazy"
+                   class="featured-product__img"
+                   id="main-product-image">
+            {%- endif -%}
+          </div>
+          {%- if product.images.size > 1 -%}
+            <div class="featured-product__thumbs">
+              {%- for image in product.images limit: 7 -%}
+                <button class="featured-product__thumb{% if forloop.first %} is-active{% endif %}"
+                        data-image-url="{{ image | image_url: width: 900 }}"
+                        data-thumb-btn>
+                  <img src="{{ image | image_url: width: 120 }}"
+                       alt="{{ image.alt | escape }}"
+                       width="120"
+                       height="{{ 120 | divided_by: image.aspect_ratio }}"
+                       loading="lazy">
+                </button>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+        </div>
+
+        <div class="featured-product__info">
+          <div class="featured-product__rating">
+            {% render 'rating-stars' %}
+            <span class="featured-product__reviews-count">{{ settings.trust_reviews_count }} recensioni</span>
+          </div>
+
+          <h2 class="featured-product__title">{{ product.title }}</h2>
+
+          <div class="featured-product__price">
+            {%- if product.compare_at_price > product.price -%}
+              <span class="featured-product__price-compare">{{ product.compare_at_price | money }}</span>
+              <span class="featured-product__price-current">{{ product.price | money }}</span>
+              <span class="featured-product__price-badge">
+                -{{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price }}%
+              </span>
+            {%- else -%}
+              <span class="featured-product__price-current">{{ product.price | money }}</span>
+            {%- endif -%}
+          </div>
+
+          {%- if settings.show_countdown -%}
+            {% render 'countdown-timer' %}
+          {%- endif -%}
+
+          <div class="featured-product__discount-code">
+            <span class="discount-code__label">Usa il codice</span>
+            <span class="discount-code__value">{{ settings.discount_code }}</span>
+            <span class="discount-code__label">per {{ settings.discount_percentage }} di sconto</span>
+          </div>
+
+          {%- if settings.show_stock_urgency -%}
+            {%- if product.variants.first.inventory_quantity <= settings.stock_threshold and product.variants.first.inventory_quantity > 0 -%}
+              <div class="featured-product__urgency">
+                <span class="urgency-dot"></span>
+                Solo {{ product.variants.first.inventory_quantity }} rimasti — Disponibilità limitata
+              </div>
+            {%- endif -%}
+          {%- endif -%}
+
+          <form method="post" action="/cart/add" class="featured-product__form">
+            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+            <input type="hidden" name="quantity" value="1">
+
+            {%- if product.variants.size > 1 -%}
+              <div class="featured-product__variants">
+                {%- for variant in product.variants -%}
+                  <label class="variant-option{% if forloop.first %} is-active{% endif %}">
+                    <input type="radio" name="id" value="{{ variant.id }}" {% if forloop.first %}checked{% endif %}>
+                    <span>{{ variant.title }}</span>
+                  </label>
+                {%- endfor -%}
+              </div>
+            {%- endif -%}
+
+            <button type="submit" class="btn btn--primary btn--large btn--full featured-product__atc"
+                    {% unless product.available %}disabled{% endunless %}>
+              {%- if product.available -%}
+                Aggiungi al Carrello — {{ product.price | money }}
+              {%- else -%}
+                Esaurito
+              {%- endif -%}
+            </button>
+          </form>
+
+          <div class="featured-product__trust">
+            {% render 'trust-badges' %}
+          </div>
+
+          <div class="featured-product__details">
+            {%- if section.settings.show_description and product.description != blank -%}
+              <details class="product-accordion" open>
+                <summary>Descrizione</summary>
+                <div class="product-accordion__content">
+                  {{ product.description }}
+                </div>
+              </details>
+            {%- endif -%}
+
+            <details class="product-accordion">
+              <summary>Spedizione & Resi</summary>
+              <div class="product-accordion__content">
+                <p><strong>Spedizione gratuita</strong> su tutti gli ordini. Consegna in 3-5 giorni lavorativi.</p>
+                <p><strong>Reso facile</strong> entro 30 giorni dalla ricezione. Nessuna domanda.</p>
+              </div>
+            </details>
+
+            <details class="product-accordion">
+              <summary>Cosa include</summary>
+              <div class="product-accordion__content">
+                <ul>
+                  <li>Borsa premium in pelle</li>
+                  <li>Portafoglio coordinato in REGALO</li>
+                  <li>Dust bag protettivo</li>
+                  <li>Confezione regalo</li>
+                </ul>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    {%- else -%}
+      <div class="featured-product__empty">
+        <p>Seleziona un prodotto nelle impostazioni della sezione.</p>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Prodotto in Evidenza",
+  "class": "featured-product-section",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Prodotto"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "Mostra descrizione",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Prodotto in Evidenza"
+    }
+  ]
+}
+{% endschema %}

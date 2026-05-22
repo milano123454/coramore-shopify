@@ -1,0 +1,247 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Coramore Premium",
+    "theme_author": "Coramore",
+    "theme_version": "1.0.0",
+    "theme_documentation_url": "https://coramore.com",
+    "theme_support_url": "https://coramore.com/support"
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "heading_font",
+        "label": "Font titoli",
+        "default": "playfair_display_n4"
+      },
+      {
+        "type": "font_picker",
+        "id": "body_font",
+        "label": "Font corpo",
+        "default": "inter_n4"
+      },
+      {
+        "type": "range",
+        "id": "body_font_size",
+        "min": 14,
+        "max": 20,
+        "step": 1,
+        "unit": "px",
+        "label": "Dimensione font corpo",
+        "default": 16
+      }
+    ]
+  },
+  {
+    "name": "Colori",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_background",
+        "label": "Sfondo principale",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Testo principale",
+        "default": "#1a1a1a"
+      },
+      {
+        "type": "color",
+        "id": "color_heading",
+        "label": "Titoli",
+        "default": "#0d0d0d"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Colore accento (CTA)",
+        "default": "#1a1a1a"
+      },
+      {
+        "type": "color",
+        "id": "color_accent_text",
+        "label": "Testo su accento",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "color_secondary_bg",
+        "label": "Sfondo secondario",
+        "default": "#F8F6F3"
+      },
+      {
+        "type": "color",
+        "id": "color_border",
+        "label": "Bordi",
+        "default": "#E8E4E0"
+      },
+      {
+        "type": "color",
+        "id": "color_sale",
+        "label": "Colore sconto",
+        "default": "#B8860B"
+      }
+    ]
+  },
+  {
+    "name": "Header",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo"
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "min": 80,
+        "max": 300,
+        "step": 10,
+        "unit": "px",
+        "label": "Larghezza logo",
+        "default": 140
+      },
+      {
+        "type": "text",
+        "id": "announcement_text",
+        "label": "Testo annuncio",
+        "default": "Spedizione GRATUITA | Usa il codice REGALO per lo sconto"
+      },
+      {
+        "type": "color",
+        "id": "announcement_bg",
+        "label": "Sfondo barra annuncio",
+        "default": "#1a1a1a"
+      },
+      {
+        "type": "color",
+        "id": "announcement_text_color",
+        "label": "Testo barra annuncio",
+        "default": "#FFFFFF"
+      }
+    ]
+  },
+  {
+    "name": "Prodotto",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_countdown",
+        "label": "Mostra countdown promo",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "countdown_end",
+        "label": "Data fine promo (YYYY-MM-DD HH:MM)",
+        "default": "2026-06-30 23:59"
+      },
+      {
+        "type": "text",
+        "id": "discount_code",
+        "label": "Codice sconto",
+        "default": "REGALO"
+      },
+      {
+        "type": "text",
+        "id": "discount_percentage",
+        "label": "Percentuale sconto",
+        "default": "20%"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_stock_urgency",
+        "label": "Mostra disponibilità limitata",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "stock_threshold",
+        "min": 1,
+        "max": 20,
+        "step": 1,
+        "label": "Soglia pochi pezzi disponibili",
+        "default": 5
+      }
+    ]
+  },
+  {
+    "name": "Trust & Social Proof",
+    "settings": [
+      {
+        "type": "text",
+        "id": "trust_rating",
+        "label": "Valutazione media",
+        "default": "4.9"
+      },
+      {
+        "type": "text",
+        "id": "trust_reviews_count",
+        "label": "Numero recensioni",
+        "default": "2.847"
+      },
+      {
+        "type": "text",
+        "id": "trust_customers",
+        "label": "Clienti soddisfatti",
+        "default": "15.000+"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_trust_badges",
+        "label": "Mostra badge fiducia",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Footer",
+    "settings": [
+      {
+        "type": "text",
+        "id": "footer_email",
+        "label": "Email contatto",
+        "default": "info@coramore.com"
+      },
+      {
+        "type": "text",
+        "id": "footer_phone",
+        "label": "Telefono",
+        "default": ""
+      },
+      {
+        "type": "richtext",
+        "id": "footer_about",
+        "label": "Descrizione brand",
+        "default": "<p>Accessori premium dal design italiano. Qualità, eleganza e attenzione ai dettagli in ogni creazione.</p>"
+      }
+    ]
+  },
+  {
+    "name": "Carrello",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "cart_show_trust",
+        "label": "Mostra trust nel carrello",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "cart_free_shipping_text",
+        "label": "Testo spedizione gratuita",
+        "default": "Spedizione GRATUITA inclusa!"
+      },
+      {
+        "type": "text",
+        "id": "cart_gift_text",
+        "label": "Testo regalo incluso",
+        "default": "Portafoglio in REGALO incluso nel tuo ordine"
+      }
+    ]
+  }
+]
