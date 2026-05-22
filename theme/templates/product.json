@@ -1,0 +1,44 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {
+        "eyebrow": "Portafoglio Incluso · Bestseller",
+        "subtitle": "con Portafoglio Abbinato Incluso",
+        "rating": "4.9",
+        "review_count": "1247",
+        "atc_label": "Aggiungi al Carrello",
+        "show_bestseller": true,
+        "bestseller_label": "BESTSELLER",
+        "show_countdown": true,
+        "countdown_minutes": 15,
+        "show_stock": true,
+        "stock_count": 8,
+        "show_promo": true,
+        "fallback_image": "product-nero.png"
+      },
+      "blocks": {
+        "d1": { "type": "detail", "settings": { "title": "Cosa Include", "content": "<p>Ogni ordine include:</p><ul><li>1× Diamond Tote Bag in pelle vegana premium</li><li>1× Portafoglio abbinato (valore €29) — incluso gratis</li><li>Sacchetto in cotone per la conservazione</li><li>Cartolina di benvenuto firmata</li></ul>" } },
+        "d2": { "type": "detail", "settings": { "title": "Materiali e Dimensioni", "content": "<p><strong>Materiale esterno:</strong> pelle vegana PU premium, morbida e resistente.<br><strong>Fodera interna:</strong> tessuto satinato con tasca con zip.<br><strong>Dimensioni:</strong> 38cm × 30cm × 14cm.<br><strong>Manici:</strong> 25cm di altezza, comodi a spalla.<br><strong>Peso:</strong> 0,9 kg.</p>" } },
+        "d3": { "type": "detail", "settings": { "title": "Spedizione e Reso", "content": "<p><strong>Spedizione gratuita</strong> su tutti gli ordini, consegna in 2-4 giorni lavorativi.<br><strong>Reso gratuito</strong> entro 30 giorni dalla ricezione, rimborso completo garantito.<br><strong>Pagamento sicuro</strong> con SSL 256-bit.</p>" } }
+      },
+      "block_order": ["d1", "d2", "d3"]
+    },
+    "reviews": {
+      "type": "reviews",
+      "settings": {
+        "eyebrow": "Recensioni",
+        "title": "Cosa Dicono le Clienti",
+        "rating": "4.9/5",
+        "subtitle": "Basato su 1.247 recensioni verificate"
+      },
+      "blocks": {
+        "r1": { "type": "review", "settings": { "avatar_filename": "review-giulia.jpg",  "name": "Giulia B.",  "location": "Milano", "date": "15 maggio 2025", "text": "Qualità eccezionale, il portafoglio incluso è un tocco di classe. Spedizione velocissima, arrivata in 2 giorni. La consiglio a tutte!", "variant": "Nero" } },
+        "r2": { "type": "review", "settings": { "avatar_filename": "review-martina.jpg", "name": "Martina R.", "location": "Roma",   "date": "3 maggio 2025",  "text": "Elegante e capiente. La uso ogni giorno per l'ufficio ed è perfetta. La pelle vegana è morbidissima. Acquisto assolutamente consigliato!", "variant": "Marrone" } },
+        "r3": { "type": "review", "settings": { "avatar_filename": "review-elena.jpg",   "name": "Elena F.",   "location": "Torino", "date": "28 aprile 2025", "text": "Ho usato il codice sconto, un vero affare per una borsa di questa qualità! I colori sono esattamente come in foto. Super soddisfatta!", "variant": "Verde" } }
+      },
+      "block_order": ["r1", "r2", "r3"]
+    }
+  },
+  "order": ["main", "reviews"]
+}

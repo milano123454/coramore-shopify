@@ -1,0 +1,28 @@
+<section class="section section--white">
+  <div class="container" style="max-width:760px;">
+    {%- if page == blank -%}
+      <div style="padding:60px 0; text-align:center;">
+        <h1 class="section-head__title">Anteprima Pagina</h1>
+        <p class="section-head__lede" style="margin-top:16px;">
+          Crea una pagina in <strong>Shopify Admin → Pagine</strong> per vederla qui.
+        </p>
+      </div>
+    {%- else -%}
+      <div class="section-head">
+        <h1 class="section-head__title">{{ page.title }}</h1>
+      </div>
+      <div class="rte">
+        {{ page.content }}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Pagina",
+  "tag": "section",
+  "class": "shopify-section--main-page",
+  "settings": []
+}
+{% endschema %}

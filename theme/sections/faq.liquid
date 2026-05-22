@@ -1,0 +1,75 @@
+<section class="section section--white" id="faq">
+  <div class="container">
+    <div class="section-head">
+      {%- if section.settings.eyebrow != blank -%}
+        <div class="section-head__eyebrow">{{ section.settings.eyebrow }}</div>
+      {%- endif -%}
+      <h2 class="section-head__title">{{ section.settings.title }}</h2>
+    </div>
+
+    <div class="faq-list" data-accordion>
+      {%- for block in section.blocks -%}
+        <div class="faq-item" data-accordion-item {{ block.shopify_attributes }}>
+          <button type="button" class="faq-item__trigger" data-accordion-trigger aria-expanded="false">
+            <h3 style="font:inherit; margin:0;">{{ block.settings.question }}</h3>
+            <span class="faq-item__chevron">{% render 'icon-chevron' %}</span>
+          </button>
+          <div class="faq-item__panel">
+            <p>{{ block.settings.answer }}</p>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "FAQ",
+  "tag": "section",
+  "class": "shopify-section-faq",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Domande Frequenti" },
+    { "type": "text", "id": "title", "label": "Titolo", "default": "Hai Dubbi?" }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "Domanda",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Domanda", "default": "Quando riceverò il mio ordine?" },
+        { "type": "richtext", "id": "answer", "label": "Risposta", "default": "<p>Spediamo entro 24 ore lavorative dalla conferma dell'ordine. La consegna avviene in 2-4 giorni lavorativi su tutto il territorio italiano, con tracking incluso.</p>" }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "faq", "settings": {
+        "question": "Quando riceverò il mio ordine?",
+        "answer": "<p>Spediamo entro 24 ore lavorative dalla conferma dell'ordine. La consegna avviene in 2-4 giorni lavorativi su tutto il territorio italiano, con tracking incluso. Spedizione gratuita su tutti gli ordini.</p>"
+      } },
+      { "type": "faq", "settings": {
+        "question": "Il portafoglio è davvero incluso?",
+        "answer": "<p>Sì, ogni Diamond Tote Bag viene spedita con il portafoglio abbinato dello stesso colore. Il valore del portafoglio è di €29 ed è completamente <strong>gratuito</strong> con l'acquisto della borsa.</p>"
+      } },
+      { "type": "faq", "settings": {
+        "question": "Come funziona il reso?",
+        "answer": "<p>Hai 30 giorni dalla ricezione per restituire il prodotto. Il reso è gratuito e semplice: ti basta scriverci a info@luminamilano.it e riceverai un'etichetta prepagata. Rimborso garantito entro 5-7 giorni lavorativi dal ricevimento.</p>"
+      } },
+      { "type": "faq", "settings": {
+        "question": "Come funziona il codice REGALO?",
+        "answer": "<p>Inserisci il codice <strong>REGALO</strong> al checkout per ottenere €10 di sconto extra sul tuo ordine. Si applica automaticamente al carrello e si cumula con la promozione attiva. Valido per un utilizzo per cliente.</p>"
+      } },
+      { "type": "faq", "settings": {
+        "question": "I pagamenti sono sicuri?",
+        "answer": "<p>Assolutamente. Utilizziamo crittografia SSL 256-bit per tutte le transazioni. Accettiamo VISA, MasterCard, PayPal e Apple Pay. I dati di pagamento non vengono mai memorizzati sui nostri server.</p>"
+      } },
+      { "type": "faq", "settings": {
+        "question": "Posso contattare il servizio clienti?",
+        "answer": "<p>Certamente. Il nostro team italiano è disponibile dal lunedì al venerdì, 9:00-18:00. Scrivici a <a href='mailto:info@luminamilano.it'>info@luminamilano.it</a> o chiamaci al +39 02 1234567. Risposta entro 24 ore.</p>"
+      } }
+    ]
+  },
+  "presets": [{ "name": "FAQ" }]
+}
+{% endschema %}

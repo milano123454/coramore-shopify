@@ -1,0 +1,90 @@
+<section class="section section--alt" id="reviews">
+  <div class="container">
+    <div class="section-head">
+      {%- if section.settings.eyebrow != blank -%}
+        <div class="section-head__eyebrow">{{ section.settings.eyebrow }}</div>
+      {%- endif -%}
+      <h2 class="section-head__title">{{ section.settings.title }}</h2>
+    </div>
+
+    <div class="reviews-summary">
+      <span class="big-rating">{{ section.settings.rating | default: '4.9/5' }}</span>
+      <span>{% render 'star-rating', rating: 5 %}</span>
+      <span>· {{ section.settings.subtitle | default: 'Basato su 1.247 recensioni verificate' }}</span>
+    </div>
+
+    <div class="reviews-grid">
+      {%- for block in section.blocks -%}
+        <article class="review" {{ block.shopify_attributes }}>
+          <div class="review__header">
+            {%- if block.settings.avatar != blank -%}
+              <img class="review__avatar" src="{{ block.settings.avatar | image_url: width: 100 }}" alt="{{ block.settings.name | escape }}" loading="lazy">
+            {%- elsif block.settings.avatar_filename != blank -%}
+              <img class="review__avatar" src="{{ block.settings.avatar_filename | asset_url }}" alt="{{ block.settings.name | escape }}" loading="lazy">
+            {%- endif -%}
+            <div>
+              <div class="review__name">{{ block.settings.name }}</div>
+              <div class="review__meta">{{ block.settings.location }} · {{ block.settings.date }}</div>
+            </div>
+          </div>
+          <div class="review__stars">{% render 'star-rating', rating: 5 %}</div>
+          <div class="review__verified">{% render 'icon-check' %} Acquisto Verificato</div>
+          <p class="review__text">"{{ block.settings.text }}"</p>
+          <div class="review__color">Colore: <strong>{{ block.settings.variant }}</strong></div>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Recensioni",
+  "tag": "section",
+  "class": "shopify-section-reviews",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Recensioni" },
+    { "type": "text", "id": "title",   "label": "Titolo", "default": "Lo Dicono le Nostre Clienti" },
+    { "type": "text", "id": "rating",  "label": "Rating",  "default": "4.9/5" },
+    { "type": "text", "id": "subtitle","label": "Sottotitolo", "default": "Basato su 1.247 recensioni verificate" }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Recensione",
+      "settings": [
+        { "type": "image_picker", "id": "avatar", "label": "Avatar" },
+        { "type": "text", "id": "avatar_filename", "label": "Avatar fallback (filename)" },
+        { "type": "text", "id": "name", "label": "Nome", "default": "Giulia B." },
+        { "type": "text", "id": "location", "label": "Luogo", "default": "Milano" },
+        { "type": "text", "id": "date", "label": "Data", "default": "15 maggio 2025" },
+        { "type": "textarea", "id": "text", "label": "Testo", "default": "Qualità eccezionale, il portafoglio incluso è un tocco di classe. Spedizione velocissima, arrivata in 2 giorni. La consiglio a tutte!" },
+        { "type": "text", "id": "variant", "label": "Variante acquistata", "default": "Nero" }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "review", "settings": {
+        "avatar_filename": "review-giulia.jpg",
+        "name": "Giulia B.", "location": "Milano", "date": "15 maggio 2025",
+        "text": "Qualità eccezionale, il portafoglio incluso è un tocco di classe. Spedizione velocissima, arrivata in 2 giorni. La consiglio a tutte!",
+        "variant": "Nero"
+      } },
+      { "type": "review", "settings": {
+        "avatar_filename": "review-martina.jpg",
+        "name": "Martina R.", "location": "Roma", "date": "3 maggio 2025",
+        "text": "Elegante e capiente. La uso ogni giorno per l'ufficio ed è perfetta. La pelle vegana è morbidissima. Acquisto assolutamente consigliato!",
+        "variant": "Marrone"
+      } },
+      { "type": "review", "settings": {
+        "avatar_filename": "review-elena.jpg",
+        "name": "Elena F.", "location": "Torino", "date": "28 aprile 2025",
+        "text": "Ho usato il codice sconto, un vero affare per una borsa di questa qualità! I colori sono esattamente come in foto. Super soddisfatta!",
+        "variant": "Verde"
+      } }
+    ]
+  },
+  "presets": [{ "name": "Recensioni" }]
+}
+{% endschema %}

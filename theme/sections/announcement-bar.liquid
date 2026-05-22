@@ -1,0 +1,32 @@
+<div class="announcement-bar" {% if section.settings.bg_color %}style="background:{{ section.settings.bg_color }}; color:{{ section.settings.text_color }};"{% endif %}>
+  {{ section.settings.text }}
+</div>
+
+{% schema %}
+{
+  "name": "Barra annuncio",
+  "tag": "div",
+  "class": "shopify-section-announcement",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Testo",
+      "default": "<p>Offerta Limitata  |  Spedizione Gratuita  |  Usa il codice <strong>REGALO</strong> per €10 di sconto</p>"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Colore di sfondo",
+      "default": "#1C352D"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Colore testo",
+      "default": "#FFFFFF"
+    }
+  ],
+  "presets": [{ "name": "Barra annuncio" }]
+}
+{% endschema %}

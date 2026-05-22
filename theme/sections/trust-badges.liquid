@@ -1,0 +1,62 @@
+<section class="trust-band">
+  <div class="container">
+    <div class="trust-band__grid">
+      {%- for block in section.blocks -%}
+        <div class="trust-band__item" {{ block.shopify_attributes }}>
+          <div class="icon">
+            {%- case block.settings.icon -%}
+              {%- when 'truck' -%}{% render 'icon-truck' %}
+              {%- when 'return' -%}{% render 'icon-return' %}
+              {%- when 'shield' -%}{% render 'icon-shield' %}
+              {%- when 'medal' -%}{% render 'icon-medal' %}
+              {%- when 'star' -%}{% render 'icon-star' %}
+              {%- else -%}{% render 'icon-check' %}
+            {%- endcase -%}
+          </div>
+          <h4>{{ block.settings.title }}</h4>
+          <p>{{ block.settings.description }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Trust badges",
+  "tag": "section",
+  "class": "shopify-section-trust",
+  "blocks": [
+    {
+      "type": "badge",
+      "name": "Badge",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icona",
+          "default": "truck",
+          "options": [
+            { "value": "truck", "label": "Spedizione" },
+            { "value": "return", "label": "Reso" },
+            { "value": "shield", "label": "Sicurezza" },
+            { "value": "medal", "label": "Garanzia" },
+            { "value": "star",   "label": "Stella" }
+          ]
+        },
+        { "type": "text", "id": "title", "label": "Titolo", "default": "Spedizione Gratuita" },
+        { "type": "text", "id": "description", "label": "Descrizione", "default": "Consegna in 2-4 giorni" }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "badge", "settings": { "icon": "truck",  "title": "Spedizione Gratuita", "description": "Consegna in 2-4 giorni" } },
+      { "type": "badge", "settings": { "icon": "return", "title": "Reso in 30 Giorni",  "description": "Rimborso completo garantito" } },
+      { "type": "badge", "settings": { "icon": "shield", "title": "Pagamento Sicuro",  "description": "SSL 256-bit · Tutti i metodi" } },
+      { "type": "badge", "settings": { "icon": "medal",  "title": "Garanzia 2 Anni",   "description": "Su ogni prodotto acquistato" } }
+    ]
+  },
+  "presets": [{ "name": "Trust badges" }]
+}
+{% endschema %}

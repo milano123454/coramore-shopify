@@ -1,0 +1,63 @@
+<section class="section section--dark cta-banner">
+  <div class="container">
+    {%- if section.settings.eyebrow != blank -%}
+      <div class="cta-banner__eyebrow">{{ section.settings.eyebrow }}</div>
+    {%- endif -%}
+    <h2 class="cta-banner__title">{{ section.settings.title }}</h2>
+    {%- if section.settings.lede != blank -%}
+      <p class="cta-banner__lede">{{ section.settings.lede }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.show_countdown -%}
+      <div class="countdown" data-countdown data-minutes="{{ section.settings.countdown_minutes | default: 15 }}">
+        <span class="countdown__label">{{ section.settings.countdown_label | default: 'Offerta scade in:' }}</span>
+        <span data-countdown-min>15</span>
+        <span>:</span>
+        <span data-countdown-sec>00</span>
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.price_now != blank -%}
+      <div class="cta-banner__price">
+        <span class="now">{{ section.settings.price_now }}</span>
+        {%- if section.settings.price_was != blank -%}
+          <span class="was">{{ section.settings.price_was }}</span>
+        {%- endif -%}
+        {%- if section.settings.discount != blank -%}
+          <span class="off">{{ section.settings.discount }}</span>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div>
+      <a href="{{ section.settings.cta_link | default: '#' }}" class="btn btn--gold btn--lg">{{ section.settings.cta_label | default: 'Acquista Ora' }}</a>
+    </div>
+
+    {%- if section.settings.promo != blank -%}
+      <div class="cta-banner__promo">{{ section.settings.promo }}</div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CTA Banner",
+  "tag": "section",
+  "class": "shopify-section-cta",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Offerta a Tempo Limitato" },
+    { "type": "text", "id": "title", "label": "Titolo", "default": "Approfitta dell'Offerta Oggi" },
+    { "type": "text", "id": "lede",  "label": "Sottotitolo", "default": "Disponibilità limitata · Solo 8 pezzi rimasti · Portafoglio Incluso Gratis" },
+    { "type": "checkbox", "id": "show_countdown", "label": "Mostra countdown", "default": true },
+    { "type": "text", "id": "countdown_label", "label": "Etichetta countdown", "default": "Offerta scade in:" },
+    { "type": "number", "id": "countdown_minutes", "label": "Durata (minuti)", "default": 15 },
+    { "type": "text", "id": "price_now", "label": "Prezzo attuale", "default": "€49" },
+    { "type": "text", "id": "price_was", "label": "Prezzo precedente", "default": "€89" },
+    { "type": "text", "id": "discount", "label": "Sconto", "default": "-45%" },
+    { "type": "text", "id": "cta_label", "label": "CTA", "default": "Acquista Ora — Spedizione Gratuita" },
+    { "type": "url",  "id": "cta_link", "label": "Link CTA" },
+    { "type": "richtext", "id": "promo", "label": "Promo", "default": "<p>Usa il codice <strong>REGALO</strong> al checkout per €10 extra di sconto</p>" }
+  ],
+  "presets": [{ "name": "CTA Banner" }]
+}
+{% endschema %}

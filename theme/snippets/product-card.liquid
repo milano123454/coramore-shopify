@@ -1,0 +1,42 @@
+{%- comment -%}
+  Renders a small product card on the homepage / collection grid.
+  Args: product (required), badge (optional string)
+{%- endcomment -%}
+{%- assign p = product -%}
+{%- assign on_sale = false -%}
+{%- if p.compare_at_price > p.price -%}{%- assign on_sale = true -%}{%- endif -%}
+<a class="product-card" href="{{ p.url | default: '#' }}">
+  <div class="product-card__media">
+    {%- if p.featured_image -%}
+      <img src="{{ p.featured_image | image_url: width: 800 }}" alt="{{ p.featured_image.alt | default: p.title | escape }}" loading="lazy" width="600" height="600">
+    {%- elsif p.image_url -%}
+      <img src="{{ p.image_url }}" alt="{{ p.title | escape }}" loading="lazy">
+    {%- endif -%}
+    {%- if badge != blank -%}
+      <span class="product-card__badge">{{ badge }}</span>
+    {%- endif -%}
+    {%- if on_sale -%}
+      {%- assign diff = p.compare_at_price | minus: p.price -%}
+      {%- assign pct = diff | times: 100 | divided_by: p.compare_at_price -%}
+      <span class="product-card__discount">-{{ pct }}%</span>
+    {%- endif -%}
+  </div>
+  <div class="product-card__body">
+    {%- if p.color != blank -%}
+      <div class="product-card__color">{{ p.color }}</div>
+    {%- endif -%}
+    <h3 class="product-card__title">{{ p.title }}</h3>
+    {%- if p.subtitle != blank -%}
+      <div class="product-card__subtitle">{{ p.subtitle }}</div>
+    {%- endif -%}
+    <div class="product-card__price">
+      <span class="now">{{ p.price | money | default: p.price_display }}</span>
+      {%- if on_sale -%}
+        <span class="was">{{ p.compare_at_price | money }}</span>
+        {%- assign diff = p.compare_at_price | minus: p.price -%}
+        {%- assign pct = diff | times: 100 | divided_by: p.compare_at_price -%}
+        <span class="off">-{{ pct }}%</span>
+      {%- endif -%}
+    </div>
+  </div>
+</a>
