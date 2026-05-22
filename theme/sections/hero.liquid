@@ -1,0 +1,110 @@
+<section class="hero">
+  <div class="hero__content">
+    {%- if section.settings.eyebrow != blank -%}
+      <div class="hero__eyebrow">{{ section.settings.eyebrow }}</div>
+    {%- endif -%}
+
+    <h1 class="hero__title">{{ section.settings.title }}</h1>
+
+    {%- if section.settings.lede != blank -%}
+      <p class="hero__lede">{{ section.settings.lede }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.show_rating -%}
+      <div class="hero__rating">
+        {% render 'star-rating', rating: 5 %}
+        <span><strong>{{ section.settings.rating_value | default: '4.9/5' }}</strong> · {{ section.settings.rating_count | default: '1.247 clienti soddisfatti' }}</span>
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.price_now != blank -%}
+      <div class="hero__pricing">
+        <span class="price-now">{{ section.settings.price_now }}</span>
+        {%- if section.settings.price_was != blank -%}
+          <span class="price-was">{{ section.settings.price_was }}</span>
+        {%- endif -%}
+        {%- if section.settings.price_discount != blank -%}
+          <span class="price-discount">{{ section.settings.price_discount }}</span>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="hero__cta-row">
+      {%- if section.settings.cta_label != blank -%}
+        <a href="{{ section.settings.cta_link | default: '#' }}" class="btn btn--primary btn--lg">{{ section.settings.cta_label }}</a>
+      {%- endif -%}
+      {%- if section.settings.cta2_label != blank -%}
+        <a href="{{ section.settings.cta2_link | default: '#' }}" class="btn btn--outline btn--lg">{{ section.settings.cta2_label }}</a>
+      {%- endif -%}
+    </div>
+
+    <div class="hero__trust">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'trust' -%}
+          <span class="hero__trust-item" {{ block.shopify_attributes }}>
+            {% render 'icon-check' %}
+            {{ block.settings.label }}
+          </span>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.promo_text != blank -%}
+      <div class="hero__promo">{{ section.settings.promo_text }}</div>
+    {%- endif -%}
+  </div>
+
+  <div class="hero__media">
+    {%- if section.settings.image != blank -%}
+      <img src="{{ section.settings.image | image_url: width: 1600 }}" alt="{{ section.settings.image.alt | default: section.settings.title | escape }}" loading="eager" width="{{ section.settings.image.width }}" height="{{ section.settings.image.height }}">
+    {%- else -%}
+      <img src="{{ 'product-nero.png' | asset_url }}" alt="Lumina Milano Diamond Tote Bag">
+    {%- endif -%}
+    {%- if section.settings.media_badge != blank -%}
+      <div class="hero__media-badge">{{ section.settings.media_badge }}</div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "tag": "section",
+  "class": "shopify-section-hero",
+  "settings": [
+    { "type": "text",     "id": "eyebrow", "label": "Eyebrow", "default": "Nuovo · Collezione Diamond 2025" },
+    { "type": "richtext", "id": "title",   "label": "Titolo (HTML)", "default": "<p>La Borsa che <em>Completa</em> Ogni Look</p>" },
+    { "type": "textarea", "id": "lede",    "label": "Sottotitolo", "default": "Eleganza trapuntata, portafoglio abbinato incluso. Disponibile in 4 colori esclusivi." },
+    { "type": "checkbox", "id": "show_rating", "label": "Mostra rating", "default": true },
+    { "type": "text",     "id": "rating_value", "label": "Valore rating", "default": "4.9/5" },
+    { "type": "text",     "id": "rating_count", "label": "Numero clienti", "default": "1.247 clienti soddisfatti" },
+    { "type": "text",     "id": "price_now", "label": "Prezzo attuale", "default": "€49" },
+    { "type": "text",     "id": "price_was", "label": "Prezzo precedente", "default": "€89" },
+    { "type": "text",     "id": "price_discount", "label": "Etichetta sconto", "default": "-45%" },
+    { "type": "text",     "id": "cta_label", "label": "CTA principale", "default": "Acquista Ora" },
+    { "type": "url",      "id": "cta_link",  "label": "Link CTA principale" },
+    { "type": "text",     "id": "cta2_label","label": "CTA secondaria", "default": "" },
+    { "type": "url",      "id": "cta2_link", "label": "Link CTA secondaria" },
+    { "type": "richtext", "id": "promo_text","label": "Promo box", "default": "<p>Usa il codice <strong>REGALO</strong> per €10 extra di sconto</p>" },
+    { "type": "image_picker", "id": "image", "label": "Immagine hero" },
+    { "type": "text",     "id": "media_badge", "label": "Badge sull'immagine", "default": "★ Trustpilot 4.9" }
+  ],
+  "blocks": [
+    {
+      "type": "trust",
+      "name": "Trust badge",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Etichetta", "default": "Spedizione Gratuita" }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "trust", "settings": { "label": "Spedizione Gratuita" } },
+      { "type": "trust", "settings": { "label": "Reso 30 Giorni" } },
+      { "type": "trust", "settings": { "label": "Pagamento Sicuro" } }
+    ]
+  },
+  "presets": [{ "name": "Hero" }]
+}
+{% endschema %}

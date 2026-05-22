@@ -1,0 +1,34 @@
+{
+  "general": {
+    "skip_to_content": "Vai al contenuto",
+    "search": {
+      "placeholder": "Cerca",
+      "submit": "Cerca"
+    },
+    "password_page": {
+      "title": "Apriamo presto",
+      "opening_soon": "Apriamo presto",
+      "login_form_password_label": "Password",
+      "login_form_submit": "Entra"
+    }
+  },
+  "cart": {
+    "title": "Il Tuo Carrello",
+    "free_shipping_notice": "Spedizione Gratuita su tutti gli ordini",
+    "empty": "Il carrello è vuoto",
+    "discover": "Scopri la collezione",
+    "subtotal": "Subtotale",
+    "shipping": "Spedizione",
+    "total": "Totale",
+    "checkout": "Procedi al Checkout",
+    "update": "Aggiorna Carrello",
+    "remove": "Rimuovi"
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Aggiungi al Carrello",
+      "sold_out": "Esaurito",
+      "unavailable": "Non disponibile"
+    }
+  }
+}

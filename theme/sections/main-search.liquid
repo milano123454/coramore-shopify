@@ -1,0 +1,26 @@
+<section class="section section--white">
+  <div class="container">
+    <h1 class="section-head__title text-center" style="margin-bottom:32px;">Risultati per "{{ search.terms }}"</h1>
+
+    <form action="{{ routes.search_url }}" method="get" style="max-width:500px; margin:0 auto 40px; display:flex; gap:8px;">
+      <input type="text" name="q" value="{{ search.terms | escape }}" placeholder="Cerca..." style="flex:1; padding:14px; border:1px solid var(--color-border); border-radius:var(--radius); font:inherit;">
+      <button type="submit" class="btn btn--primary">Cerca</button>
+    </form>
+
+    {%- if search.results.size > 0 -%}
+      <div class="showcase-grid">
+        {%- for result in search.results -%}
+          {%- if result.object_type == 'product' -%}
+            {% render 'product-card', product: result %}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- elsif search.terms != blank -%}
+      <p class="text-center">Nessun risultato trovato.</p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Ricerca", "settings": [] }
+{% endschema %}

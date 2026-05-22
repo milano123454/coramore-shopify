@@ -1,0 +1,56 @@
+<section class="section section--white">
+  <div class="container">
+    <div class="section-head">
+      {%- if section.settings.eyebrow != blank -%}
+        <div class="section-head__eyebrow">{{ section.settings.eyebrow }}</div>
+      {%- endif -%}
+      <h2 class="section-head__title">{{ section.settings.title }}</h2>
+      {%- if section.settings.lede != blank -%}
+        <p class="section-head__lede">{{ section.settings.lede }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="benefits-grid">
+      {%- for block in section.blocks -%}
+        <div class="benefit" {{ block.shopify_attributes }}>
+          <div class="benefit__icon">{{ block.settings.symbol | default: '◈' }}</div>
+          <h3 class="benefit__title">{{ block.settings.title }}</h3>
+          <p class="benefit__text">{{ block.settings.text }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Benefits",
+  "tag": "section",
+  "class": "shopify-section-benefits",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "I Vantaggi" },
+    { "type": "text", "id": "title", "label": "Titolo", "default": "Perché Sceglierla" },
+    { "type": "text", "id": "lede",  "label": "Sottotitolo", "default": "" }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Beneficio",
+      "settings": [
+        { "type": "text", "id": "symbol", "label": "Simbolo", "default": "◈" },
+        { "type": "text", "id": "title", "label": "Titolo", "default": "Pelle Vegana Premium" },
+        { "type": "textarea", "id": "text", "label": "Descrizione", "default": "Materiale PU di alta qualità: morbido al tatto, resistente all'uso quotidiano e cruelty-free." }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "benefit", "settings": { "symbol": "◈", "title": "Pelle Vegana Premium", "text": "Materiale PU di alta qualità: morbido al tatto, resistente all'uso quotidiano e cruelty-free." } },
+      { "type": "benefit", "settings": { "symbol": "◉", "title": "Portafoglio Incluso", "text": "Abbinato perfettamente alla borsa. Valore €29, incluso gratis in ogni ordine." } },
+      { "type": "benefit", "settings": { "symbol": "▣", "title": "Capienza XXL", "text": "Scomparto principale capiente + apertura frontale espandibile per oggetti extra." } },
+      { "type": "benefit", "settings": { "symbol": "◌", "title": "Garanzia 2 Anni", "text": "Sostituzione gratuita in caso di difetti di produzione. Assistenza italiana inclusa." } }
+    ]
+  },
+  "presets": [{ "name": "Benefits" }]
+}
+{% endschema %}
