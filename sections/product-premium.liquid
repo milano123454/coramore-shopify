@@ -1,0 +1,412 @@
+<style>
+  .pp-container { max-width: 80rem; margin: 0 auto; padding: 2rem 1rem; }
+  @media(min-width:640px){ .pp-container { padding: 3rem 1.5rem; } }
+  @media(min-width:1024px){ .pp-container { padding: 3rem 2rem; } }
+  .pp-grid { display: grid; grid-template-columns: 1fr; gap: 2.5rem; }
+  @media(min-width:1024px){ .pp-grid { grid-template-columns: 1fr 1fr; gap: 4rem; } }
+  .pp-gallery { position: sticky; top: 7rem; align-self: start; }
+  .pp-gallery__main { position: relative; aspect-ratio: 1; background: #F7F5F2; border-radius: 2px; overflow: hidden; }
+  .pp-gallery__main img { width: 100%; height: 100%; object-fit: cover; }
+  .pp-gallery__badges { position: absolute; top: 0.75rem; left: 0.75rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  .pp-badge-sale { background: #B33939; color: #fff; font-size: 0.75rem; font-weight: 700; padding: 0.125rem 0.5rem; border-radius: 2px; }
+  .pp-badge-best { background: #1C352D; color: #fff; font-size: 0.75rem; font-weight: 600; padding: 0.125rem 0.5rem; border-radius: 2px; }
+  .pp-thumbs { display: flex; gap: 0.5rem; margin-top: 0.75rem; }
+  .pp-thumb { width: 5rem; height: 5rem; border-radius: 2px; overflow: hidden; border: 2px solid #E5E5E5; flex-shrink: 0; cursor: pointer; padding: 0; background: none; }
+  .pp-thumb.active { border-color: #1C352D; }
+  .pp-thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+  .pp-info { display: flex; flex-direction: column; gap: 1.25rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+  .pp-breadcrumb { display: flex; font-size: 0.75rem; color: #888; gap: 0.375rem; }
+  .pp-breadcrumb a { color: #888; text-decoration: none; transition: color 0.2s; }
+  .pp-breadcrumb a:hover { color: #1C352D; }
+  .pp-breadcrumb .current { color: #1A1A1A; }
+  .pp-tag { font-size: 0.625rem; letter-spacing: 0.25em; text-transform: uppercase; font-weight: 600; color: #1C352D; background: #F2E8CE; padding: 0.25rem 0.625rem; border-radius: 2px; display: inline-block; }
+  .pp-title { font-size: 2.25rem; font-weight: 300; color: #1A1A1A; line-height: 1.1; font-family: 'Playfair Display', Georgia, serif; }
+  @media(min-width:640px){ .pp-title { font-size: 3rem; } }
+  .pp-subtitle { font-size: 1rem; color: #555; margin-top: 0.25rem; }
+  .pp-rating { display: flex; align-items: center; gap: 0.75rem; }
+  .pp-stars { display: flex; gap: 0.125rem; color: #D4AF37; }
+  .pp-stars svg { width: 13px; height: 13px; fill: #D4AF37; stroke: #D4AF37; }
+  .pp-rating-text { font-size: 0.875rem; color: #555; }
+  .pp-rating-text strong { color: #1A1A1A; }
+  .pp-verified { font-size: 0.75rem; color: #1C352D; font-weight: 500; }
+  .pp-price-row { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+  .pp-price { font-size: 2.25rem; font-weight: 700; color: #1A1A1A; }
+  .pp-price-compare { font-size: 1.25rem; color: #888; text-decoration: line-through; }
+  .pp-price-save { background: #B33939; color: #fff; font-size: 0.875rem; padding: 0.125rem 0.5rem; border-radius: 2px; font-weight: 700; }
+
+  .pp-urgency-box { background: #FAF9F6; border: 1px solid #E5E5E5; border-radius: 2px; padding: 0.75rem 1rem; display: flex; align-items: center; gap: 0.75rem; }
+  .pp-pulse-dot { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: #B33939; flex-shrink: 0; animation: pp-pulse 1.5s infinite; }
+  @keyframes pp-pulse { 0%,100%{ opacity:1; } 50%{ opacity:0.4; } }
+  .pp-urgency-text { font-size: 0.75rem; color: #555; }
+  .pp-urgency-timer { font-size: 0.875rem; font-weight: 700; color: #B33939; font-family: 'SF Mono', 'Fira Code', monospace; }
+  .pp-stock-alert { display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; color: #B33939; font-weight: 500; }
+  .pp-stock-alert svg { flex-shrink: 0; width: 14px; height: 14px; }
+  .pp-color-section label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 600; color: #888; margin-bottom: 0.625rem; display: block; }
+  .pp-color-section label span { color: #1A1A1A; }
+  .pp-color-swatches { display: flex; gap: 0.75rem; }
+  .pp-swatch { width: 2.5rem; height: 2.5rem; border-radius: 50%; border: 2px solid #E5E5E5; cursor: pointer; transition: all 0.2s; padding: 0; }
+  .pp-swatch:hover { transform: scale(1.1); border-color: #888; }
+  .pp-swatch.active { border-color: #1C352D; transform: scale(1.1); box-shadow: 0 0 0 2px #1C352D, 0 0 0 3px #fff; }
+  .pp-coupon-box { display: flex; align-items: center; gap: 0.75rem; background: #F2E8CE; border: 1px solid rgba(212,175,55,0.3); border-radius: 2px; padding: 0.75rem 1rem; }
+  .pp-coupon-box svg { color: #D4AF37; flex-shrink: 0; width: 16px; height: 16px; }
+  .pp-coupon-box p { font-size: 0.75rem; color: #1C352D; margin: 0; }
+  .pp-coupon-box strong { font-weight: 700; font-family: 'SF Mono', 'Fira Code', monospace; }
+
+  .pp-atc-row { display: flex; gap: 0.75rem; }
+  .pp-qty { display: flex; align-items: center; border: 1px solid #E5E5E5; border-radius: 2px; overflow: hidden; }
+  .pp-qty button { padding: 0.75rem 1rem; font-size: 1.125rem; color: #555; background: none; border: none; cursor: pointer; line-height: 1; transition: all 0.2s; }
+  .pp-qty button:hover { color: #1C352D; background: #FAF9F6; }
+  .pp-qty span { padding: 0.75rem 1.25rem; font-size: 0.875rem; font-weight: 600; color: #1A1A1A; min-width: 3rem; text-align: center; }
+  .pp-atc-btn { flex: 1; padding: 0.75rem; font-size: 0.875rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; border-radius: 2px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.5rem; transition: all 0.3s; background: #1C352D; color: #fff; box-shadow: 0 4px 14px rgba(28,53,45,0.3); }
+  .pp-atc-btn:hover { background: #142620; box-shadow: 0 6px 20px rgba(28,53,45,0.4); }
+  .pp-trust-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; padding-top: 0.5rem; border-top: 1px solid #E5E5E5; }
+  .pp-trust-item { display: flex; flex-direction: column; align-items: center; gap: 0.375rem; text-align: center; }
+  .pp-trust-item svg { width: 18px; height: 18px; color: #1C352D; }
+  .pp-trust-item span { font-size: 0.625rem; color: #555; font-weight: 500; line-height: 1.3; }
+  .pp-accordion { border-top: 1px solid #E5E5E5; padding-top: 0.5rem; }
+  .pp-accordion-item { border-bottom: 1px solid #E5E5E5; }
+  .pp-accordion-btn { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; font-size: 0.875rem; font-weight: 600; color: #1A1A1A; background: none; border: none; cursor: pointer; text-align: left; }
+  .pp-accordion-btn svg { width: 16px; height: 16px; color: #888; transition: transform 0.2s; }
+  .pp-accordion-item.open .pp-accordion-btn svg { transform: rotate(180deg); }
+  .pp-accordion-content { display: none; padding: 0 0 0.75rem; font-size: 0.875rem; color: #555; line-height: 1.7; }
+  .pp-accordion-item.open .pp-accordion-content { display: block; }
+  .pp-accordion-content ul { list-style: none; padding: 0; margin: 0; }
+  .pp-accordion-content li { padding: 0.25rem 0; padding-left: 1.25rem; position: relative; }
+  .pp-accordion-content li::before { content: '✓'; position: absolute; left: 0; color: #1C352D; font-weight: 600; }
+</style>
+
+
+<div class="pp-container">
+  <div class="pp-grid">
+    <!-- GALLERY -->
+    <div class="pp-gallery">
+      <div class="pp-gallery__main">
+        {%- if product.featured_image -%}
+          <img src="{{ product.featured_image | image_url: width: 1000 }}"
+               alt="{{ product.featured_image.alt | escape }}"
+               id="pp-main-image">
+        {%- endif -%}
+        <div class="pp-gallery__badges">
+          {%- if product.compare_at_price > product.price -%}
+            <span class="pp-badge-sale">-{{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price }}%</span>
+          {%- endif -%}
+          <span class="pp-badge-best">BESTSELLER</span>
+        </div>
+      </div>
+      {%- if product.images.size > 1 -%}
+        <div class="pp-thumbs">
+          {%- for image in product.images limit: 6 -%}
+            <button class="pp-thumb{% if forloop.first %} active{% endif %}" data-pp-thumb data-img-url="{{ image | image_url: width: 1000 }}">
+              <img src="{{ image | image_url: width: 160 }}" alt="{{ image.alt | escape }}">
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+
+    <!-- PRODUCT INFO -->
+    <div class="pp-info">
+      <!-- Breadcrumb -->
+      <nav class="pp-breadcrumb">
+        <a href="/">Home</a><span>/</span>
+        <span class="current">{{ product.title }}</span>
+      </nav>
+
+      <!-- Tag -->
+      <div><span class="pp-tag">{{ section.settings.product_tag | default: 'Portafoglio Incluso · Bestseller' }}</span></div>
+
+      <!-- Title -->
+      <div>
+        <h1 class="pp-title">{{ product.title }}</h1>
+        <p class="pp-subtitle">{{ section.settings.subtitle | default: 'con Portafoglio Abbinato Incluso' }}</p>
+      </div>
+
+      <!-- Rating -->
+      <div class="pp-rating">
+        <span class="pp-stars">
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+        </span>
+        <span class="pp-rating-text"><strong>{{ section.settings.rating | default: '4.9' }}</strong> ({{ section.settings.reviews_count | default: '1247' }} recensioni)</span>
+        <span class="pp-verified">Acquisto Verificato</span>
+      </div>
+
+
+      <!-- Price -->
+      <div class="pp-price-row">
+        <span class="pp-price">{{ product.price | money }}</span>
+        {%- if product.compare_at_price > product.price -%}
+          <span class="pp-price-compare">{{ product.compare_at_price | money }}</span>
+          <span class="pp-price-save">RISPARMIA {{ product.compare_at_price | minus: product.price | money }}</span>
+        {%- endif -%}
+      </div>
+
+      <!-- Urgency Timer -->
+      <div class="pp-urgency-box">
+        <div class="pp-pulse-dot"></div>
+        <div>
+          <span class="pp-urgency-text">Offerta a tempo limitato · scade in </span>
+          <span class="pp-urgency-timer" id="pp-countdown">--:--</span>
+        </div>
+      </div>
+
+      <!-- Stock Alert -->
+      {%- assign variant = product.selected_or_first_available_variant -%}
+      {%- if variant.inventory_quantity <= section.settings.stock_threshold and variant.inventory_quantity > 0 -%}
+        <div class="pp-stock-alert">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+          <span>Solo {{ variant.inventory_quantity }} disponibili · Disponibilità limitata</span>
+        </div>
+      {%- elsif section.settings.show_stock_urgency -%}
+        <div class="pp-stock-alert">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+          <span>Solo {{ section.settings.stock_number | default: 8 }} disponibili · Disponibilità limitata</span>
+        </div>
+      {%- endif -%}
+
+      <!-- Color Variants -->
+      {%- if product.options.size > 0 -%}
+        {%- for option in product.options_with_values -%}
+          {%- if option.name == 'Color' or option.name == 'Colore' -%}
+            <div class="pp-color-section">
+              <label>Colore: <span>{{ option.selected_value }}</span></label>
+              <div class="pp-color-swatches">
+                {%- for value in option.values -%}
+                  <button class="pp-swatch{% if value == option.selected_value %} active{% endif %}"
+                          title="{{ value }}"
+                          style="background-color: {{ value | handleize | replace: 'nero', '#1A1A1A' | replace: 'marrone', '#8B5A2B' | replace: 'viola', '#6B2D6B' | replace: 'verde', '#1C352D' | replace: 'black', '#1A1A1A' | replace: 'brown', '#8B5A2B' }};"
+                          data-pp-color="{{ value }}">
+                  </button>
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+
+
+      <!-- Coupon Box -->
+      <div class="pp-coupon-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></svg>
+        <p>Usa il codice <strong>{{ section.settings.coupon_code | default: 'REGALO' }}</strong> al checkout per ottenere <strong>{{ section.settings.coupon_discount | default: '€10 di sconto extra' }}</strong></p>
+      </div>
+
+      <!-- Add to Cart -->
+      <form method="post" action="/cart/add">
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        <input type="hidden" name="quantity" value="1" id="pp-qty-input">
+        <div class="pp-atc-row">
+          <div class="pp-qty">
+            <button type="button" id="pp-qty-minus">−</button>
+            <span id="pp-qty-display">1</span>
+            <button type="button" id="pp-qty-plus">+</button>
+          </div>
+          <button type="submit" class="pp-atc-btn" {% unless product.available %}disabled{% endunless %}>
+            {%- if product.available -%}
+              Aggiungi al Carrello
+            {%- else -%}
+              Esaurito
+            {%- endif -%}
+          </button>
+        </div>
+      </form>
+
+      <!-- Trust Icons -->
+      <div class="pp-trust-grid">
+        <div class="pp-trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+          <span>Pagamento Sicuro</span>
+        </div>
+        <div class="pp-trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg>
+          <span>Spedizione Gratuita</span>
+        </div>
+        <div class="pp-trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+          <span>Reso 30 Giorni</span>
+        </div>
+      </div>
+
+
+      <!-- Accordion -->
+      <div class="pp-accordion">
+        <div class="pp-accordion-item">
+          <button class="pp-accordion-btn" data-pp-accordion>
+            Cosa Include
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="pp-accordion-content">
+            <ul>
+              <li>1x Borsa Diamond Tote premium</li>
+              <li>1x Portafoglio abbinato in REGALO</li>
+              <li>1x Dust bag protettivo</li>
+              <li>Confezione regalo premium</li>
+              <li>Garanzia 1 anno inclusa</li>
+            </ul>
+          </div>
+        </div>
+        <div class="pp-accordion-item">
+          <button class="pp-accordion-btn" data-pp-accordion>
+            Materiali e Dimensioni
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="pp-accordion-content">
+            <ul>
+              <li>Pelle PU premium trapuntata diamond</li>
+              <li>Fodera interna in tessuto resistente</li>
+              <li>Hardware dorato antigraffio</li>
+              <li>Dimensioni: 38cm x 28cm x 15cm</li>
+              <li>Capiente per laptop fino a 14"</li>
+            </ul>
+          </div>
+        </div>
+        <div class="pp-accordion-item">
+          <button class="pp-accordion-btn" data-pp-accordion>
+            Spedizione e Reso
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="pp-accordion-content">
+            <ul>
+              <li>Spedizione GRATUITA in tutta Italia</li>
+              <li>Consegna in 3-5 giorni lavorativi</li>
+              <li>Tracking incluso via email/SMS</li>
+              <li>Reso gratuito entro 30 giorni</li>
+              <li>Rimborso completo senza domande</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /pp-info -->
+  </div><!-- /pp-grid -->
+</div><!-- /pp-container -->
+
+
+<script>
+(function(){
+  // Countdown Timer
+  var endStr = '{{ section.settings.countdown_end | default: "2026-06-30 23:59" }}';
+  var end = new Date(endStr.replace(' ','T')).getTime();
+  var timerEl = document.getElementById('pp-countdown');
+  function updateTimer(){
+    var diff = end - Date.now();
+    if(diff<=0){ if(timerEl) timerEl.textContent='00:00'; return; }
+    var h=Math.floor(diff/(1000*60*60));
+    var m=Math.floor((diff%(1000*60*60))/(1000*60));
+    var s=Math.floor((diff%(1000*60))/1000);
+    if(timerEl) timerEl.textContent=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+  }
+  updateTimer(); setInterval(updateTimer,1000);
+
+  // Quantity
+  var qty=1;
+  var qtyDisp=document.getElementById('pp-qty-display');
+  var qtyInput=document.getElementById('pp-qty-input');
+  var minus=document.getElementById('pp-qty-minus');
+  var plus=document.getElementById('pp-qty-plus');
+  if(minus) minus.addEventListener('click',function(e){e.preventDefault();if(qty>1){qty--;qtyDisp.textContent=qty;qtyInput.value=qty;}});
+  if(plus) plus.addEventListener('click',function(e){e.preventDefault();qty++;qtyDisp.textContent=qty;qtyInput.value=qty;});
+
+  // Thumbnails
+  var thumbs=document.querySelectorAll('[data-pp-thumb]');
+  var mainImg=document.getElementById('pp-main-image');
+  thumbs.forEach(function(t){
+    t.addEventListener('click',function(){
+      thumbs.forEach(function(x){x.classList.remove('active');});
+      this.classList.add('active');
+      if(mainImg) mainImg.src=this.getAttribute('data-img-url');
+    });
+  });
+
+  // Accordion
+  document.querySelectorAll('[data-pp-accordion]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var item=this.parentElement;
+      item.classList.toggle('open');
+    });
+  });
+})();
+</script>
+
+
+{% schema %}
+{
+  "name": "Product Premium Page",
+  "tag": "section",
+  "class": "product-premium-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Sottotitolo prodotto",
+      "default": "con Portafoglio Abbinato Incluso"
+    },
+    {
+      "type": "text",
+      "id": "product_tag",
+      "label": "Tag sopra il titolo",
+      "default": "Portafoglio Incluso · Bestseller"
+    },
+    {
+      "type": "text",
+      "id": "rating",
+      "label": "Valutazione",
+      "default": "4.9"
+    },
+    {
+      "type": "text",
+      "id": "reviews_count",
+      "label": "Numero recensioni",
+      "default": "1247"
+    },
+    {
+      "type": "text",
+      "id": "coupon_code",
+      "label": "Codice sconto",
+      "default": "REGALO"
+    },
+    {
+      "type": "text",
+      "id": "coupon_discount",
+      "label": "Testo sconto coupon",
+      "default": "€10 di sconto extra"
+    },
+    {
+      "type": "text",
+      "id": "countdown_end",
+      "label": "Fine countdown (YYYY-MM-DD HH:MM)",
+      "default": "2026-06-30 23:59"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_stock_urgency",
+      "label": "Mostra disponibilità limitata",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "stock_threshold",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "label": "Soglia stock basso",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "stock_number",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "label": "Numero mostrato se stock non tracciato",
+      "default": 8
+    }
+  ],
+  "templates": ["product"]
+}
+{% endschema %}

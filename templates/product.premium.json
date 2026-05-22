@@ -1,0 +1,20 @@
+{
+  "sections": {
+    "main": {
+      "type": "product-premium",
+      "settings": {
+        "subtitle": "con Portafoglio Abbinato Incluso",
+        "product_tag": "Portafoglio Incluso · Bestseller",
+        "rating": "4.9",
+        "reviews_count": "1247",
+        "coupon_code": "REGALO",
+        "coupon_discount": "€10 di sconto extra",
+        "countdown_end": "2026-06-30 23:59",
+        "show_stock_urgency": true,
+        "stock_threshold": 10,
+        "stock_number": 8
+      }
+    }
+  },
+  "order": ["main"]
+}
