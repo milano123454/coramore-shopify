@@ -217,7 +217,10 @@ p{margin:0 0 .8em}
 .footer__bottom p{font-size:12px;color:rgba(255,255,255,.4);margin:0}
 
 /* PRODUCT PAGE */
-.product__tp-banner{display:inline-flex;align-items:center;gap:10px;background:var(--green);color:#fff;padding:10px 16px;border-radius:var(--r);font-size:13px;font-weight:600;margin-bottom:16px}
+.product__img-badge{position:absolute;bottom:10px;left:10px;display:inline-flex;align-items:center;gap:6px;background:rgba(0,0,0,.7);color:#fff;padding:6px 12px;border-radius:20px;font-size:11px;font-weight:600;backdrop-filter:blur(4px);z-index:2}
+.product__img-badge .tp-star{width:16px;height:16px}
+.product__img-badge .tp-star svg{width:10px;height:10px}
+.product__tp-banner{display:none}
 .product__grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
 .product__gallery-main{position:relative;border-radius:var(--rl);overflow:hidden;background:var(--grey);cursor:zoom-in}
 .product__main-image{width:100%;height:auto;aspect-ratio:1;object-fit:cover}
@@ -235,12 +238,12 @@ p{margin:0 0 .8em}
 .product__price-badge{background:var(--red);color:#fff;font-size:12px;font-weight:700;padding:3px 7px;border-radius:4px}
 .product__price-regular{font-size:24px;font-weight:700}
 
-/* Discount Code — Premium Styled */
-.product__discount{display:flex;align-items:center;gap:10px;background:var(--beige);padding:12px 16px;border-radius:var(--r);font-size:14px;font-weight:500;margin-bottom:14px;border:1px dashed var(--gold)}
-.product__discount svg{flex-shrink:0;stroke:var(--gold)}
-.product__discount-code{display:inline-block;background:var(--gold);color:#fff;padding:3px 10px;border-radius:4px;font-size:14px;font-weight:800;letter-spacing:1px}
+/* Discount Code — Compact */
+.product__discount{display:flex;align-items:center;gap:8px;background:var(--beige);padding:10px 12px;border-radius:var(--r);font-size:13px;font-weight:500;margin-bottom:12px;border:1px dashed var(--gold)}
+.product__discount svg{flex-shrink:0;stroke:var(--gold);width:16px;height:16px}
+.product__discount-code{display:inline-block;background:var(--gold);color:#fff;padding:2px 8px;border-radius:3px;font-size:12px;font-weight:800;letter-spacing:1px}
 
-.product__countdown{display:flex;align-items:center;gap:6px;background:#FFF8E1;padding:10px 14px;border-radius:var(--r);font-size:13px;margin-bottom:16px}
+.product__countdown{display:flex;align-items:center;gap:5px;background:#FFF8E1;padding:8px 12px;border-radius:var(--r);font-size:12px;margin-bottom:14px}
 .countdown__timer{font-family:monospace;font-size:16px;font-weight:700;color:var(--red);animation:pulse 1s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.7}}
 .product__variants{margin-bottom:16px}
@@ -251,16 +254,16 @@ p{margin:0 0 .8em}
 .product__swatch:hover{border-color:var(--black)}
 .product__swatch--active{border-color:var(--black);background:var(--black);color:#fff}
 
-/* Qty + CTA Inline */
-.product__buy-row{display:flex;gap:10px;align-items:stretch;margin-bottom:10px}
+/* Qty + CTA Inline — Compact */
+.product__buy-row{display:flex;gap:8px;align-items:stretch;margin-bottom:8px}
 .product__buy-row .quantity-selector{flex-shrink:0}
-.product__buy-row .product__atc{flex:1}
+.product__buy-row .product__atc{flex:1;font-size:13px;padding:12px 16px}
 .quantity-selector{display:inline-flex;align-items:center;border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
-.quantity-selector__btn{width:40px;height:48px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:500;transition:background var(--ease)}
+.quantity-selector__btn{width:36px;height:44px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:500;transition:background var(--ease)}
 .quantity-selector__btn:hover{background:var(--grey)}
-.quantity-selector__input{width:44px;height:48px;text-align:center;border:none;border-left:1px solid var(--border);border-right:1px solid var(--border);font-weight:600;-moz-appearance:textfield}
+.quantity-selector__input{width:38px;height:44px;text-align:center;border:none;border-left:1px solid var(--border);border-right:1px solid var(--border);font-weight:600;font-size:14px;-moz-appearance:textfield}
 .quantity-selector__input::-webkit-outer-spin-button,.quantity-selector__input::-webkit-inner-spin-button{-webkit-appearance:none}
-.product__buy-now{width:100%;margin-bottom:10px;text-align:center}
+.product__buy-now{width:100%;margin-bottom:8px;text-align:center;font-size:13px;padding:12px 16px}
 
 /* Trust Bar */
 .product__trust{margin-top:16px}

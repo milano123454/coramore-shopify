@@ -1,14 +1,6 @@
 {%- assign product = product -%}
 <section class="product-section section" data-section-id="{{ section.id }}" data-testid="product-main">
   <div class="page-width">
-    <!-- Trustpilot Banner -->
-    {%- if section.settings.show_banner -%}
-    <div class="product__tp-banner reveal-on-scroll">
-      {%- render 'review-stars', rating: 4.9, color: '#00B67A' -%}
-      <span>{{ section.settings.banner_text }}</span>
-    </div>
-    {%- endif -%}
-
     <div class="product__grid">
       <!-- Gallery -->
       <div class="product__gallery reveal-on-scroll">
@@ -17,6 +9,12 @@
             <img id="product-main-image" src="{{ product.featured_image | image_url: width: 800 }}" alt="{{ product.featured_image.alt | escape }}" width="800" height="800" loading="eager" class="product__main-image" data-zoom>
           {%- else -%}
             <div class="product__placeholder">{{ 'product-1' | placeholder_svg_tag: 'product__placeholder-svg' }}</div>
+          {%- endif -%}
+          {%- if section.settings.show_banner -%}
+          <div class="product__img-badge">
+            {%- render 'review-stars', rating: 4.9, color: '#00B67A' -%}
+            <span>{{ section.settings.banner_text }}</span>
+          </div>
           {%- endif -%}
         </div>
         <div class="product__thumbnails">
