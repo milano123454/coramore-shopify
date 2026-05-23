@@ -1,27 +1,24 @@
-{%- comment -%} Star rating snippet. Usage: {% render 'review-stars', rating: 4.9, color: '#00B67A' %} {%- endcomment -%}
+{%- comment -%}
+  Trustpilot-style stars. Green square bg + white star.
+  Usage: {% render 'review-stars', rating: 4.9, color: '#00B67A' %}
+{%- endcomment -%}
 {%- assign star_rating = rating | default: 5 -%}
 {%- assign star_color = color | default: '#00B67A' -%}
-<div class="review-stars" aria-label="{{ star_rating }} su 5 stelle">
+<div class="tp-stars" aria-label="{{ star_rating }} su 5 stelle">
   {%- for i in (1..5) -%}
     {%- assign half_threshold = i | minus: 1 | plus: 0.5 -%}
     {%- if star_rating >= i -%}
-      <svg class="star-icon star-full" width="20" height="20" viewBox="0 0 20 20" fill="{{ star_color }}">
-        <path d="M10 1.25l2.47 5.01 5.53.8-4 3.9.94 5.49L10 13.77l-4.94 2.68.94-5.49-4-3.9 5.53-.8L10 1.25z"/>
-      </svg>
+      <span class="tp-star tp-star--full" style="background:{{ star_color }};">
+        <svg width="14" height="14" viewBox="0 0 20 20" fill="#fff"><path d="M10 1.25l2.47 5.01 5.53.8-4 3.9.94 5.49L10 13.77l-4.94 2.68.94-5.49-4-3.9 5.53-.8L10 1.25z"/></svg>
+      </span>
     {%- elsif star_rating >= half_threshold -%}
-      <svg class="star-icon star-half" width="20" height="20" viewBox="0 0 20 20">
-        <defs>
-          <linearGradient id="half-grad-{{ i }}">
-            <stop offset="50%" stop-color="{{ star_color }}"/>
-            <stop offset="50%" stop-color="#E0E0E0"/>
-          </linearGradient>
-        </defs>
-        <path d="M10 1.25l2.47 5.01 5.53.8-4 3.9.94 5.49L10 13.77l-4.94 2.68.94-5.49-4-3.9 5.53-.8L10 1.25z" fill="url(#half-grad-{{ i }})"/>
-      </svg>
+      <span class="tp-star tp-star--half">
+        <svg width="14" height="14" viewBox="0 0 20 20"><defs><linearGradient id="hg-{{ i }}"><stop offset="50%" stop-color="{{ star_color }}"/><stop offset="50%" stop-color="#DCDCE6"/></linearGradient></defs><rect width="20" height="20" rx="2" fill="url(#hg-{{ i }})"/><path d="M10 1.25l2.47 5.01 5.53.8-4 3.9.94 5.49L10 13.77l-4.94 2.68.94-5.49-4-3.9 5.53-.8L10 1.25z" fill="#fff"/></svg>
+      </span>
     {%- else -%}
-      <svg class="star-icon star-empty" width="20" height="20" viewBox="0 0 20 20" fill="#E0E0E0">
-        <path d="M10 1.25l2.47 5.01 5.53.8-4 3.9.94 5.49L10 13.77l-4.94 2.68.94-5.49-4-3.9 5.53-.8L10 1.25z"/>
-      </svg>
+      <span class="tp-star tp-star--empty" style="background:#DCDCE6;">
+        <svg width="14" height="14" viewBox="0 0 20 20" fill="#fff"><path d="M10 1.25l2.47 5.01 5.53.8-4 3.9.94 5.49L10 13.77l-4.94 2.68.94-5.49-4-3.9 5.53-.8L10 1.25z"/></svg>
+      </span>
     {%- endif -%}
   {%- endfor -%}
 </div>

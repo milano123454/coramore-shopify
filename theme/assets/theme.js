@@ -1,282 +1,150 @@
-/* ============================================
-   CORAMORE THEME — theme.js
-   ============================================ */
-
+/* CORAMORE v4 — theme.js */
 (function() {
   'use strict';
 
-  /* --- Scroll Reveal (IntersectionObserver) --- */
+  /* Scroll Reveal with stagger */
   function initScrollReveal() {
-    var elements = document.querySelectorAll('.reveal-on-scroll');
-    if (!elements.length) return;
-
+    var els = document.querySelectorAll('.reveal-on-scroll');
+    if (!els.length) return;
+    var delay = 0;
     var observer = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          var d = parseInt(e.target.dataset.delay) || 0;
+          setTimeout(function() { e.target.classList.add('is-visible'); }, d);
+          observer.unobserve(e.target);
         }
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
-    elements.forEach(function(el) { observer.observe(el); });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+    els.forEach(function(el, i) {
+      // Add stagger delay to siblings
+      var parent = el.parentElement;
+      var siblings = parent ? parent.querySelectorAll('.reveal-on-scroll') : [];
+      var idx = Array.prototype.indexOf.call(siblings, el);
+      if (idx > 0) el.dataset.delay = idx * 80;
+      observer.observe(el);
+    });
   }
 
-  /* --- Sticky Header --- */
+  /* Sticky Header */
   function initStickyHeader() {
-    var header = document.querySelector('.site-header--sticky');
-    if (!header) return;
-
-    var lastScroll = 0;
+    var h = document.querySelector('.site-header--sticky');
+    if (!h) return;
     window.addEventListener('scroll', function() {
-      var currentScroll = window.pageYOffset;
-      if (currentScroll > 50) {
-        header.classList.add('site-header--scrolled');
-      } else {
-        header.classList.remove('site-header--scrolled');
-      }
-      lastScroll = currentScroll;
+      h.classList.toggle('site-header--scrolled', window.pageYOffset > 40);
     }, { passive: true });
   }
 
-  /* --- Mobile Menu --- */
+  /* Mobile Menu */
   function initMobileMenu() {
-    var toggles = document.querySelectorAll('[data-menu-toggle]');
     var menu = document.querySelector('[data-mobile-menu]');
-    var closeButtons = document.querySelectorAll('[data-menu-close]');
-
     if (!menu) return;
-
-    function openMenu() { menu.classList.add('is-open'); document.body.style.overflow = 'hidden'; }
-    function closeMenu() { menu.classList.remove('is-open'); document.body.style.overflow = ''; }
-
-    toggles.forEach(function(btn) { btn.addEventListener('click', openMenu); });
-    closeButtons.forEach(function(btn) { btn.addEventListener('click', closeMenu); });
+    document.querySelectorAll('[data-menu-toggle]').forEach(function(b) { b.addEventListener('click', function() { menu.classList.add('is-open'); document.body.style.overflow = 'hidden'; }); });
+    document.querySelectorAll('[data-menu-close]').forEach(function(b) { b.addEventListener('click', function() { menu.classList.remove('is-open'); document.body.style.overflow = ''; }); });
   }
 
-  /* --- FAQ Accordion --- */
+  /* FAQ Accordion */
   function initFAQ() {
-    var toggles = document.querySelectorAll('[data-faq-toggle]');
-
-    toggles.forEach(function(toggle) {
-      toggle.addEventListener('click', function() {
-        var answer = this.nextElementSibling;
-        var isOpen = this.getAttribute('aria-expanded') === 'true';
-
-        // Close all others in same parent
+    document.querySelectorAll('[data-faq-toggle]').forEach(function(t) {
+      t.addEventListener('click', function() {
+        var ans = this.nextElementSibling;
+        var open = this.getAttribute('aria-expanded') === 'true';
         var parent = this.closest('.faq-list, .product__details');
-        if (parent) {
-          parent.querySelectorAll('[data-faq-toggle]').forEach(function(other) {
-            if (other !== toggle) {
-              other.setAttribute('aria-expanded', 'false');
-              var otherAnswer = other.nextElementSibling;
-              if (otherAnswer) otherAnswer.style.maxHeight = null;
-            }
-          });
-        }
-
-        this.setAttribute('aria-expanded', !isOpen);
-        if (!isOpen) {
-          answer.style.maxHeight = answer.scrollHeight + 'px';
-        } else {
-          answer.style.maxHeight = null;
-        }
+        if (parent) parent.querySelectorAll('[data-faq-toggle]').forEach(function(o) {
+          if (o !== t) { o.setAttribute('aria-expanded', 'false'); var a = o.nextElementSibling; if (a) a.style.maxHeight = null; }
+        });
+        this.setAttribute('aria-expanded', !open);
+        ans.style.maxHeight = open ? null : ans.scrollHeight + 'px';
       });
     });
   }
 
-  /* --- Countdown Timer --- */
+  /* Countdown — resets at midnight */
   function initCountdown() {
-    var countdownEls = document.querySelectorAll('[data-countdown]');
-    countdownEls.forEach(function(el) {
-      var hours = parseInt(el.getAttribute('data-hours')) || 3;
+    document.querySelectorAll('[data-countdown]').forEach(function(el) {
       var display = el.querySelector('[data-countdown-display]');
       if (!display) return;
-
-      // Use session storage to persist timer across page loads
-      var storageKey = 'coramore_countdown_end';
-      var endTime = sessionStorage.getItem(storageKey);
-
-      if (!endTime || parseInt(endTime) < Date.now()) {
-        endTime = Date.now() + (hours * 60 * 60 * 1000);
-        sessionStorage.setItem(storageKey, endTime);
-      } else {
-        endTime = parseInt(endTime);
+      function getEndOfDay() {
+        var now = new Date();
+        var end = new Date(now);
+        end.setHours(23, 59, 59, 999);
+        return end.getTime();
       }
-
-      function updateTimer() {
-        var remaining = endTime - Date.now();
-        if (remaining <= 0) {
-          // Reset timer
-          endTime = Date.now() + (hours * 60 * 60 * 1000);
-          sessionStorage.setItem(storageKey, endTime);
-          remaining = endTime - Date.now();
-        }
-
+      function update() {
+        var remaining = getEndOfDay() - Date.now();
+        if (remaining <= 0) remaining = 86400000; // full day
         var h = Math.floor(remaining / 3600000);
         var m = Math.floor((remaining % 3600000) / 60000);
         var s = Math.floor((remaining % 60000) / 1000);
-
-        display.textContent =
-          String(h).padStart(2, '0') + ':' +
-          String(m).padStart(2, '0') + ':' +
-          String(s).padStart(2, '0');
+        display.textContent = String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
       }
-
-      updateTimer();
-      setInterval(updateTimer, 1000);
+      update();
+      setInterval(update, 1000);
     });
   }
 
-  /* --- Product Gallery --- */
-  function initProductGallery() {
-    var thumbnails = document.querySelectorAll('[data-thumbnail]');
-    var mainImage = document.getElementById('product-main-image');
-    if (!thumbnails.length || !mainImage) return;
-
-    thumbnails.forEach(function(thumb) {
-      thumb.addEventListener('click', function() {
-        // Update main image
-        mainImage.src = this.getAttribute('data-image-url');
-        mainImage.alt = this.getAttribute('data-image-alt') || '';
-
-        // Update active state
-        thumbnails.forEach(function(t) { t.classList.remove('product__thumbnail--active'); });
+  /* Product Gallery */
+  function initGallery() {
+    var thumbs = document.querySelectorAll('[data-thumbnail]');
+    var main = document.getElementById('product-main-image');
+    if (!thumbs.length || !main) return;
+    thumbs.forEach(function(t) {
+      t.addEventListener('click', function() {
+        main.src = this.dataset.imageUrl;
+        main.alt = this.dataset.imageAlt || '';
+        thumbs.forEach(function(x) { x.classList.remove('product__thumbnail--active'); });
         this.classList.add('product__thumbnail--active');
       });
     });
-
-    // Zoom on desktop
-    var galleryMain = document.querySelector('.product__gallery-main');
-    if (galleryMain && window.innerWidth > 768) {
-      galleryMain.addEventListener('click', function() {
-        if (mainImage.style.transform === 'scale(1.5)') {
-          mainImage.style.transform = '';
-          mainImage.style.transformOrigin = '';
-          galleryMain.style.cursor = 'zoom-in';
-        } else {
-          mainImage.style.transform = 'scale(1.5)';
-          mainImage.style.transformOrigin = 'center center';
-          galleryMain.style.cursor = 'zoom-out';
-        }
-      });
-
-      galleryMain.addEventListener('mousemove', function(e) {
-        if (mainImage.style.transform === 'scale(1.5)') {
-          var rect = galleryMain.getBoundingClientRect();
-          var x = ((e.clientX - rect.left) / rect.width) * 100;
-          var y = ((e.clientY - rect.top) / rect.height) * 100;
-          mainImage.style.transformOrigin = x + '% ' + y + '%';
-        }
-      });
-    }
   }
 
-  /* --- Quantity Selector --- */
-  function initQuantitySelectors() {
-    // Product page quantity
-    var minusBtns = document.querySelectorAll('[data-qty-minus]');
-    var plusBtns = document.querySelectorAll('[data-qty-plus]');
-    var qtyInput = document.querySelector('[data-qty-input]');
-
-    minusBtns.forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        var input = this.parentElement.querySelector('input');
-        var val = parseInt(input.value) || 1;
-        if (val > 1) input.value = val - 1;
-        updateFormQty(input.value);
+  /* Quantity */
+  function initQty() {
+    document.querySelectorAll('[data-qty-minus]').forEach(function(b) {
+      b.addEventListener('click', function() {
+        var i = this.parentElement.querySelector('input'); var v = parseInt(i.value)||1;
+        if (v > 1) i.value = v - 1;
       });
     });
-
-    plusBtns.forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        var input = this.parentElement.querySelector('input');
-        var val = parseInt(input.value) || 1;
-        if (val < 99) input.value = val + 1;
-        updateFormQty(input.value);
+    document.querySelectorAll('[data-qty-plus]').forEach(function(b) {
+      b.addEventListener('click', function() {
+        var i = this.parentElement.querySelector('input'); var v = parseInt(i.value)||1;
+        if (v < 99) i.value = v + 1;
       });
-    });
-
-    function updateFormQty(val) {
-      var formQty = document.querySelector('[data-form-qty]');
-      if (formQty) formQty.value = val;
-    }
-  }
-
-  /* --- Video Reviews Scroll --- */
-  function initVideoScroll() {
-    var tracks = document.querySelectorAll('[data-video-track]');
-    tracks.forEach(function(track) {
-      var parent = track.closest('.video-reviews__wrapper');
-      if (!parent) return;
-
-      var leftBtn = parent.querySelector('[data-scroll-left]');
-      var rightBtn = parent.querySelector('[data-scroll-right]');
-      var scrollAmount = 300;
-
-      if (leftBtn) {
-        leftBtn.addEventListener('click', function() {
-          track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-        });
-      }
-      if (rightBtn) {
-        rightBtn.addEventListener('click', function() {
-          track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-        });
-      }
-    });
-
-    /* Text reviews scroll */
-    var reviewTracks = document.querySelectorAll('[data-reviews-track]');
-    reviewTracks.forEach(function(track) {
-      var parent = track.closest('.reviews-carousel');
-      if (!parent) return;
-
-      var leftBtn = parent.querySelector('[data-reviews-scroll-left]');
-      var rightBtn = parent.querySelector('[data-reviews-scroll-right]');
-      var scrollAmount = 370;
-
-      if (leftBtn) {
-        leftBtn.addEventListener('click', function() {
-          track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-        });
-      }
-      if (rightBtn) {
-        rightBtn.addEventListener('click', function() {
-          track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-        });
-      }
     });
   }
 
-  /* --- Variant Picker --- */
-  function initVariantPicker() {
-    var swatches = document.querySelectorAll('.product__swatch');
-    swatches.forEach(function(swatch) {
-      swatch.addEventListener('click', function() {
-        var siblings = this.closest('.product__option-values').querySelectorAll('.product__swatch');
-        siblings.forEach(function(s) { s.classList.remove('product__swatch--active'); });
+  /* Carousel Scroll */
+  function initCarousels() {
+    // Video reviews
+    document.querySelectorAll('[data-video-track]').forEach(function(track) {
+      var w = track.closest('.video-reviews__wrapper'); if (!w) return;
+      var l = w.querySelector('[data-scroll-left]'), r = w.querySelector('[data-scroll-right]');
+      if (l) l.addEventListener('click', function() { track.scrollBy({left:-280,behavior:'smooth'}); });
+      if (r) r.addEventListener('click', function() { track.scrollBy({left:280,behavior:'smooth'}); });
+    });
+    // Text reviews
+    document.querySelectorAll('[data-reviews-track]').forEach(function(track) {
+      var w = track.closest('.reviews-carousel'); if (!w) return;
+      var l = w.querySelector('[data-reviews-scroll-left]'), r = w.querySelector('[data-reviews-scroll-right]');
+      if (l) l.addEventListener('click', function() { track.scrollBy({left:-320,behavior:'smooth'}); });
+      if (r) r.addEventListener('click', function() { track.scrollBy({left:320,behavior:'smooth'}); });
+    });
+  }
+
+  /* Variant Picker */
+  function initVariants() {
+    document.querySelectorAll('.product__swatch').forEach(function(s) {
+      s.addEventListener('click', function() {
+        this.closest('.product__option-values').querySelectorAll('.product__swatch').forEach(function(x) { x.classList.remove('product__swatch--active'); });
         this.classList.add('product__swatch--active');
       });
     });
   }
 
-  /* --- Init All --- */
   function init() {
-    initScrollReveal();
-    initStickyHeader();
-    initMobileMenu();
-    initFAQ();
-    initCountdown();
-    initProductGallery();
-    initQuantitySelectors();
-    initVideoScroll();
-    initVariantPicker();
+    initScrollReveal(); initStickyHeader(); initMobileMenu(); initFAQ();
+    initCountdown(); initGallery(); initQty(); initCarousels(); initVariants();
   }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();

@@ -1,63 +1,28 @@
 {%- assign product = product -%}
-
 <section class="product-section section" data-section-id="{{ section.id }}" data-testid="product-main">
   <div class="page-width">
-    <!-- Breadcrumb -->
-    <nav class="breadcrumb reveal-on-scroll" aria-label="Breadcrumb">
-      <a href="/">Home</a>
-      <span class="breadcrumb__sep">&rsaquo;</span>
-      {%- if collection -%}
-        <a href="{{ collection.url }}">{{ collection.title }}</a>
-        <span class="breadcrumb__sep">&rsaquo;</span>
-      {%- endif -%}
-      <span>{{ product.title }}</span>
-    </nav>
-
     <!-- Trustpilot Banner -->
-    <div class="product__trustpilot-banner reveal-on-scroll" data-testid="product-trustpilot-banner">
-      <div class="product__trustpilot-banner-inner">
-        {%- render 'review-stars', rating: 4.9, color: '#00B67A' -%}
-        <span class="product__trustpilot-banner-text">{{ section.settings.banner_text | default: '2.400+ clienti soddisfatte — Valutazione 4.9/5' }}</span>
-      </div>
+    {%- if section.settings.show_banner -%}
+    <div class="product__tp-banner reveal-on-scroll">
+      {%- render 'review-stars', rating: 4.9, color: '#00B67A' -%}
+      <span>{{ section.settings.banner_text }}</span>
     </div>
+    {%- endif -%}
 
     <div class="product__grid">
       <!-- Gallery -->
       <div class="product__gallery reveal-on-scroll">
         <div class="product__gallery-main">
           {%- if product.featured_image -%}
-            <img
-              id="product-main-image"
-              src="{{ product.featured_image | image_url: width: 800 }}"
-              alt="{{ product.featured_image.alt | escape }}"
-              width="800"
-              height="800"
-              loading="eager"
-              class="product__main-image"
-              data-zoom
-            >
+            <img id="product-main-image" src="{{ product.featured_image | image_url: width: 800 }}" alt="{{ product.featured_image.alt | escape }}" width="800" height="800" loading="eager" class="product__main-image" data-zoom>
           {%- else -%}
-            <div class="product__placeholder">
-              {{ 'product-1' | placeholder_svg_tag: 'product__placeholder-svg' }}
-            </div>
+            <div class="product__placeholder">{{ 'product-1' | placeholder_svg_tag: 'product__placeholder-svg' }}</div>
           {%- endif -%}
         </div>
         <div class="product__thumbnails">
           {%- for image in product.images -%}
-            <button
-              class="product__thumbnail{% if forloop.first %} product__thumbnail--active{% endif %}"
-              data-thumbnail
-              data-image-url="{{ image | image_url: width: 800 }}"
-              data-image-alt="{{ image.alt | escape }}"
-              aria-label="Immagine {{ forloop.index }}"
-            >
-              <img
-                src="{{ image | image_url: width: 120 }}"
-                alt="{{ image.alt | escape }}"
-                width="120"
-                height="120"
-                loading="lazy"
-              >
+            <button class="product__thumbnail{% if forloop.first %} product__thumbnail--active{% endif %}" data-thumbnail data-image-url="{{ image | image_url: width: 800 }}" data-image-alt="{{ image.alt | escape }}" aria-label="Immagine {{ forloop.index }}">
+              <img src="{{ image | image_url: width: 120 }}" alt="{{ image.alt | escape }}" width="120" height="120" loading="lazy">
             </button>
           {%- endfor -%}
         </div>
@@ -65,53 +30,43 @@
 
       <!-- Product Info -->
       <div class="product__info">
-        <!-- Urgency Badge -->
         {%- if section.settings.show_urgency -%}
-          <div class="product__urgency-badge reveal-on-scroll" data-testid="urgency-badge">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            {{ section.settings.urgency_text }}
-          </div>
+          <div class="product__urgency reveal-on-scroll">{{ section.settings.urgency_text }}</div>
         {%- endif -%}
 
-        <!-- Title -->
         <h1 class="product__title reveal-on-scroll">{{ product.title }}</h1>
 
-        <!-- Rating -->
-        <a href="#recensioni" class="product__rating reveal-on-scroll" data-testid="product-rating">
+        <a href="#recensioni" class="product__rating reveal-on-scroll">
           {%- render 'review-stars', rating: 4.9, color: '#00B67A' -%}
-          <span class="product__rating-text">4.9 &mdash; 2.437 recensioni</span>
+          <span>{{ section.settings.rating_text | default: '2.437 recensioni' }}</span>
         </a>
 
-        <!-- Price -->
-        <div class="product__price reveal-on-scroll" data-testid="product-price">
+        <div class="product__price reveal-on-scroll">
           {%- if product.compare_at_price > product.price -%}
-            <span class="product__price--sale">{{ product.price | money }}</span>
-            <span class="product__price--compare">{{ product.compare_at_price | money }}</span>
-            {%- assign discount_pct = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round -%}
-            <span class="product__price--badge">-{{ discount_pct }}%</span>
+            <span class="product__price-sale">{{ product.price | money }}</span>
+            <span class="product__price-was">{{ product.compare_at_price | money }}</span>
+            {%- assign disc = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round -%}
+            <span class="product__price-badge">-{{ disc }}%</span>
           {%- else -%}
-            <span class="product__price--regular">{{ product.price | money }}</span>
+            <span class="product__price-regular">{{ product.price | money }}</span>
           {%- endif -%}
         </div>
 
-        <!-- Discount Code -->
         {%- if section.settings.show_discount_code -%}
-          <div class="product__discount-code reveal-on-scroll" data-testid="discount-code">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
-            {{ section.settings.discount_code_text }}
+          <div class="product__discount reveal-on-scroll">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/></svg>
+            <span>{{ section.settings.discount_before }} <strong class="product__discount-code">{{ section.settings.discount_code }}</strong> {{ section.settings.discount_after }}</span>
           </div>
         {%- endif -%}
 
-        <!-- Countdown Timer -->
         {%- if section.settings.show_countdown -%}
-          <div class="product__countdown reveal-on-scroll" data-testid="countdown-timer" data-countdown data-hours="{{ section.settings.countdown_hours }}">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <div class="product__countdown reveal-on-scroll" data-countdown data-testid="countdown-timer">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             <span>{{ section.settings.countdown_label }}</span>
             <span class="countdown__timer" data-countdown-display>00:00:00</span>
           </div>
         {%- endif -%}
 
-        <!-- Variant Picker -->
         {%- unless product.has_only_default_variant -%}
           <div class="product__variants reveal-on-scroll">
             {%- for option in product.options_with_values -%}
@@ -119,14 +74,7 @@
                 <label class="product__option-label">{{ option.name }}</label>
                 <div class="product__option-values">
                   {%- for value in option.values -%}
-                    <button
-                      class="product__swatch{% if option.selected_value == value %} product__swatch--active{% endif %}"
-                      data-option-index="{{ forloop.parentloop.index0 }}"
-                      data-value="{{ value }}"
-                      data-testid="variant-{{ value | handleize }}"
-                    >
-                      {{ value }}
-                    </button>
+                    <button class="product__swatch{% if option.selected_value == value %} product__swatch--active{% endif %}" data-option-index="{{ forloop.parentloop.index0 }}" data-value="{{ value }}">{{ value }}</button>
                   {%- endfor -%}
                 </div>
               </div>
@@ -134,231 +82,76 @@
           </div>
         {%- endunless -%}
 
-        <!-- Quantity -->
-        <div class="product__quantity reveal-on-scroll">
-          <label class="product__option-label">{{ 'product.quantity' | t }}</label>
-          <div class="quantity-selector" data-testid="quantity-selector">
-            <button class="quantity-selector__btn" data-qty-minus aria-label="Diminuisci">-</button>
-            <input type="number" class="quantity-selector__input" value="1" min="1" max="99" data-qty-input name="quantity" aria-label="Quantita">
-            <button class="quantity-selector__btn" data-qty-plus aria-label="Aumenta">+</button>
-          </div>
-        </div>
-
-        <!-- Add to Cart -->
+        <!-- Quantity + Add to Cart INLINE -->
         <form method="post" action="/cart/add" id="product-form" data-testid="product-form">
           <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-          <input type="hidden" name="quantity" value="1" data-form-qty>
-          <button type="submit" class="btn btn--primary btn--large product__add-to-cart" data-testid="add-to-cart-btn" style="background-color:{{ section.settings.cta_bg_color | default: '#111111' }};color:{{ section.settings.cta_text_color | default: '#FFFFFF' }};"{% unless product.available %} disabled{% endunless %}>
-            {%- if product.available -%}
-              {{ section.settings.cta_text | default: 'AGGIUNGI AL CARRELLO' }}
-            {%- else -%}
-              {{ 'product.sold_out' | t }}
-            {%- endif -%}
-          </button>
+          <div class="product__buy-row reveal-on-scroll">
+            <div class="quantity-selector">
+              <button type="button" class="quantity-selector__btn" data-qty-minus>-</button>
+              <input type="number" class="quantity-selector__input" value="1" min="1" max="99" data-qty-input name="quantity">
+              <button type="button" class="quantity-selector__btn" data-qty-plus>+</button>
+            </div>
+            <button type="submit" class="btn btn--primary btn--large product__atc" style="background:{{ section.settings.cta_bg_color }};color:{{ section.settings.cta_text_color }};" {% unless product.available %}disabled{% endunless %}>
+              {%- if product.available -%}{{ section.settings.cta_text | default: 'AGGIUNGI AL CARRELLO' }}{%- else -%}Esaurito{%- endif -%}
+            </button>
+          </div>
         </form>
 
-        <!-- Buy Now -->
         {%- if section.settings.show_buy_now -%}
-          {{ form | payment_button }}
+          <a href="/checkout" class="btn btn--outline product__buy-now reveal-on-scroll" data-testid="buy-now-btn">{{ section.settings.buy_now_text | default: 'ACQUISTA SUBITO' }}</a>
         {%- endif -%}
 
-        <!-- Trust Bar -->
         <div class="product__trust reveal-on-scroll">
           {%- render 'trust-bar' -%}
         </div>
 
-        <!-- Product Details Accordion -->
+        <!-- Accordion Details -->
         <div class="product__details reveal-on-scroll">
           {%- for block in section.blocks -%}
             {%- if block.type == 'accordion' -%}
-              <div class="product__accordion-item" {{ block.shopify_attributes }}>
-                <button class="product__accordion-toggle" data-faq-toggle aria-expanded="false">
+              <div class="product__acc" {{ block.shopify_attributes }}>
+                <button class="product__acc-btn" data-faq-toggle aria-expanded="false">
                   <span>{{ block.settings.title }}</span>
-                  <svg class="faq-item__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  <svg class="faq-item__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                 </button>
-                <div class="faq-item__answer" data-faq-answer>
-                  <div class="faq-item__answer-inner">{{ block.settings.content }}</div>
-                </div>
+                <div class="faq-item__answer" data-faq-answer><div class="faq-item__answer-inner">{{ block.settings.content }}</div></div>
               </div>
             {%- endif -%}
           {%- endfor -%}
-
-          {%- if section.blocks.size == 0 -%}
-            <div class="product__accordion-item">
-              <button class="product__accordion-toggle" data-faq-toggle aria-expanded="false">
-                <span>Materiali</span>
-                <svg class="faq-item__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-              </button>
-              <div class="faq-item__answer" data-faq-answer>
-                <div class="faq-item__answer-inner">Pelle vegana premium, fodera interna in poliestere, scomparto termico isolante.</div>
-              </div>
-            </div>
-            <div class="product__accordion-item">
-              <button class="product__accordion-toggle" data-faq-toggle aria-expanded="false">
-                <span>Dimensioni</span>
-                <svg class="faq-item__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-              </button>
-              <div class="faq-item__answer" data-faq-answer>
-                <div class="faq-item__answer-inner">40cm x 30cm x 15cm. Capienza totale: 18L. Peso: 0.8kg.</div>
-              </div>
-            </div>
-            <div class="product__accordion-item">
-              <button class="product__accordion-toggle" data-faq-toggle aria-expanded="false">
-                <span>Cosa include</span>
-                <svg class="faq-item__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-              </button>
-              <div class="faq-item__answer" data-faq-answer>
-                <div class="faq-item__answer-inner">1x Borsa Coramore 2-in-1, 1x Portafoglio abbinato, 1x Tracolla regolabile, 1x Sacchetto protettivo.</div>
-              </div>
-            </div>
-            <div class="product__accordion-item">
-              <button class="product__accordion-toggle" data-faq-toggle aria-expanded="false">
-                <span>Spedizione e tempi</span>
-                <svg class="faq-item__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-              </button>
-              <div class="faq-item__answer" data-faq-answer>
-                <div class="faq-item__answer-inner">Spedizione gratuita in tutta Italia. Consegna in 3-5 giorni lavorativi. Tracciamento incluso.</div>
-              </div>
-            </div>
-          {%- endif -%}
         </div>
       </div>
     </div>
-
-    <!-- Problem-Solution (compact) -->
-    {%- render 'problem-solution-compact' -%}
   </div>
 </section>
 
 {% schema %}
 {
   "name": "Prodotto principale",
-  "tag": "section",
-  "class": "section-product",
   "settings": [
-    {
-      "type": "checkbox",
-      "id": "show_urgency",
-      "label": "Mostra badge urgenza",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "urgency_text",
-      "label": "Testo urgenza",
-      "default": "Ultimi 7 disponibili"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_discount_code",
-      "label": "Mostra codice sconto",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "discount_code_text",
-      "label": "Testo codice sconto",
-      "default": "Usa il codice REGALO — Sconto 20% applicato automaticamente"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_countdown",
-      "label": "Mostra countdown",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "countdown_label",
-      "label": "Testo countdown",
-      "default": "Offerta scade tra:"
-    },
-    {
-      "type": "range",
-      "id": "countdown_hours",
-      "min": 1,
-      "max": 24,
-      "step": 1,
-      "default": 3,
-      "label": "Ore countdown"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_buy_now",
-      "label": "Mostra Acquista subito (accelerated checkout)",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "banner_text",
-      "label": "Testo banner Trustpilot",
-      "default": "2.400+ clienti soddisfatte — Valutazione 4.9/5"
-    },
-    {
-      "type": "text",
-      "id": "cta_text",
-      "label": "Testo bottone aggiungi al carrello",
-      "default": "AGGIUNGI AL CARRELLO"
-    },
-    {
-      "type": "color",
-      "id": "cta_bg_color",
-      "label": "Colore sfondo bottone CTA",
-      "default": "#111111"
-    },
-    {
-      "type": "color",
-      "id": "cta_text_color",
-      "label": "Colore testo bottone CTA",
-      "default": "#FFFFFF"
-    }
+    { "type": "checkbox", "id": "show_banner", "label": "Mostra banner Trustpilot", "default": true },
+    { "type": "text", "id": "banner_text", "label": "Testo banner", "default": "2.400+ clienti soddisfatte — 4.9/5" },
+    { "type": "checkbox", "id": "show_urgency", "label": "Mostra badge urgenza", "default": true },
+    { "type": "text", "id": "urgency_text", "label": "Testo urgenza", "default": "Ultimi 7 disponibili" },
+    { "type": "text", "id": "rating_text", "label": "Testo rating", "default": "2.437 recensioni" },
+    { "type": "checkbox", "id": "show_discount_code", "label": "Mostra codice sconto", "default": true },
+    { "type": "text", "id": "discount_before", "label": "Testo prima del codice", "default": "Usa il codice" },
+    { "type": "text", "id": "discount_code", "label": "Codice sconto", "default": "REGALO" },
+    { "type": "text", "id": "discount_after", "label": "Testo dopo il codice", "default": "— Sconto 20%" },
+    { "type": "checkbox", "id": "show_countdown", "label": "Mostra countdown", "default": true },
+    { "type": "text", "id": "countdown_label", "label": "Testo countdown", "default": "Offerta scade tra:" },
+    { "type": "text", "id": "cta_text", "label": "Testo bottone CTA", "default": "AGGIUNGI AL CARRELLO" },
+    { "type": "color", "id": "cta_bg_color", "label": "Colore sfondo CTA", "default": "#111111" },
+    { "type": "color", "id": "cta_text_color", "label": "Colore testo CTA", "default": "#FFFFFF" },
+    { "type": "checkbox", "id": "show_buy_now", "label": "Mostra Acquista subito", "default": true },
+    { "type": "text", "id": "buy_now_text", "label": "Testo Acquista subito", "default": "ACQUISTA SUBITO" }
   ],
   "blocks": [
     {
-      "type": "title",
-      "name": "Titolo prodotto",
-      "limit": 1
-    },
-    {
-      "type": "price",
-      "name": "Prezzo",
-      "limit": 1
-    },
-    {
-      "type": "variant_picker",
-      "name": "Varianti",
-      "limit": 1
-    },
-    {
-      "type": "quantity",
-      "name": "Quantita",
-      "limit": 1
-    },
-    {
-      "type": "add_to_cart",
-      "name": "Bottone acquisto",
-      "limit": 1
-    },
-    {
-      "type": "description",
-      "name": "Descrizione",
-      "limit": 1
-    },
-    {
       "type": "accordion",
-      "name": "Dettaglio accordion",
+      "name": "Dettaglio",
       "settings": [
-        {
-          "type": "text",
-          "id": "title",
-          "label": "Titolo",
-          "default": "Materiali"
-        },
-        {
-          "type": "richtext",
-          "id": "content",
-          "label": "Contenuto",
-          "default": "<p>Pelle vegana premium, fodera interna in poliestere, scomparto termico isolante.</p>"
-        }
+        { "type": "text", "id": "title", "label": "Titolo", "default": "Materiali" },
+        { "type": "richtext", "id": "content", "label": "Contenuto", "default": "<p>Pelle vegana premium, fodera interna in poliestere.</p>" }
       ]
     }
   ]

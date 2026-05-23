@@ -1,8 +1,9 @@
 {%- if section.settings.show_bar -%}
 <div class="announcement-bar" data-section-id="{{ section.id }}" style="background-color:{{ section.settings.bg_color }};color:{{ section.settings.text_color }};" data-testid="announcement-bar">
   <div class="announcement-bar__inner">
-    <div class="announcement-bar__marquee">
+    <div class="announcement-bar__marquee" style="animation-duration:{{ section.settings.speed }}s;">
       <span class="announcement-bar__text">{{ section.settings.text }}</span>
+      <span class="announcement-bar__text" aria-hidden="true">{{ section.settings.text }}</span>
       <span class="announcement-bar__text" aria-hidden="true">{{ section.settings.text }}</span>
       <span class="announcement-bar__text" aria-hidden="true">{{ section.settings.text }}</span>
     </div>
@@ -25,6 +26,16 @@
       "id": "text",
       "label": "Testo annuncio",
       "default": "OFFERTA LIMITATA — Usa il codice REGALO e ottieni il 20% di sconto | Spedizione gratuita oggi"
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 5,
+      "max": 40,
+      "step": 1,
+      "default": 12,
+      "unit": "s",
+      "label": "Velocita scorrimento (secondi)"
     },
     {
       "type": "color",
