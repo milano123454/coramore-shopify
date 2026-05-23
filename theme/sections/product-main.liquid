@@ -6,9 +6,9 @@
       <div class="product__gallery reveal-on-scroll">
         <div class="product__gallery-main">
           {%- if product.featured_image -%}
-            <img id="product-main-image" src="{{ product.featured_image | image_url: width: 800 }}" alt="{{ product.featured_image.alt | escape }}" width="800" height="800" loading="eager" class="product__main-image" data-zoom>
+            <img id="product-main-image" src="{{ product.featured_image | image_url: width: 800 }}" alt="{{ product.featured_image.alt | escape }}" width="800" height="800" loading="eager" class="product__main-image">
           {%- else -%}
-            <div class="product__placeholder">{{ 'product-1' | placeholder_svg_tag: 'product__placeholder-svg' }}</div>
+            <div class="product__placeholder">{{ 'product-1' | placeholder_svg_tag }}</div>
           {%- endif -%}
           {%- if section.settings.show_banner -%}
           <div class="product__img-badge">
@@ -19,121 +19,111 @@
         </div>
         <div class="product__thumbnails">
           {%- for image in product.images -%}
-            <button class="product__thumbnail{% if forloop.first %} product__thumbnail--active{% endif %}" data-thumbnail data-image-url="{{ image | image_url: width: 800 }}" data-image-alt="{{ image.alt | escape }}" aria-label="Immagine {{ forloop.index }}">
+            <button class="product__thumbnail{% if forloop.first %} product__thumbnail--active{% endif %}" data-thumbnail data-image-url="{{ image | image_url: width: 800 }}" data-image-alt="{{ image.alt | escape }}">
               <img src="{{ image | image_url: width: 120 }}" alt="{{ image.alt | escape }}" width="120" height="120" loading="lazy">
             </button>
           {%- endfor -%}
         </div>
       </div>
 
-      <!-- Product Info -->
+      <!-- Product Info — Blocks are REORDERABLE -->
       <div class="product__info">
-        {%- if section.settings.show_urgency -%}
-          <div class="product__urgency reveal-on-scroll" style="background:{{ section.settings.urgency_bg }};color:{{ section.settings.urgency_color }};">{{ section.settings.urgency_text }}</div>
-        {%- endif -%}
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
 
-        <h1 class="product__title reveal-on-scroll">{{ product.title }}</h1>
+            {%- when 'title' -%}
+              <h1 class="product__title reveal-on-scroll" {{ block.shopify_attributes }}>{{ product.title }}</h1>
 
-        <a href="#recensioni" class="product__rating reveal-on-scroll">
-          {%- render 'review-stars', rating: 4.9, color: '#00B67A' -%}
-          <span>{{ section.settings.rating_text }}</span>
-        </a>
+            {%- when 'rating' -%}
+              <a href="#recensioni" class="product__rating reveal-on-scroll" {{ block.shopify_attributes }}>
+                {%- render 'review-stars', rating: 4.9, color: '#00B67A' -%}
+                <span>{{ block.settings.text }}</span>
+              </a>
 
-        <div class="product__price reveal-on-scroll">
-          {%- if product.compare_at_price > product.price -%}
-            <span class="product__price-sale" style="color:{{ section.settings.price_color }};">{{ product.price | money }}</span>
-            <span class="product__price-was">{{ product.compare_at_price | money }}</span>
-            {%- assign disc = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round -%}
-            <span class="product__price-badge" style="background:{{ section.settings.badge_color }};">-{{ disc }}%</span>
-          {%- else -%}
-            <span class="product__price-regular">{{ product.price | money }}</span>
-          {%- endif -%}
-        </div>
+            {%- when 'price' -%}
+              <div class="product__price reveal-on-scroll" {{ block.shopify_attributes }}>
+                {%- if product.compare_at_price > product.price -%}
+                  <span class="product__price-sale" style="color:{{ block.settings.sale_color }};">{{ product.price | money }}</span>
+                  <span class="product__price-was">{{ product.compare_at_price | money }}</span>
+                  {%- assign disc = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round -%}
+                  <span class="product__price-badge" style="background:{{ block.settings.badge_bg }};">-{{ disc }}%</span>
+                {%- else -%}
+                  <span class="product__price-regular">{{ product.price | money }}</span>
+                {%- endif -%}
+              </div>
 
-        {%- if section.settings.show_discount_code -%}
-          <div class="product__discount reveal-on-scroll" style="background:{{ section.settings.discount_bg }};border-color:{{ section.settings.discount_border }};">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{{ section.settings.discount_border }}" stroke-width="2"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/></svg>
-            <span>{{ section.settings.discount_before }} <strong class="product__discount-code" style="background:{{ section.settings.discount_code_bg }};">{{ section.settings.discount_code }}</strong> {{ section.settings.discount_after }}</span>
-          </div>
-        {%- endif -%}
+            {%- when 'discount_code' -%}
+              <div class="product__discount reveal-on-scroll" style="background:{{ block.settings.bg }};border-color:{{ block.settings.border }};" {{ block.shopify_attributes }}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{{ block.settings.border }}" stroke-width="2"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/></svg>
+                <span>{{ block.settings.before_text }} <strong class="product__discount-code" style="background:{{ block.settings.code_bg }};">{{ block.settings.code }}</strong> {{ block.settings.after_text }}</span>
+              </div>
 
-        {%- if section.settings.show_countdown -%}
-          <div class="product__countdown reveal-on-scroll" style="background:{{ section.settings.countdown_bg }};" data-countdown>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <span>{{ section.settings.countdown_label }}</span>
-            <span class="countdown__timer" data-countdown-display>00:00:00</span>
-          </div>
-        {%- endif -%}
+            {%- when 'countdown' -%}
+              <div class="product__countdown reveal-on-scroll" style="background:{{ block.settings.bg }};" data-countdown data-minutes="{{ block.settings.minutes }}" {{ block.shopify_attributes }}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span>{{ block.settings.label }}</span>
+                <span class="countdown__timer" data-countdown-display>00:00</span>
+              </div>
 
-        {%- unless product.has_only_default_variant -%}
-          <div class="product__variants reveal-on-scroll">
-            {%- for option in product.options_with_values -%}
-              <div class="product__option">
-                <label class="product__option-label">{{ option.name }}</label>
-                <div class="product__option-values">
-                  {%- for value in option.values -%}
-                    <button class="product__swatch{% if option.selected_value == value %} product__swatch--active{% endif %}" data-value="{{ value }}">{{ value }}</button>
+            {%- when 'variants' -%}
+              {%- unless product.has_only_default_variant -%}
+              <div class="product__variants reveal-on-scroll" {{ block.shopify_attributes }}>
+                {%- for option in product.options_with_values -%}
+                  <div class="product__option">
+                    <label class="product__option-label">{{ option.name }}</label>
+                    <div class="product__option-values">
+                      {%- for value in option.values -%}
+                        <button class="product__swatch{% if option.selected_value == value %} product__swatch--active{% endif %}" data-value="{{ value }}">{{ value }}</button>
+                      {%- endfor -%}
+                    </div>
+                  </div>
+                {%- endfor -%}
+              </div>
+              {%- endunless -%}
+
+            {%- when 'buy_buttons' -%}
+              <form method="post" action="/cart/add" id="product-form" {{ block.shopify_attributes }}>
+                <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                <div class="product__buy-row reveal-on-scroll">
+                  <div class="quantity-selector">
+                    <button type="button" class="quantity-selector__btn" data-qty-minus>-</button>
+                    <input type="number" class="quantity-selector__input" value="1" min="1" max="99" data-qty-input name="quantity">
+                    <button type="button" class="quantity-selector__btn" data-qty-plus>+</button>
+                  </div>
+                  <button type="submit" class="btn btn--primary product__atc" style="background:{{ block.settings.atc_bg }};color:{{ block.settings.atc_color }};" {% unless product.available %}disabled{% endunless %}>
+                    {%- if product.available -%}{{ block.settings.atc_text }}{%- else -%}Esaurito{%- endif -%}
+                  </button>
+                </div>
+              </form>
+              {%- if block.settings.show_buy_now -%}
+                <a href="/checkout" class="btn product__buy-now reveal-on-scroll" style="background:{{ block.settings.bn_bg }};color:{{ block.settings.bn_color }};border:2px solid {{ block.settings.bn_border }};">{{ block.settings.bn_text }}</a>
+              {%- endif -%}
+
+            {%- when 'trust_badges' -%}
+              <div class="product__trust reveal-on-scroll" {{ block.shopify_attributes }}>
+                <div class="trust-bar" style="--tb-bg:{{ block.settings.bg }};--tb-border:{{ block.settings.border }};--tb-color:{{ block.settings.text_color }};--tb-icon:{{ block.settings.icon_bg }};">
+                  {%- assign badges = block.settings.badge1 | append: '||' | append: block.settings.badge2 | append: '||' | append: block.settings.badge3 | append: '||' | append: block.settings.badge4 -%}
+                  {%- assign badge_icons = 'shipping||return||lock||gift' | split: '||' -%}
+                  {%- assign badge_list = badges | split: '||' -%}
+                  {%- for badge_text in badge_list -%}
+                    {%- if badge_text != blank -%}
+                    <div class="trust-bar__item">
+                      <div class="trust-bar__icon-wrap">
+                        {%- assign ic = badge_icons[forloop.index0] -%}
+                        {%- if ic == 'shipping' -%}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                        {%- elsif ic == 'return' -%}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+                        {%- elsif ic == 'lock' -%}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        {%- elsif ic == 'gift' -%}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/></svg>
+                        {%- endif -%}
+                      </div>
+                      <span>{{ badge_text }}</span>
+                    </div>
+                    {%- endif -%}
                   {%- endfor -%}
                 </div>
               </div>
-            {%- endfor -%}
-          </div>
-        {%- endunless -%}
 
-        <form method="post" action="/cart/add" id="product-form" data-testid="product-form">
-          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-          <div class="product__buy-row reveal-on-scroll">
-            <div class="quantity-selector">
-              <button type="button" class="quantity-selector__btn" data-qty-minus>-</button>
-              <input type="number" class="quantity-selector__input" value="1" min="1" max="99" data-qty-input name="quantity">
-              <button type="button" class="quantity-selector__btn" data-qty-plus>+</button>
-            </div>
-            <button type="submit" class="btn btn--primary product__atc" style="background:{{ section.settings.cta_bg_color }};color:{{ section.settings.cta_text_color }};" {% unless product.available %}disabled{% endunless %}>
-              {%- if product.available -%}{{ section.settings.cta_text }}{%- else -%}Esaurito{%- endif -%}
-            </button>
-          </div>
-        </form>
-
-        {%- if section.settings.show_buy_now -%}
-          <a href="/checkout" class="btn product__buy-now reveal-on-scroll" style="background:{{ section.settings.buy_now_bg }};color:{{ section.settings.buy_now_color }};border:2px solid {{ section.settings.buy_now_border }};">{{ section.settings.buy_now_text }}</a>
-        {%- endif -%}
-
-        <!-- Trust Badges — Customizable blocks -->
-        <div class="product__trust reveal-on-scroll">
-          <div class="trust-bar">
-            {%- for block in section.blocks -%}
-              {%- if block.type == 'trust_badge' -%}
-                <div class="trust-bar__item" style="background:{{ section.settings.trust_bg }};border-color:{{ section.settings.trust_border }};color:{{ section.settings.trust_text }};" {{ block.shopify_attributes }}>
-                  <div class="trust-bar__icon-wrap" style="background:{{ section.settings.trust_icon_bg }};">
-                    {%- if block.settings.icon == 'shipping' -%}
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-                    {%- elsif block.settings.icon == 'return' -%}
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
-                    {%- elsif block.settings.icon == 'lock' -%}
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                    {%- elsif block.settings.icon == 'gift' -%}
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/></svg>
-                    {%- endif -%}
-                  </div>
-                  <span>{{ block.settings.text }}</span>
-                </div>
-              {%- endif -%}
-            {%- endfor -%}
-            {%- assign has_trust = false -%}
-            {%- for block in section.blocks -%}{%- if block.type == 'trust_badge' -%}{%- assign has_trust = true -%}{%- endif -%}{%- endfor -%}
-            {%- unless has_trust -%}
-              <div class="trust-bar__item" style="background:{{ section.settings.trust_bg }};border-color:{{ section.settings.trust_border }};color:{{ section.settings.trust_text }};"><div class="trust-bar__icon-wrap" style="background:{{ section.settings.trust_icon_bg }};"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><span>Spedizione gratuita</span></div>
-              <div class="trust-bar__item" style="background:{{ section.settings.trust_bg }};border-color:{{ section.settings.trust_border }};color:{{ section.settings.trust_text }};"><div class="trust-bar__icon-wrap" style="background:{{ section.settings.trust_icon_bg }};"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg></div><span>Reso gratuito 30 giorni</span></div>
-              <div class="trust-bar__item" style="background:{{ section.settings.trust_bg }};border-color:{{ section.settings.trust_border }};color:{{ section.settings.trust_text }};"><div class="trust-bar__icon-wrap" style="background:{{ section.settings.trust_icon_bg }};"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><span>Pagamento 100% sicuro</span></div>
-              <div class="trust-bar__item" style="background:{{ section.settings.trust_bg }};border-color:{{ section.settings.trust_border }};color:{{ section.settings.trust_text }};"><div class="trust-bar__icon-wrap" style="background:{{ section.settings.trust_icon_bg }};"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/></svg></div><span>Portafoglio incluso</span></div>
-            {%- endunless -%}
-          </div>
-        </div>
-
-        <!-- Accordion Details -->
-        <div class="product__details reveal-on-scroll">
-          {%- for block in section.blocks -%}
-            {%- if block.type == 'accordion' -%}
+            {%- when 'accordion' -%}
               <div class="product__acc" {{ block.shopify_attributes }}>
                 <button class="product__acc-btn" data-faq-toggle aria-expanded="false">
                   <span>{{ block.settings.title }}</span>
@@ -141,9 +131,9 @@
                 </button>
                 <div class="faq-item__answer" data-faq-answer><div class="faq-item__answer-inner">{{ block.settings.content }}</div></div>
               </div>
-            {%- endif -%}
-          {%- endfor -%}
-        </div>
+
+          {%- endcase -%}
+        {%- endfor -%}
       </div>
     </div>
   </div>
@@ -153,70 +143,79 @@
 {
   "name": "Prodotto principale",
   "settings": [
-    { "type": "header", "content": "Banner immagine" },
     { "type": "checkbox", "id": "show_banner", "label": "Mostra banner nell'immagine", "default": true },
-    { "type": "text", "id": "banner_text", "label": "Testo banner", "default": "2.400+ clienti soddisfatte — 4.9/5" },
-
-    { "type": "header", "content": "Urgenza" },
-    { "type": "checkbox", "id": "show_urgency", "label": "Mostra badge urgenza", "default": true },
-    { "type": "text", "id": "urgency_text", "label": "Testo urgenza", "default": "Ultimi 7 disponibili" },
-    { "type": "color", "id": "urgency_bg", "label": "Sfondo urgenza", "default": "#FFF3F3" },
-    { "type": "color", "id": "urgency_color", "label": "Testo urgenza colore", "default": "#D94040" },
-
-    { "type": "header", "content": "Rating" },
-    { "type": "text", "id": "rating_text", "label": "Testo rating", "default": "2.437 recensioni" },
-
-    { "type": "header", "content": "Prezzo" },
-    { "type": "color", "id": "price_color", "label": "Colore prezzo scontato", "default": "#D94040" },
-    { "type": "color", "id": "badge_color", "label": "Sfondo badge sconto", "default": "#D94040" },
-
-    { "type": "header", "content": "Codice sconto" },
-    { "type": "checkbox", "id": "show_discount_code", "label": "Mostra codice sconto", "default": true },
-    { "type": "text", "id": "discount_before", "label": "Testo prima del codice", "default": "Usa il codice" },
-    { "type": "text", "id": "discount_code", "label": "Codice sconto", "default": "REGALO" },
-    { "type": "text", "id": "discount_after", "label": "Testo dopo il codice", "default": "— Sconto 20%" },
-    { "type": "color", "id": "discount_bg", "label": "Sfondo banner codice", "default": "#F5F0EA" },
-    { "type": "color", "id": "discount_border", "label": "Bordo banner codice", "default": "#C9A84C" },
-    { "type": "color", "id": "discount_code_bg", "label": "Sfondo parola codice", "default": "#C9A84C" },
-
-    { "type": "header", "content": "Countdown" },
-    { "type": "checkbox", "id": "show_countdown", "label": "Mostra countdown", "default": true },
-    { "type": "text", "id": "countdown_label", "label": "Testo countdown", "default": "Offerta scade tra:" },
-    { "type": "color", "id": "countdown_bg", "label": "Sfondo countdown", "default": "#FFF8E1" },
-
-    { "type": "header", "content": "Bottone Aggiungi al carrello" },
-    { "type": "text", "id": "cta_text", "label": "Testo CTA", "default": "AGGIUNGI AL CARRELLO" },
-    { "type": "color", "id": "cta_bg_color", "label": "Sfondo CTA", "default": "#111111" },
-    { "type": "color", "id": "cta_text_color", "label": "Testo CTA colore", "default": "#FFFFFF" },
-
-    { "type": "header", "content": "Bottone Acquista subito" },
-    { "type": "checkbox", "id": "show_buy_now", "label": "Mostra Acquista subito", "default": true },
-    { "type": "text", "id": "buy_now_text", "label": "Testo", "default": "ACQUISTA SUBITO" },
-    { "type": "color", "id": "buy_now_bg", "label": "Sfondo", "default": "#FFFFFF" },
-    { "type": "color", "id": "buy_now_color", "label": "Colore testo", "default": "#111111" },
-    { "type": "color", "id": "buy_now_border", "label": "Colore bordo", "default": "#111111" },
-
-    { "type": "header", "content": "Badge fiducia" },
-    { "type": "color", "id": "trust_bg", "label": "Sfondo badge", "default": "#F1F8E9" },
-    { "type": "color", "id": "trust_border", "label": "Bordo badge", "default": "#C5E1A5" },
-    { "type": "color", "id": "trust_text", "label": "Colore testo badge", "default": "#1A3A2A" },
-    { "type": "color", "id": "trust_icon_bg", "label": "Sfondo icona badge", "default": "#1A3A2A" }
+    { "type": "text", "id": "banner_text", "label": "Testo banner", "default": "2.400+ clienti soddisfatte — 4.9/5" }
   ],
   "blocks": [
     {
-      "type": "trust_badge",
-      "name": "Badge fiducia",
+      "type": "title", "name": "Titolo prodotto", "limit": 1
+    },
+    {
+      "type": "rating", "name": "Rating",  "limit": 1,
       "settings": [
-        { "type": "select", "id": "icon", "label": "Icona", "options": [{"value":"shipping","label":"Spedizione"},{"value":"return","label":"Reso"},{"value":"lock","label":"Sicurezza"},{"value":"gift","label":"Regalo"}], "default": "shipping" },
-        { "type": "text", "id": "text", "label": "Testo", "default": "Spedizione gratuita" }
+        { "type": "text", "id": "text", "label": "Testo rating", "default": "2.437 recensioni" }
       ]
     },
     {
-      "type": "accordion",
-      "name": "Dettaglio prodotto",
+      "type": "price", "name": "Prezzo", "limit": 1,
+      "settings": [
+        { "type": "color", "id": "sale_color", "label": "Colore prezzo scontato", "default": "#D94040" },
+        { "type": "color", "id": "badge_bg", "label": "Sfondo badge sconto", "default": "#D94040" }
+      ]
+    },
+    {
+      "type": "discount_code", "name": "Codice sconto", "limit": 1,
+      "settings": [
+        { "type": "text", "id": "before_text", "label": "Testo prima", "default": "Usa il codice" },
+        { "type": "text", "id": "code", "label": "Codice", "default": "REGALO" },
+        { "type": "text", "id": "after_text", "label": "Testo dopo", "default": "— Sconto 20%" },
+        { "type": "color", "id": "bg", "label": "Sfondo", "default": "#F5F0EA" },
+        { "type": "color", "id": "border", "label": "Bordo", "default": "#C9A84C" },
+        { "type": "color", "id": "code_bg", "label": "Sfondo codice", "default": "#C9A84C" }
+      ]
+    },
+    {
+      "type": "countdown", "name": "Countdown", "limit": 1,
+      "settings": [
+        { "type": "text", "id": "label", "label": "Testo", "default": "Offerta scade tra:" },
+        { "type": "range", "id": "minutes", "min": 5, "max": 60, "step": 5, "default": 15, "unit": "min", "label": "Minuti" },
+        { "type": "color", "id": "bg", "label": "Sfondo", "default": "#FFF8E1" }
+      ]
+    },
+    {
+      "type": "variants", "name": "Varianti", "limit": 1
+    },
+    {
+      "type": "buy_buttons", "name": "Pulsanti acquisto", "limit": 1,
+      "settings": [
+        { "type": "text", "id": "atc_text", "label": "Testo Aggiungi", "default": "AGGIUNGI AL CARRELLO" },
+        { "type": "color", "id": "atc_bg", "label": "Sfondo Aggiungi", "default": "#111111" },
+        { "type": "color", "id": "atc_color", "label": "Testo Aggiungi colore", "default": "#FFFFFF" },
+        { "type": "checkbox", "id": "show_buy_now", "label": "Mostra Acquista subito", "default": true },
+        { "type": "text", "id": "bn_text", "label": "Testo Acquista", "default": "ACQUISTA SUBITO" },
+        { "type": "color", "id": "bn_bg", "label": "Sfondo Acquista", "default": "#FFFFFF" },
+        { "type": "color", "id": "bn_color", "label": "Testo Acquista colore", "default": "#111111" },
+        { "type": "color", "id": "bn_border", "label": "Bordo Acquista", "default": "#111111" }
+      ]
+    },
+    {
+      "type": "trust_badges", "name": "Badge fiducia", "limit": 1,
+      "settings": [
+        { "type": "text", "id": "badge1", "label": "Badge 1", "default": "Spedizione gratuita" },
+        { "type": "text", "id": "badge2", "label": "Badge 2", "default": "Reso gratuito 30 giorni" },
+        { "type": "text", "id": "badge3", "label": "Badge 3", "default": "Pagamento 100% sicuro" },
+        { "type": "text", "id": "badge4", "label": "Badge 4", "default": "Portafoglio incluso" },
+        { "type": "color", "id": "bg", "label": "Sfondo", "default": "#F1F8E9" },
+        { "type": "color", "id": "border", "label": "Bordo", "default": "#C5E1A5" },
+        { "type": "color", "id": "text_color", "label": "Colore testo", "default": "#1A3A2A" },
+        { "type": "color", "id": "icon_bg", "label": "Sfondo icona", "default": "#1A3A2A" }
+      ]
+    },
+    {
+      "type": "accordion", "name": "Dettaglio",
       "settings": [
         { "type": "text", "id": "title", "label": "Titolo", "default": "Materiali" },
-        { "type": "richtext", "id": "content", "label": "Contenuto", "default": "<p>Pelle vegana premium, fodera interna in poliestere.</p>" }
+        { "type": "richtext", "id": "content", "label": "Contenuto", "default": "<p>Pelle vegana premium.</p>" }
       ]
     }
   ]

@@ -2,6 +2,21 @@
   "sections": {
     "product-main": {
       "type": "product-main",
+      "blocks": {
+        "title": { "type": "title" },
+        "rating": { "type": "rating" },
+        "price": { "type": "price" },
+        "discount": { "type": "discount_code" },
+        "countdown": { "type": "countdown" },
+        "variants": { "type": "variants" },
+        "buy": { "type": "buy_buttons" },
+        "trust": { "type": "trust_badges" },
+        "mat": { "type": "accordion", "settings": { "title": "Materiali", "content": "<p>Pelle vegana premium, fodera interna in poliestere, scomparto termico isolante.</p>" } },
+        "dim": { "type": "accordion", "settings": { "title": "Dimensioni", "content": "<p>40cm x 30cm x 15cm. Capienza: 18L. Peso: 0.8kg.</p>" } },
+        "inc": { "type": "accordion", "settings": { "title": "Cosa include", "content": "<p>1x Borsa 2-in-1, 1x Portafoglio abbinato, 1x Tracolla, 1x Sacchetto.</p>" } },
+        "ship": { "type": "accordion", "settings": { "title": "Spedizione", "content": "<p>Gratuita in Italia. 3-5 giorni lavorativi. Tracciamento incluso.</p>" } }
+      },
+      "block_order": ["title", "rating", "price", "discount", "countdown", "variants", "buy", "trust", "mat", "dim", "inc", "ship"],
       "settings": {}
     },
     "problem-solution-product": {
