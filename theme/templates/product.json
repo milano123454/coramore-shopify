@@ -2,22 +2,11 @@
   "sections": {
     "product-main": {
       "type": "product-main",
-      "blocks": {
-        "title": { "type": "title" },
-        "price": { "type": "price" },
-        "variant_picker": { "type": "variant_picker" },
-        "quantity": { "type": "quantity" },
-        "add_to_cart": { "type": "add_to_cart" },
-        "description": { "type": "description" }
-      },
-      "block_order": ["title", "price", "variant_picker", "quantity", "add_to_cart", "description"],
       "settings": {}
     },
     "problem-solution-product": {
       "type": "problem-solution",
-      "settings": {
-        "compact": true
-      }
+      "settings": {}
     },
     "video-reviews-product": {
       "type": "video-reviews",
