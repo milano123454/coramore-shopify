@@ -54,12 +54,12 @@ async def download_theme():
     if not theme_dir.exists():
         return {"error": "Theme directory not found"}
 
-    # Create zip in memory
+    # Create zip in memory — files at root level (no theme/ prefix)
     zip_buffer = io.BytesIO()
     with zipfile.ZipFile(zip_buffer, 'w', zipfile.ZIP_DEFLATED) as zf:
         for file_path in sorted(theme_dir.rglob('*')):
             if file_path.is_file():
-                arcname = str(file_path.relative_to(theme_dir.parent))
+                arcname = str(file_path.relative_to(theme_dir))
                 zf.write(file_path, arcname)
 
     zip_buffer.seek(0)
