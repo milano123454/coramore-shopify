@@ -6,7 +6,7 @@
       {%- assign collection = collections[section.settings.collection] -%}
     {%- endif -%}
 
-    <div class="collection-grid">
+    <div class="collection-grid" style="--grid-cols: {{ section.settings.columns | default: 4 }};">
       {%- if collection and collection.products.size > 0 -%}
         {%- for product in collection.products limit: section.settings.products_to_show -%}
           <div class="collection-grid__item reveal-on-scroll">
@@ -59,6 +59,21 @@
       "step": 1,
       "default": 4,
       "label": "Prodotti da mostrare"
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 4,
+      "label": "Colonne desktop"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_badge",
+      "label": "Mostra badge sconto",
+      "default": true
     }
   ],
   "presets": [

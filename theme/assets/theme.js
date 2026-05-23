@@ -225,6 +225,28 @@
         });
       }
     });
+
+    /* Text reviews scroll */
+    var reviewTracks = document.querySelectorAll('[data-reviews-track]');
+    reviewTracks.forEach(function(track) {
+      var parent = track.closest('.reviews-carousel');
+      if (!parent) return;
+
+      var leftBtn = parent.querySelector('[data-reviews-scroll-left]');
+      var rightBtn = parent.querySelector('[data-reviews-scroll-right]');
+      var scrollAmount = 370;
+
+      if (leftBtn) {
+        leftBtn.addEventListener('click', function() {
+          track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        });
+      }
+      if (rightBtn) {
+        rightBtn.addEventListener('click', function() {
+          track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        });
+      }
+    });
   }
 
   /* --- Variant Picker --- */

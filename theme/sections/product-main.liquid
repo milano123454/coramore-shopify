@@ -13,6 +13,14 @@
       <span>{{ product.title }}</span>
     </nav>
 
+    <!-- Trustpilot Banner -->
+    <div class="product__trustpilot-banner reveal-on-scroll" data-testid="product-trustpilot-banner">
+      <div class="product__trustpilot-banner-inner">
+        {%- render 'review-stars', rating: 4.9, color: '#00B67A' -%}
+        <span class="product__trustpilot-banner-text">{{ section.settings.banner_text | default: '2.400+ clienti soddisfatte — Valutazione 4.9/5' }}</span>
+      </div>
+    </div>
+
     <div class="product__grid">
       <!-- Gallery -->
       <div class="product__gallery reveal-on-scroll">
@@ -140,9 +148,9 @@
         <form method="post" action="/cart/add" id="product-form" data-testid="product-form">
           <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
           <input type="hidden" name="quantity" value="1" data-form-qty>
-          <button type="submit" class="btn btn--primary btn--large product__add-to-cart" data-testid="add-to-cart-btn"{% unless product.available %} disabled{% endunless %}>
+          <button type="submit" class="btn btn--primary btn--large product__add-to-cart" data-testid="add-to-cart-btn" style="background-color:{{ section.settings.cta_bg_color | default: '#111111' }};color:{{ section.settings.cta_text_color | default: '#FFFFFF' }};"{% unless product.available %} disabled{% endunless %}>
             {%- if product.available -%}
-              {{ 'product.add_to_cart' | t }}
+              {{ section.settings.cta_text | default: 'AGGIUNGI AL CARRELLO' }}
             {%- else -%}
               {{ 'product.sold_out' | t }}
             {%- endif -%}
@@ -278,6 +286,30 @@
       "id": "show_buy_now",
       "label": "Mostra Acquista subito (accelerated checkout)",
       "default": true
+    },
+    {
+      "type": "text",
+      "id": "banner_text",
+      "label": "Testo banner Trustpilot",
+      "default": "2.400+ clienti soddisfatte — Valutazione 4.9/5"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Testo bottone aggiungi al carrello",
+      "default": "AGGIUNGI AL CARRELLO"
+    },
+    {
+      "type": "color",
+      "id": "cta_bg_color",
+      "label": "Colore sfondo bottone CTA",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "cta_text_color",
+      "label": "Colore testo bottone CTA",
+      "default": "#FFFFFF"
     }
   ],
   "blocks": [

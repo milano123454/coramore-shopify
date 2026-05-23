@@ -27,10 +27,14 @@
       </div>
     </div>
 
-    <!-- Review Cards -->
-    <div class="reviews-grid">
+    <!-- Review Cards — Horizontal Scroll -->
+    <div class="reviews-carousel reveal-on-scroll">
+      <button class="reviews-carousel__arrow reviews-carousel__arrow--left" data-reviews-scroll-left aria-label="Scorri a sinistra">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <div class="reviews-carousel__track" data-reviews-track>
       {%- for block in section.blocks -%}
-        <div class="review-card reveal-on-scroll" {{ block.shopify_attributes }}>
+        <div class="review-card" {{ block.shopify_attributes }}>
           <div class="review-card__header">
             <div class="review-card__stars">
               {%- render 'review-stars', rating: block.settings.rating, color: '#00B67A' -%}
@@ -51,7 +55,7 @@
 
       {%- if section.blocks.size == 0 -%}
         {%- for i in (1..6) -%}
-          <div class="review-card reveal-on-scroll">
+          <div class="review-card">
             <div class="review-card__header">
               <div class="review-card__stars">{%- render 'review-stars', rating: 5, color: '#00B67A' -%}</div>
               <span class="review-card__date">{{ 'now' | date: "%d/%m/%Y" }}</span>
@@ -66,6 +70,10 @@
           </div>
         {%- endfor -%}
       {%- endif -%}
+      </div>
+      <button class="reviews-carousel__arrow reviews-carousel__arrow--right" data-reviews-scroll-right aria-label="Scorri a destra">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
     </div>
   </div>
 </section>

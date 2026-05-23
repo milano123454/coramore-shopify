@@ -4,7 +4,7 @@
 
     <div class="ps__grid">
       <!-- Problem Column -->
-      <div class="ps__col ps__col--problem reveal-on-scroll" style="background-color:{{ section.settings.problem_bg }};">
+      <div class="ps__col ps__col--problem reveal-on-scroll">
         <h3 class="ps__col-title">{{ section.settings.problem_title }}</h3>
         {%- for block in section.blocks -%}
           {%- if block.type == 'problem_item' -%}
@@ -17,7 +17,7 @@
       </div>
 
       <!-- Solution Column -->
-      <div class="ps__col ps__col--solution reveal-on-scroll" style="background-color:{{ section.settings.solution_bg }};">
+      <div class="ps__col ps__col--solution reveal-on-scroll">
         <h3 class="ps__col-title">{{ section.settings.solution_title }}</h3>
         {%- for block in section.blocks -%}
           {%- if block.type == 'solution_item' -%}
