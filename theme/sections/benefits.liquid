@@ -1,0 +1,124 @@
+<section class="benefits-section section" data-section-id="{{ section.id }}" data-testid="benefits-section" style="background-color:{{ section.settings.bg_color }};">
+  <div class="page-width">
+    <h2 class="section__title reveal-on-scroll">{{ section.settings.heading }}</h2>
+    <div class="benefits-grid">
+      {%- for block in section.blocks -%}
+        <div class="benefit-card reveal-on-scroll" {{ block.shopify_attributes }}>
+          <div class="benefit-card__icon">
+            {%- if block.settings.icon == 'cold' -%}
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="{{ section.settings.icon_color }}" stroke-width="2" stroke-linecap="round"><path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M19.07 4.93L4.93 19.07"/></svg>
+            {%- elsif block.settings.icon == 'bag' -%}
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="{{ section.settings.icon_color }}" stroke-width="2" stroke-linecap="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            {%- elsif block.settings.icon == 'lock' -%}
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="{{ section.settings.icon_color }}" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            {%- elsif block.settings.icon == 'gift' -%}
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="{{ section.settings.icon_color }}" stroke-width="2" stroke-linecap="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+            {%- else -%}
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="{{ section.settings.icon_color }}" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            {%- endif -%}
+          </div>
+          <h3 class="benefit-card__title">{{ block.settings.title }}</h3>
+          <p class="benefit-card__text">{{ block.settings.text }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Benefici",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titolo sezione",
+      "default": "Tutto quello che cercavi in una borsa"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Colore sfondo",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Colore icone",
+      "default": "#C9A84C"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Beneficio",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icona",
+          "options": [
+            { "value": "cold", "label": "Freddo" },
+            { "value": "bag", "label": "Borsa" },
+            { "value": "lock", "label": "Sicurezza" },
+            { "value": "gift", "label": "Regalo" },
+            { "value": "check", "label": "Spunta" }
+          ],
+          "default": "check"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titolo",
+          "default": "Beneficio"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Descrizione",
+          "default": "Descrizione del beneficio"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Benefici",
+      "blocks": [
+        {
+          "type": "benefit",
+          "settings": {
+            "icon": "cold",
+            "title": "Fresco quando serve",
+            "text": "Lo scomparto termico mantiene le bevande fresche per ore"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "icon": "bag",
+            "title": "Elegante sempre",
+            "text": "Design premium per ogni occasione"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "icon": "lock",
+            "title": "Tutto al sicuro",
+            "text": "Scomparti separati, zero confusione"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "icon": "gift",
+            "title": "Portafoglio incluso",
+            "text": "Abbinato in omaggio, non venduto separatamente"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

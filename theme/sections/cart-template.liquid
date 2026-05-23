@@ -1,0 +1,118 @@
+<section class="cart-section section" data-section-id="{{ section.id }}" data-testid="cart-template">
+  <div class="page-width">
+    <h1 class="section__title">{{ 'cart.title' | t }}</h1>
+
+    {%- if cart.item_count > 0 -%}
+      <!-- Wallet Banner -->
+      <div class="cart__banner cart__banner--gift" data-testid="wallet-banner">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+        {{ 'cart.wallet_banner' | t }}
+      </div>
+
+      <!-- Shipping Banner -->
+      <div class="cart__banner cart__banner--shipping" data-testid="shipping-banner">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        {{ 'cart.free_shipping_banner' | t }}
+      </div>
+
+      <form action="/cart" method="post" novalidate>
+        <div class="cart__grid">
+          <!-- Cart Items -->
+          <div class="cart__items">
+            {%- for item in cart.items -%}
+              <div class="cart-item" data-testid="cart-item-{{ forloop.index }}">
+                <div class="cart-item__image">
+                  {%- if item.image -%}
+                    <img src="{{ item.image | image_url: width: 120 }}" alt="{{ item.title | escape }}" width="120" height="120" loading="lazy">
+                  {%- else -%}
+                    {{ 'product-1' | placeholder_svg_tag: 'cart-item__placeholder' }}
+                  {%- endif -%}
+                </div>
+                <div class="cart-item__details">
+                  <a href="{{ item.url }}" class="cart-item__title">{{ item.product.title }}</a>
+                  {%- unless item.product.has_only_default_variant -%}
+                    <span class="cart-item__variant">{{ item.variant.title }}</span>
+                  {%- endunless -%}
+                  <div class="cart-item__quantity">
+                    <div class="quantity-selector quantity-selector--small">
+                      <button class="quantity-selector__btn" name="minus" type="button" data-qty-update data-line="{{ forloop.index }}" data-action="minus">-</button>
+                      <input type="number" name="updates[]" value="{{ item.quantity }}" min="0" max="99" class="quantity-selector__input" aria-label="Quantita">
+                      <button class="quantity-selector__btn" name="plus" type="button" data-qty-update data-line="{{ forloop.index }}" data-action="plus">+</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="cart-item__price">
+                  <span class="cart-item__line-price">{{ item.final_line_price | money }}</span>
+                  {%- if item.original_line_price != item.final_line_price -%}
+                    <span class="cart-item__original-price">{{ item.original_line_price | money }}</span>
+                  {%- endif -%}
+                  <a href="/cart/change?line={{ forloop.index }}&quantity=0" class="cart-item__remove" aria-label="{{ 'cart.remove' | t }}">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                  </a>
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+
+          <!-- Cart Summary -->
+          <div class="cart__summary">
+            <div class="cart__summary-inner">
+              <div class="cart__summary-row">
+                <span>{{ 'cart.subtotal' | t }}</span>
+                <span>{{ cart.total_price | money }}</span>
+              </div>
+
+              {%- if cart.total_discount > 0 -%}
+                <div class="cart__summary-row cart__summary-row--discount">
+                  <span>{{ 'cart.discount' | t }}</span>
+                  <span>-{{ cart.total_discount | money }}</span>
+                </div>
+              {%- endif -%}
+
+              <div class="cart__summary-row cart__summary-row--total">
+                <span>{{ 'cart.total' | t }}</span>
+                <span>{{ cart.total_price | money }}</span>
+              </div>
+
+              <!-- Trust reminder -->
+              <div class="cart__trust-reminder">
+                <div class="cart__trust-stars">
+                  {%- render 'review-stars', rating: 4.9, color: '#00B67A' -%}
+                  <span>2.400+ clienti soddisfatte</span>
+                </div>
+                <div class="cart__payment-icons">
+                  <svg width="30" height="18" viewBox="0 0 38 24" fill="none"><rect width="38" height="24" rx="3" fill="#1A1F71"/><text x="19" y="15" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="sans-serif">VISA</text></svg>
+                  <svg width="30" height="18" viewBox="0 0 38 24" fill="none"><rect width="38" height="24" rx="3" fill="#252525"/><circle cx="15" cy="12" r="7" fill="#EB001B"/><circle cx="23" cy="12" r="7" fill="#F79E1B"/></svg>
+                  <svg width="30" height="18" viewBox="0 0 38 24" fill="none"><rect width="38" height="24" rx="3" fill="#003087"/><text x="19" y="15" text-anchor="middle" fill="white" font-size="7" font-weight="bold" font-family="sans-serif">PayPal</text></svg>
+                </div>
+              </div>
+
+              <button type="submit" name="checkout" class="btn btn--primary btn--large cart__checkout-btn" data-testid="checkout-btn">
+                {{ 'cart.checkout' | t }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    {%- else -%}
+      <div class="cart__empty" data-testid="cart-empty">
+        <p>{{ 'cart.empty' | t }}</p>
+        <a href="/collections/all" class="btn btn--primary">{{ 'cart.continue_shopping' | t }}</a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Carrello",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_note",
+      "label": "Mostra campo note ordine",
+      "default": false
+    }
+  ]
+}
+{% endschema %}

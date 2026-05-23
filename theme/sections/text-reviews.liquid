@@ -1,0 +1,223 @@
+<section class="text-reviews-section section" data-section-id="{{ section.id }}" data-testid="text-reviews" style="background-color:{{ section.settings.bg_color }};">
+  <div class="page-width">
+    <h2 class="section__title reveal-on-scroll">{{ section.settings.heading }}</h2>
+
+    <!-- Trustpilot-style summary bar -->
+    <div class="reviews-summary reveal-on-scroll">
+      <div class="reviews-summary__score">
+        <span class="reviews-summary__number">{{ section.settings.rating }}</span>
+        <span class="reviews-summary__label">su 5</span>
+      </div>
+      <div class="reviews-summary__stars">
+        {%- render 'review-stars', rating: 4.9, color: '#00B67A' -%}
+        <span class="reviews-summary__count">Basato su {{ section.settings.review_count }} recensioni</span>
+      </div>
+      <div class="reviews-summary__bars">
+        {%- assign bar_data = '90,6,2,1,1' | split: ',' -%}
+        {%- for pct in bar_data -%}
+          {%- assign star_num = 5 | minus: forloop.index0 -%}
+          <div class="reviews-bar">
+            <span class="reviews-bar__label">{{ star_num }} stelle</span>
+            <div class="reviews-bar__track">
+              <div class="reviews-bar__fill" style="width:{{ pct }}%;"></div>
+            </div>
+            <span class="reviews-bar__pct">{{ pct }}%</span>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <!-- Review Cards -->
+    <div class="reviews-grid">
+      {%- for block in section.blocks -%}
+        <div class="review-card reveal-on-scroll" {{ block.shopify_attributes }}>
+          <div class="review-card__header">
+            <div class="review-card__stars">
+              {%- render 'review-stars', rating: block.settings.rating, color: '#00B67A' -%}
+            </div>
+            <span class="review-card__date">{{ block.settings.date }}</span>
+          </div>
+          <p class="review-card__title">{{ block.settings.title }}</p>
+          <p class="review-card__text">{{ block.settings.text }}</p>
+          <span class="review-card__author">{{ block.settings.name }}</span>
+          {%- if block.settings.verified -%}
+            <span class="review-card__verified">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#00B67A" stroke="white" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              Verificata
+            </span>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+
+      {%- if section.blocks.size == 0 -%}
+        {%- for i in (1..6) -%}
+          <div class="review-card reveal-on-scroll">
+            <div class="review-card__header">
+              <div class="review-card__stars">{%- render 'review-stars', rating: 5, color: '#00B67A' -%}</div>
+              <span class="review-card__date">{{ 'now' | date: "%d/%m/%Y" }}</span>
+            </div>
+            <p class="review-card__title">Borsa perfetta!</p>
+            <p class="review-card__text">Finalmente una borsa che tiene separato il cibo dal resto. Qualita eccellente e design bellissimo.</p>
+            <span class="review-card__author">Cliente verificata</span>
+            <span class="review-card__verified">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#00B67A" stroke="white" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              Verificata
+            </span>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Recensioni Testo",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titolo sezione",
+      "default": "2.400+ clienti soddisfatte"
+    },
+    {
+      "type": "text",
+      "id": "rating",
+      "label": "Punteggio medio",
+      "default": "4.9"
+    },
+    {
+      "type": "text",
+      "id": "review_count",
+      "label": "Numero recensioni totali",
+      "default": "2.437"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Colore sfondo",
+      "default": "#F5F0EA"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Recensione",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Nome cliente",
+          "default": "Giulia M."
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5,
+          "label": "Stelle"
+        },
+        {
+          "type": "text",
+          "id": "date",
+          "label": "Data",
+          "default": "15/05/2025"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titolo recensione",
+          "default": "Borsa perfetta!"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Testo recensione",
+          "default": "Finalmente una borsa che tiene separato il cibo dal resto. Qualita eccellente."
+        },
+        {
+          "type": "checkbox",
+          "id": "verified",
+          "label": "Recensione verificata",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Recensioni Testo",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "name": "Giulia M.",
+            "rating": 5,
+            "date": "15/05/2025",
+            "title": "Borsa perfetta!",
+            "text": "Finalmente una borsa che tiene separato il cibo dal resto. Qualita eccellente e design bellissimo.",
+            "verified": true
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "name": "Francesca L.",
+            "rating": 5,
+            "date": "12/05/2025",
+            "title": "La uso ogni giorno",
+            "text": "Lo scomparto termico e geniale. Porto il pranzo al lavoro senza problemi. Il portafoglio abbinato e un bonus fantastico.",
+            "verified": true
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "name": "Sara B.",
+            "rating": 5,
+            "date": "10/05/2025",
+            "title": "Elegante e pratica",
+            "text": "Non pensavo che una borsa potesse essere cosi bella e funzionale. La consiglio a tutte!",
+            "verified": true
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "name": "Alessandra P.",
+            "rating": 4,
+            "date": "08/05/2025",
+            "title": "Ottima qualita",
+            "text": "Materiali eccellenti, cuciture perfette. Lo scomparto termico mantiene il freddo per ore.",
+            "verified": true
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "name": "Valentina R.",
+            "rating": 5,
+            "date": "05/05/2025",
+            "title": "Regalo perfetto",
+            "text": "L'ho regalata a mia sorella e ne e rimasta entusiasta. Il portafoglio incluso e un tocco di classe.",
+            "verified": true
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "name": "Monica D.",
+            "rating": 5,
+            "date": "01/05/2025",
+            "title": "Mai piu senza",
+            "text": "Dopo averla provata non torno piu indietro. Pratica, bella, capiente. Perfetta per lavoro e tempo libero.",
+            "verified": true
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

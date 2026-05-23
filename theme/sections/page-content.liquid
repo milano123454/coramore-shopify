@@ -1,0 +1,15 @@
+<section class="page-section section" data-section-id="{{ section.id }}" data-testid="page-content">
+  <div class="page-width">
+    <h1 class="section__title">{{ page.title }}</h1>
+    <div class="page__content rte">
+      {{ page.content }}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contenuto pagina",
+  "settings": []
+}
+{% endschema %}

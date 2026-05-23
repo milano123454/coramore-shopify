@@ -1,0 +1,163 @@
+<section class="problem-solution section" data-section-id="{{ section.id }}" data-testid="problem-solution" id="problema-soluzione">
+  <div class="page-width">
+    <h2 class="section__title reveal-on-scroll">{{ section.settings.heading }}</h2>
+
+    <div class="ps__grid">
+      <!-- Problem Column -->
+      <div class="ps__col ps__col--problem reveal-on-scroll" style="background-color:{{ section.settings.problem_bg }};">
+        <h3 class="ps__col-title">{{ section.settings.problem_title }}</h3>
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'problem_item' -%}
+            <div class="ps__item" {{ block.shopify_attributes }}>
+              <span class="ps__emoji">{{ block.settings.emoji }}</span>
+              <p class="ps__text">{{ block.settings.text }}</p>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      <!-- Solution Column -->
+      <div class="ps__col ps__col--solution reveal-on-scroll" style="background-color:{{ section.settings.solution_bg }};">
+        <h3 class="ps__col-title">{{ section.settings.solution_title }}</h3>
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'solution_item' -%}
+            <div class="ps__item ps__item--check" {{ block.shopify_attributes }}>
+              <span class="ps__check-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A3A2A" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <p class="ps__text">{{ block.settings.text }}</p>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Problema & Soluzione",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titolo sezione",
+      "default": "Perche questa borsa e diversa da tutte le altre"
+    },
+    {
+      "type": "text",
+      "id": "problem_title",
+      "label": "Titolo colonna problema",
+      "default": "Il Problema"
+    },
+    {
+      "type": "text",
+      "id": "solution_title",
+      "label": "Titolo colonna soluzione",
+      "default": "La Soluzione Coramore"
+    },
+    {
+      "type": "color",
+      "id": "problem_bg",
+      "label": "Sfondo colonna problema",
+      "default": "#F2F2F2"
+    },
+    {
+      "type": "color",
+      "id": "solution_bg",
+      "label": "Sfondo colonna soluzione",
+      "default": "#F5F0EA"
+    },
+    {
+      "type": "checkbox",
+      "id": "compact",
+      "label": "Layout compatto",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "problem_item",
+      "name": "Punto problema",
+      "settings": [
+        {
+          "type": "text",
+          "id": "emoji",
+          "label": "Emoji",
+          "default": "😤"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Testo",
+          "default": "Con una borsa normale, tutto finisce insieme: il cibo, il telefono, le chiavi, il portafoglio..."
+        }
+      ]
+    },
+    {
+      "type": "solution_item",
+      "name": "Punto soluzione",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Testo",
+          "default": "Scomparto inferiore termico con zip: per cibo e bevande fresche"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Problema & Soluzione",
+      "blocks": [
+        {
+          "type": "problem_item",
+          "settings": {
+            "emoji": "😤",
+            "text": "Con una borsa normale, tutto finisce insieme: il cibo, il telefono, le chiavi, il portafoglio..."
+          }
+        },
+        {
+          "type": "problem_item",
+          "settings": {
+            "emoji": "😩",
+            "text": "Le bevande perdono freddo. Il cibo lascia odori. Trovi tutto mescolato."
+          }
+        },
+        {
+          "type": "problem_item",
+          "settings": {
+            "emoji": "😬",
+            "text": "Ogni volta che apri la borsa, e un disastro."
+          }
+        },
+        {
+          "type": "solution_item",
+          "settings": {
+            "text": "Scomparto inferiore termico con zip: per cibo e bevande fresche"
+          }
+        },
+        {
+          "type": "solution_item",
+          "settings": {
+            "text": "Scomparto superiore principale: per portafoglio, chiavi, telefono"
+          }
+        },
+        {
+          "type": "solution_item",
+          "settings": {
+            "text": "Zero contatto. Zero confusione. Zero compromessi."
+          }
+        },
+        {
+          "type": "solution_item",
+          "settings": {
+            "text": "Portafoglio incluso in omaggio"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

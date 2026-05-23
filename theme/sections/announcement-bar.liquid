@@ -1,0 +1,43 @@
+{%- if section.settings.show_bar -%}
+<div class="announcement-bar" data-section-id="{{ section.id }}" style="background-color:{{ section.settings.bg_color }};color:{{ section.settings.text_color }};" data-testid="announcement-bar">
+  <div class="announcement-bar__inner">
+    <div class="announcement-bar__marquee">
+      <span class="announcement-bar__text">{{ section.settings.text }}</span>
+      <span class="announcement-bar__text" aria-hidden="true">{{ section.settings.text }}</span>
+      <span class="announcement-bar__text" aria-hidden="true">{{ section.settings.text }}</span>
+    </div>
+  </div>
+</div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Barra annuncio",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_bar",
+      "label": "Mostra barra annuncio",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Testo annuncio",
+      "default": "OFFERTA LIMITATA — Usa il codice REGALO e ottieni il 20% di sconto | Spedizione gratuita oggi"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Colore sfondo",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Colore testo",
+      "default": "#FFFFFF"
+    }
+  ]
+}
+{% endschema %}

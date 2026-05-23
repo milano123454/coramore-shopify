@@ -1,0 +1,46 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {}
+    },
+    "trustpilot": {
+      "type": "trustpilot-widget",
+      "settings": {}
+    },
+    "problem-solution": {
+      "type": "problem-solution",
+      "settings": {}
+    },
+    "collection-grid": {
+      "type": "collection-grid",
+      "settings": {}
+    },
+    "benefits": {
+      "type": "benefits",
+      "settings": {}
+    },
+    "video-reviews": {
+      "type": "video-reviews",
+      "settings": {}
+    },
+    "text-reviews": {
+      "type": "text-reviews",
+      "settings": {}
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "trustpilot",
+    "problem-solution",
+    "collection-grid",
+    "benefits",
+    "video-reviews",
+    "text-reviews",
+    "faq"
+  ]
+}

@@ -1,0 +1,130 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Coramore",
+    "theme_version": "1.0.0",
+    "theme_author": "Coramore",
+    "theme_documentation_url": "",
+    "theme_support_url": ""
+  },
+  {
+    "name": "Logo e Branding",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo"
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "min": 50,
+        "max": 300,
+        "step": 10,
+        "default": 150,
+        "unit": "px",
+        "label": "Larghezza logo"
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon"
+      }
+    ]
+  },
+  {
+    "name": "Colori",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_primary",
+        "default": "#111111",
+        "label": "Colore testo primario"
+      },
+      {
+        "type": "color",
+        "id": "color_background",
+        "default": "#FFFFFF",
+        "label": "Colore sfondo"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "default": "#C9A84C",
+        "label": "Colore accento (oro)"
+      },
+      {
+        "type": "color",
+        "id": "color_accent_secondary",
+        "default": "#1A3A2A",
+        "label": "Colore accento secondario (verde scuro)"
+      },
+      {
+        "type": "color",
+        "id": "color_beige",
+        "default": "#F5F0EA",
+        "label": "Colore sfondo beige"
+      },
+      {
+        "type": "color",
+        "id": "color_grey",
+        "default": "#F2F2F2",
+        "label": "Colore sfondo grigio"
+      },
+      {
+        "type": "color",
+        "id": "color_button_bg",
+        "default": "#111111",
+        "label": "Sfondo bottone primario"
+      },
+      {
+        "type": "color",
+        "id": "color_button_text",
+        "default": "#FFFFFF",
+        "label": "Testo bottone primario"
+      }
+    ]
+  },
+  {
+    "name": "Tipografia",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "font_heading",
+        "default": "playfair_display_n7",
+        "label": "Font titoli"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_body",
+        "default": "dm_sans_n4",
+        "label": "Font corpo"
+      }
+    ]
+  },
+  {
+    "name": "Social Media",
+    "settings": [
+      {
+        "type": "text",
+        "id": "social_instagram",
+        "label": "URL Instagram"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook",
+        "label": "URL Facebook"
+      },
+      {
+        "type": "text",
+        "id": "social_tiktok",
+        "label": "URL TikTok"
+      },
+      {
+        "type": "text",
+        "id": "social_pinterest",
+        "label": "URL Pinterest"
+      }
+    ]
+  }
+]

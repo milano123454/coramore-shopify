@@ -1,0 +1,64 @@
+{
+  "general": {
+    "skip_to_content": "Vai al contenuto",
+    "loading": "Caricamento...",
+    "close": "Chiudi",
+    "search": "Cerca",
+    "menu": "Menu"
+  },
+  "header": {
+    "cart": "Carrello",
+    "search": "Cerca",
+    "menu": "Menu"
+  },
+  "product": {
+    "add_to_cart": "AGGIUNGI AL CARRELLO",
+    "buy_now": "ACQUISTA SUBITO",
+    "sold_out": "Esaurito",
+    "unavailable": "Non disponibile",
+    "quantity": "Quantita",
+    "price": "Prezzo",
+    "compare_at": "Prezzo originale",
+    "save": "Risparmi",
+    "color": "Colore",
+    "size": "Taglia",
+    "materials": "Materiali",
+    "dimensions": "Dimensioni",
+    "whats_included": "Cosa include",
+    "shipping_info": "Spedizione e tempi",
+    "care_instructions": "Istruzioni cura",
+    "last_items": "Ultimi {{ count }} disponibili",
+    "free_shipping": "Spedizione gratuita",
+    "free_returns": "Reso gratuito 30 giorni",
+    "secure_payment": "Pagamento 100% sicuro",
+    "wallet_included": "Portafoglio incluso",
+    "offer_expires": "Offerta scade tra:",
+    "discount_code_text": "Usa il codice REGALO - Sconto 20% applicato automaticamente"
+  },
+  "cart": {
+    "title": "Il tuo carrello",
+    "empty": "Il tuo carrello e vuoto",
+    "continue_shopping": "Continua lo shopping",
+    "checkout": "PROCEDI AL CHECKOUT",
+    "subtotal": "Subtotale",
+    "discount": "Sconto",
+    "total": "Totale",
+    "wallet_banner": "Portafoglio incluso gratuitamente con questo ordine",
+    "free_shipping_banner": "Hai diritto alla spedizione gratuita",
+    "remove": "Rimuovi",
+    "note": "Note ordine"
+  },
+  "collections": {
+    "title": "La Nostra Collezione",
+    "empty": "Nessun prodotto trovato"
+  },
+  "footer": {
+    "shipping": "Spedizione",
+    "returns": "Resi",
+    "privacy": "Privacy",
+    "contacts": "Contatti",
+    "faq": "FAQ",
+    "secure_checkout": "Checkout sicuro SSL",
+    "copyright": "Tutti i diritti riservati"
+  }
+}

@@ -1,0 +1,70 @@
+<section class="collection-section section" data-section-id="{{ section.id }}" data-testid="collection-grid">
+  <div class="page-width">
+    <h2 class="section__title reveal-on-scroll">{{ section.settings.title | default: 'La Nostra Collezione' }}</h2>
+
+    {%- if section.settings.collection != blank -%}
+      {%- assign collection = collections[section.settings.collection] -%}
+    {%- endif -%}
+
+    <div class="collection-grid">
+      {%- if collection and collection.products.size > 0 -%}
+        {%- for product in collection.products limit: section.settings.products_to_show -%}
+          <div class="collection-grid__item reveal-on-scroll">
+            {%- render 'product-card', product: product -%}
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        {%- for i in (1..4) -%}
+          <div class="collection-grid__item reveal-on-scroll">
+            <div class="product-card product-card--placeholder">
+              <div class="product-card__image-wrap">
+                {{ 'product-' | append: i | placeholder_svg_tag: 'product-card__placeholder' }}
+                <span class="product-card__badge">-45%</span>
+              </div>
+              <div class="product-card__info">
+                <h3 class="product-card__title">Borsa Coramore 2-in-1</h3>
+                <div class="product-card__price">
+                  <span class="product-card__price--sale">&euro;49,00</span>
+                  <span class="product-card__price--compare">&euro;89,00</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Griglia Collezione",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titolo sezione",
+      "default": "La Nostra Collezione"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collezione"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 4,
+      "label": "Prodotti da mostrare"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Griglia Collezione"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,56 @@
+<section class="trustpilot-section section--compact" data-section-id="{{ section.id }}" data-testid="trustpilot-widget">
+  <div class="page-width">
+    <div class="trustpilot-widget reveal-on-scroll">
+      <div class="trustpilot-widget__logo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="#00B67A"><path d="M12 1.25l2.47 5.01 5.53.8-4 3.9.94 5.49L12 13.77l-4.94 2.68.94-5.49-4-3.9 5.53-.8L12 1.25z"/></svg>
+        <span class="trustpilot-widget__brand">Trustpilot</span>
+      </div>
+      <div class="trustpilot-widget__rating">
+        <div class="trustpilot-widget__stars">
+          {%- for i in (1..5) -%}
+            <span class="trustpilot-star">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="#00B67A"><path d="M12 1.25l2.47 5.01 5.53.8-4 3.9.94 5.49L12 13.77l-4.94 2.68.94-5.49-4-3.9 5.53-.8L12 1.25z"/></svg>
+            </span>
+          {%- endfor -%}
+        </div>
+        <div class="trustpilot-widget__info">
+          <span class="trustpilot-widget__score">{{ section.settings.rating }}</span>
+          <span class="trustpilot-widget__separator">|</span>
+          <span class="trustpilot-widget__count">{{ section.settings.review_count }} recensioni</span>
+        </div>
+        <p class="trustpilot-widget__label">{{ section.settings.label }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Widget Trustpilot",
+  "settings": [
+    {
+      "type": "text",
+      "id": "rating",
+      "label": "Punteggio",
+      "default": "4.9"
+    },
+    {
+      "type": "text",
+      "id": "review_count",
+      "label": "Numero recensioni",
+      "default": "2.437"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Etichetta",
+      "default": "Eccezionale"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Widget Trustpilot"
+    }
+  ]
+}
+{% endschema %}

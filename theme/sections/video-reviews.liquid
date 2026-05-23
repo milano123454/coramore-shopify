@@ -1,0 +1,120 @@
+<section class="video-reviews-section section" data-section-id="{{ section.id }}" data-testid="video-reviews" id="recensioni">
+  <div class="page-width">
+    <h2 class="section__title reveal-on-scroll">{{ section.settings.heading }}</h2>
+    <div class="video-reviews__wrapper reveal-on-scroll">
+      <button class="video-reviews__arrow video-reviews__arrow--left" data-scroll-left aria-label="Scorri a sinistra">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <div class="video-reviews__track" data-video-track>
+        {%- for block in section.blocks -%}
+          <div class="video-review-card" {{ block.shopify_attributes }}>
+            <div class="video-review-card__video">
+              {%- if block.settings.video_url != blank -%}
+                {%- if block.settings.video_url contains 'youtube' or block.settings.video_url contains 'youtu.be' -%}
+                  <iframe src="{{ block.settings.video_url }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope" allowfullscreen loading="lazy"></iframe>
+                {%- elsif block.settings.video_url contains 'vimeo' -%}
+                  <iframe src="{{ block.settings.video_url }}" frameborder="0" allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe>
+                {%- else -%}
+                  <video src="{{ block.settings.video_url }}" controls playsinline preload="metadata"></video>
+                {%- endif -%}
+              {%- elsif block.settings.video_file != blank -%}
+                <video src="{{ block.settings.video_file }}" controls playsinline preload="metadata"></video>
+              {%- else -%}
+                <div class="video-review-card__placeholder">
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </div>
+              {%- endif -%}
+            </div>
+            <div class="video-review-card__info">
+              <span class="video-review-card__name">{{ block.settings.name }}</span>
+              <div class="video-review-card__stars">
+                {%- render 'review-stars', rating: block.settings.rating, color: '#00B67A' -%}
+              </div>
+              {%- if block.settings.text != blank -%}
+                <p class="video-review-card__text">{{ block.settings.text }}</p>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endfor -%}
+
+        {%- if section.blocks.size == 0 -%}
+          {%- for i in (1..4) -%}
+            <div class="video-review-card">
+              <div class="video-review-card__video">
+                <div class="video-review-card__placeholder">
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </div>
+              </div>
+              <div class="video-review-card__info">
+                <span class="video-review-card__name">Cliente {{ i }}</span>
+                <div class="video-review-card__stars">{%- render 'review-stars', rating: 5, color: '#00B67A' -%}</div>
+                <p class="video-review-card__text">Borsa fantastica, la uso ogni giorno!</p>
+              </div>
+            </div>
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+      <button class="video-reviews__arrow video-reviews__arrow--right" data-scroll-right aria-label="Scorri a destra">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Recensioni Video",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titolo sezione",
+      "default": "Cosa dicono le nostre clienti"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "video_review",
+      "name": "Recensione video",
+      "settings": [
+        {
+          "type": "text",
+          "id": "video_url",
+          "label": "URL video (YouTube, Vimeo o diretto)"
+        },
+        {
+          "type": "video",
+          "id": "video_file",
+          "label": "Oppure carica video"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Nome cliente",
+          "default": "Maria R."
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5,
+          "label": "Stelle"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Testo recensione breve",
+          "default": "Borsa fantastica, la uso ogni giorno!"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Recensioni Video"
+    }
+  ]
+}
+{% endschema %}
