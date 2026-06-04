@@ -1,0 +1,16 @@
+{%- comment -%}
+  Renders product price block.
+  Args: product (required)
+{%- endcomment -%}
+{%- assign p = product -%}
+{%- assign on_sale = false -%}
+{%- if p.compare_at_price > p.price -%}{%- assign on_sale = true -%}{%- endif -%}
+<div class="product__pricing">
+  <span class="now" data-product-price>{{ p.price | money }}</span>
+  {%- if on_sale -%}
+    <span class="was" data-product-compare>{{ p.compare_at_price | money }}</span>
+    {%- assign diff = p.compare_at_price | minus: p.price -%}
+    {%- assign saved_pct = diff | times: 100 | divided_by: p.compare_at_price -%}
+    <span class="save">RISPARMIA €{{ diff | money_without_currency | replace: ',00', '' | replace: '.00', '' | strip }}</span>
+  {%- endif -%}
+</div>

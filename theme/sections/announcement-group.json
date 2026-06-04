@@ -1,0 +1,10 @@
+{
+  "type": "header",
+  "name": "Barra annuncio",
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar"
+    }
+  },
+  "order": ["announcement-bar"]
+}

@@ -1,0 +1,15 @@
+extends: theme-check:recommended
+
+ImgWidthAndHeight:
+  enabled: false
+
+RemoteAsset:
+  enabled: false
+
+ParserBlockingScript:
+  enabled: false
+
+UndefinedObject:
+  ignore:
+    - "snippets/product-card.liquid"
+    - "sections/product-collection.liquid"

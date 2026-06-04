@@ -1,0 +1,19 @@
+<section class="section section--white">
+  <div class="container" style="max-width:760px;">
+    <div class="section-head">
+      <h1 class="section-head__title">{{ page.title }}</h1>
+    </div>
+    <div class="rte">
+      {{ page.content }}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Pagina",
+  "tag": "section",
+  "class": "shopify-section-page",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,30 @@
+{
+  "current": {
+    "color_bg": "#FAF9F6",
+    "color_card": "#FFFFFF",
+    "color_primary": "#1C352D",
+    "color_text": "#1A1A1A",
+    "color_secondary": "#555555",
+    "color_muted": "#888888",
+    "color_border": "#E5E5E5",
+    "color_gold": "#D4AF37",
+    "color_gold_light": "#F2E8CE",
+    "color_urgency": "#B33939",
+    "container_width": 1200
+  },
+  "presets": {
+    "Lumina Milano": {
+      "color_bg": "#FAF9F6",
+      "color_card": "#FFFFFF",
+      "color_primary": "#1C352D",
+      "color_text": "#1A1A1A",
+      "color_secondary": "#555555",
+      "color_muted": "#888888",
+      "color_border": "#E5E5E5",
+      "color_gold": "#D4AF37",
+      "color_gold_light": "#F2E8CE",
+      "color_urgency": "#B33939",
+      "container_width": 1200
+    }
+  }
+}

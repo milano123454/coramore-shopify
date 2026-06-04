@@ -1,0 +1,100 @@
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__grid">
+      <div>
+        <div class="site-footer__brand-name">{{ section.settings.brand_name | default: 'LUMINA MILANO' }}</div>
+        <div class="site-footer__brand-tag">{{ section.settings.brand_tagline | default: 'Milano · Paris · London' }}</div>
+        <p class="site-footer__about">{{ section.settings.about_text }}</p>
+        <div class="site-footer__contacts">
+          {%- if section.settings.email != blank -%}
+            <a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a><br>
+          {%- endif -%}
+          {%- if section.settings.phone != blank -%}
+            <a href="tel:{{ section.settings.phone | replace: ' ', '' }}">{{ section.settings.phone }}</a>
+          {%- endif -%}
+        </div>
+      </div>
+
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'link_column' -%}
+          <div class="site-footer__col" {{ block.shopify_attributes }}>
+            <h4>{{ block.settings.title }}</h4>
+            <ul>
+              {%- assign items = block.settings.links | newline_to_br | strip_newlines | split: '<br />' -%}
+              {%- for item in items -%}
+                {%- assign parts = item | split: '|' -%}
+                {%- if parts.size == 2 -%}
+                  <li><a href="{{ parts[1] | strip }}">{{ parts[0] | strip }}</a></li>
+                {%- elsif item != blank -%}
+                  <li><a href="#">{{ item | strip }}</a></li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+
+      <div class="site-footer__col">
+        <h4>{{ section.settings.payments_title | default: 'Pagamenti Accettati' }}</h4>
+        <div class="payment-icons">
+          {%- assign methods = section.settings.payment_methods | default: 'VISA, MC, PayPal, Apple Pay' | split: ',' -%}
+          {%- for m in methods -%}
+            <span>{{ m | strip }}</span>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+
+    <div class="site-footer__bottom">
+      <div>{{ section.settings.copyright | default: '© 2025 Lumina Milano S.r.l. — P.IVA IT12345678901 — Tutti i diritti riservati' }}</div>
+      <div>{{ section.settings.tagline | default: 'Designed in Milan · Made with care' }}</div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "tag": "div",
+  "class": "shopify-section-footer",
+  "settings": [
+    { "type": "text",     "id": "brand_name",     "label": "Brand", "default": "LUMINA MILANO" },
+    { "type": "text",     "id": "brand_tagline",  "label": "Tagline brand", "default": "Milano · Paris · London" },
+    { "type": "textarea", "id": "about_text",     "label": "Descrizione", "default": "Borse premium con design italiano, materiali eco-sostenibili e qualità artigianale. Eleganza per ogni giorno." },
+    { "type": "text",     "id": "email",          "label": "Email", "default": "info@luminamilano.it" },
+    { "type": "text",     "id": "phone",          "label": "Telefono", "default": "+39 02 1234567" },
+    { "type": "text",     "id": "payments_title", "label": "Titolo pagamenti", "default": "Pagamenti Accettati" },
+    { "type": "text",     "id": "payment_methods","label": "Metodi (CSV)", "default": "VISA, MC, PayPal, Apple Pay" },
+    { "type": "text",     "id": "copyright",      "label": "Copyright", "default": "© 2025 Lumina Milano S.r.l. — P.IVA IT12345678901 — Tutti i diritti riservati" },
+    { "type": "text",     "id": "tagline",        "label": "Tagline finale", "default": "Designed in Milan · Made with care" }
+  ],
+  "blocks": [
+    {
+      "type": "link_column",
+      "name": "Colonna link",
+      "settings": [
+        { "type": "text",     "id": "title", "label": "Titolo", "default": "Informazioni" },
+        { "type": "textarea", "id": "links", "label": "Link (uno per riga, formato: Etichetta|URL)", "default": "Spedizione e Consegna|#\nResi e Rimborsi|#\nGaranzia Prodotti|#\nChi Siamo|#\nContattaci|#" }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "link_column",
+        "settings": {
+          "title": "Informazioni",
+          "links": "Spedizione e Consegna|#\nResi e Rimborsi|#\nGaranzia Prodotti|#\nChi Siamo|#\nContattaci|#"
+        }
+      },
+      {
+        "type": "link_column",
+        "settings": {
+          "title": "Legale",
+          "links": "Privacy Policy|/policies/privacy-policy\nTermini e Condizioni|/policies/terms-of-service\nCookie Policy|#\nDiritto di Recesso|#"
+        }
+      }
+    ]
+  }
+}
+{% endschema %}

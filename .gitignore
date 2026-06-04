@@ -1,0 +1,10 @@
+# Analysis artifacts
+_analysis/
+_extract.py
+
+# Generic
+*.log
+.DS_Store
+
+# Allow the theme zip artifact
+!lumina-milano-shopify-theme.zip
