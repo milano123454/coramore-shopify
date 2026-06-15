@@ -1,0 +1,192 @@
+{
+  "general": {
+    "accessibility": {
+      "skip_to_content": "Vai al contenuto",
+      "close": "Chiudi",
+      "open": "Apri"
+    },
+    "meta": {
+      "page": "Pagina {{ page }}"
+    },
+    "breadcrumbs": {
+      "home": "Home"
+    },
+    "search": {
+      "placeholder": "Cerca prodotti...",
+      "submit": "Cerca",
+      "no_results": "Nessun risultato per \"{{ terms }}\"",
+      "results_count": "{{ count }} risultati per \"{{ terms }}\""
+    },
+    "cart": {
+      "title": "Carrello",
+      "empty": "Il tuo carrello è vuoto",
+      "subtotal": "Subtotale",
+      "total": "Totale",
+      "checkout": "Completa l'Acquisto",
+      "continue_shopping": "Continua lo Shopping",
+      "remove": "Rimuovi",
+      "quantity": "Quantità",
+      "free_shipping": "Spedizione GRATUITA inclusa!",
+      "gift_included": "Portafoglio in REGALO incluso nel tuo ordine",
+      "secure_payment": "Transazione 100% sicura e protetta",
+      "discount_reminder": "Usa il codice {{ code }} al checkout per {{ percentage }} di sconto!"
+    },
+    "pagination": {
+      "previous": "Precedente",
+      "next": "Successivo",
+      "page": "Pagina {{ number }}"
+    }
+  },
+  "header": {
+    "menu": "Menu",
+    "search": "Cerca",
+    "account": "Account",
+    "cart": "Carrello"
+  },
+  "product": {
+    "add_to_cart": "Aggiungi al Carrello",
+    "sold_out": "Esaurito",
+    "unavailable": "Non disponibile",
+    "price": {
+      "from": "Da",
+      "sale": "In offerta",
+      "regular": "Prezzo originale",
+      "save": "Risparmi {{ amount }}"
+    },
+    "quantity": {
+      "label": "Quantità",
+      "increase": "Aumenta quantità",
+      "decrease": "Diminuisci quantità"
+    },
+    "variant": {
+      "select": "Seleziona variante"
+    },
+    "stock": {
+      "few_left": "Solo {{ count }} rimasti",
+      "limited": "Disponibilità limitata"
+    },
+    "discount_code": {
+      "use_code": "Usa il codice",
+      "for_discount": "per {{ percentage }} di sconto"
+    },
+    "tabs": {
+      "description": "Descrizione",
+      "shipping": "Spedizione & Resi",
+      "materials": "Materiali & Dimensioni",
+      "includes": "Cosa include"
+    },
+    "shipping_info": {
+      "free_shipping": "Spedizione gratuita",
+      "delivery_time": "Consegna in 3-5 giorni lavorativi.",
+      "easy_returns": "Reso facile",
+      "return_days": "30 giorni per restituire senza domande.",
+      "warranty": "1 anno su difetti di fabbricazione."
+    },
+    "reviews": "recensioni"
+  },
+  "collection": {
+    "title": "Collezione",
+    "all": "Tutti i Prodotti",
+    "view_all": "Vedi Tutti",
+    "empty": "Nessun prodotto in questa collezione."
+  },
+  "customer": {
+    "account": {
+      "title": "Il mio Account",
+      "welcome": "Bentornato, {{ name }}!",
+      "logout": "Esci",
+      "orders_title": "Cronologia Ordini",
+      "no_orders": "Non hai ancora effettuato ordini."
+    },
+    "login": {
+      "title": "Accedi",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Accedi",
+      "create_account": "Crea un account",
+      "forgot_password": "Password dimenticata?"
+    },
+    "register": {
+      "title": "Crea Account",
+      "first_name": "Nome",
+      "last_name": "Cognome",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Registrati",
+      "has_account": "Hai già un account? Accedi"
+    },
+    "order": {
+      "title": "Ordine {{ name }}",
+      "date": "Effettuato il {{ date }}",
+      "product": "Prodotto",
+      "quantity": "Quantità",
+      "price": "Prezzo",
+      "total": "Totale",
+      "back": "Torna all'account"
+    }
+  },
+  "sections": {
+    "hero": {
+      "title": "Eleganza che ti accompagna ovunque",
+      "subtitle": "Borsa premium in pelle con portafoglio incluso. Design italiano, qualità superiore, spedizione gratuita.",
+      "cta": "Scopri l'Offerta"
+    },
+    "benefits": {
+      "title": "Perché scegliere Coramore",
+      "quality_title": "Qualità Premium",
+      "quality_text": "Pelle italiana selezionata, cuciture resistenti e finiture di alto livello.",
+      "gift_title": "Portafoglio in Regalo",
+      "gift_text": "Con ogni borsa ricevi un portafoglio coordinato completamente gratis.",
+      "shipping_title": "Spedizione Gratuita",
+      "shipping_text": "Consegna rapida e gratuita in tutta Italia. Nessun costo nascosto.",
+      "secure_title": "Acquisto Sicuro",
+      "secure_text": "Pagamenti protetti, reso facile entro 30 giorni, assistenza dedicata."
+    },
+    "reviews": {
+      "title": "Cosa dicono i nostri clienti",
+      "based_on": "basato su {{ count }} recensioni",
+      "verified": "Acquisto verificato"
+    },
+    "faq": {
+      "title": "Domande Frequenti"
+    },
+    "collection_grid": {
+      "title": "I Nostri Prodotti"
+    }
+  },
+  "trust": {
+    "free_shipping": "Spedizione Gratuita",
+    "easy_returns": "Reso Facile 30gg",
+    "secure_payment": "Pagamento Sicuro",
+    "gift_included": "Portafoglio in Regalo",
+    "customers": "Clienti"
+  },
+  "countdown": {
+    "label": "Offerta termina tra:",
+    "days": "Giorni",
+    "hours": "Ore",
+    "minutes": "Min",
+    "seconds": "Sec"
+  },
+  "footer": {
+    "info": "Informazioni",
+    "support": "Assistenza",
+    "shipping": "Spedizione",
+    "returns": "Resi e Rimborsi",
+    "contact": "Contattaci",
+    "faq": "FAQ",
+    "secure_shopping": "Acquista in Sicurezza",
+    "ssl": "SSL Sicuro",
+    "payment_methods": "Visa / MC / PayPal",
+    "free_shipping": "Spedizione Gratuita",
+    "return_policy": "Reso 30 giorni",
+    "copyright": "Tutti i diritti riservati.",
+    "privacy": "Privacy Policy",
+    "terms": "Termini e Condizioni"
+  },
+  "404": {
+    "title": "404",
+    "message": "La pagina che cerchi non esiste.",
+    "back_home": "Torna alla Homepage"
+  }
+}

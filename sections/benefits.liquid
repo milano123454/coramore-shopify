@@ -1,0 +1,126 @@
+<section class="benefits">
+  <div class="container">
+    <h2 class="benefits__title section-title">{{ section.settings.title }}</h2>
+    <div class="benefits__grid">
+      {%- for block in section.blocks -%}
+        <div class="benefits__item" {{ block.shopify_attributes }}>
+          <div class="benefits__icon">
+            {%- if block.settings.icon == 'quality' -%}
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path>
+              </svg>
+            {%- elsif block.settings.icon == 'gift' -%}
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="8" width="18" height="4" rx="1"></rect>
+                <path d="M12 8v13"></path>
+                <path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"></path>
+                <path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"></path>
+              </svg>
+            {%- elsif block.settings.icon == 'shipping' -%}
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M5 18H3c-.6 0-1-.4-1-1V7c0-.6.4-1 1-1h10c.6 0 1 .4 1 1v11"></path>
+                <path d="M14 9h4l4 4v4c0 .6-.4 1-1 1h-2"></path>
+                <circle cx="7" cy="18" r="2"></circle>
+                <path d="M15 18H9"></path>
+                <circle cx="17" cy="18" r="2"></circle>
+              </svg>
+            {%- elsif block.settings.icon == 'secure' -%}
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path>
+                <path d="m9 12 2 2 4-4"></path>
+              </svg>
+            {%- endif -%}
+          </div>
+          <h3 class="benefits__item-title">{{ block.settings.title }}</h3>
+          <p class="benefits__item-text">{{ block.settings.text }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Benefici",
+  "class": "benefits-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titolo sezione",
+      "default": "Perché scegliere Coramore"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Beneficio",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icona",
+          "options": [
+            { "value": "quality", "label": "Qualità" },
+            { "value": "gift", "label": "Regalo" },
+            { "value": "shipping", "label": "Spedizione" },
+            { "value": "secure", "label": "Sicurezza" }
+          ],
+          "default": "quality"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titolo",
+          "default": "Qualità Premium"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Testo",
+          "default": "Materiali selezionati e lavorazione artigianale per un prodotto che dura nel tempo."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Benefici",
+      "blocks": [
+        {
+          "type": "benefit",
+          "settings": {
+            "icon": "quality",
+            "title": "Qualità Premium",
+            "text": "Pelle italiana selezionata, cuciture resistenti e finiture di alto livello."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "icon": "gift",
+            "title": "Portafoglio in Regalo",
+            "text": "Con ogni borsa ricevi un portafoglio coordinato completamente gratis."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "icon": "shipping",
+            "title": "Spedizione Gratuita",
+            "text": "Consegna rapida e gratuita in tutta Italia. Nessun costo nascosto."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "icon": "secure",
+            "title": "Acquisto Sicuro",
+            "text": "Pagamenti protetti, reso facile entro 30 giorni, assistenza dedicata."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

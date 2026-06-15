@@ -1,0 +1,64 @@
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <h3 class="footer__logo">{{ shop.name }}</h3>
+        <div class="footer__about">
+          {{ settings.footer_about }}
+        </div>
+        {%- if settings.footer_email != blank -%}
+          <a href="mailto:{{ settings.footer_email }}" class="footer__email">
+            {{ settings.footer_email }}
+          </a>
+        {%- endif -%}
+      </div>
+
+
+      <div class="footer__links">
+        <h4 class="footer__heading">Informazioni</h4>
+        <ul class="footer__list">
+          {%- for link in linklists.footer.links -%}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {%- endfor -%}
+        </ul>
+      </div>
+
+      <div class="footer__links">
+        <h4 class="footer__heading">Assistenza</h4>
+        <ul class="footer__list">
+          <li><a href="/pages/spedizione">Spedizione</a></li>
+          <li><a href="/pages/resi">Resi e Rimborsi</a></li>
+          <li><a href="/pages/contatti">Contattaci</a></li>
+          <li><a href="/pages/faq">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__trust">
+        <h4 class="footer__heading">Acquista in Sicurezza</h4>
+        <div class="footer__badges">
+          <span class="footer__badge">🔒 SSL Sicuro</span>
+          <span class="footer__badge">💳 Visa / MC / PayPal</span>
+          <span class="footer__badge">🚚 Spedizione Gratuita</span>
+          <span class="footer__badge">↩️ Reso 30 giorni</span>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="footer__bottom">
+      <p class="footer__copyright">&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. Tutti i diritti riservati.</p>
+      <div class="footer__legal">
+        <a href="/policies/privacy-policy">Privacy Policy</a>
+        <a href="/policies/terms-of-service">Termini e Condizioni</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "class": "footer-section",
+  "settings": []
+}
+{% endschema %}

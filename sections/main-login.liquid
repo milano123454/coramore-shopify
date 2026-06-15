@@ -1,0 +1,31 @@
+<section class="login-page">
+  <div class="container">
+    <div class="login-page__form-wrap">
+      <h1>Accedi</h1>
+      {%- form 'customer_login' -%}
+        {{ form.errors | default_errors }}
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" name="customer[email]" id="email" autocomplete="email" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" name="customer[password]" id="password" required>
+        </div>
+        <button type="submit" class="btn btn--primary btn--full">Accedi</button>
+      {%- endform -%}
+      <p class="login-page__links">
+        <a href="/account/register">Crea un account</a> |
+        <a href="#recover">Password dimenticata?</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Login",
+  "class": "main-login-section",
+  "settings": []
+}
+{% endschema %}

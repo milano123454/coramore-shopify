@@ -1,0 +1,41 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {}
+    },
+    "trust-bar": {
+      "type": "trust-bar",
+      "settings": {}
+    },
+    "featured-product": {
+      "type": "featured-product",
+      "settings": {}
+    },
+    "benefits": {
+      "type": "benefits",
+      "settings": {}
+    },
+    "collection-grid": {
+      "type": "collection-grid",
+      "settings": {}
+    },
+    "reviews": {
+      "type": "reviews",
+      "settings": {}
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "trust-bar",
+    "featured-product",
+    "benefits",
+    "collection-grid",
+    "reviews",
+    "faq"
+  ]
+}

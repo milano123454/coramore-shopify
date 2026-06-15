@@ -1,0 +1,112 @@
+<section class="cart-page">
+  <div class="container">
+    {%- if cart.item_count > 0 -%}
+      <h1 class="cart-page__title">Il Tuo Carrello</h1>
+
+      <div class="cart-page__grid">
+        <div class="cart-page__items">
+          {%- for item in cart.items -%}
+            <div class="cart-item">
+              <div class="cart-item__image">
+                {%- if item.image -%}
+                  <img src="{{ item.image | image_url: width: 200 }}"
+                       alt="{{ item.title | escape }}"
+                       width="200" loading="lazy">
+                {%- endif -%}
+              </div>
+              <div class="cart-item__info">
+                <h3 class="cart-item__title">
+                  <a href="{{ item.url }}">{{ item.product.title }}</a>
+                </h3>
+
+                {%- unless item.variant.title == 'Default Title' -%}
+                  <p class="cart-item__variant">{{ item.variant.title }}</p>
+                {%- endunless -%}
+                <div class="cart-item__price">
+                  {%- if item.original_price > item.final_price -%}
+                    <span class="cart-item__price-compare">{{ item.original_price | money }}</span>
+                  {%- endif -%}
+                  <span class="cart-item__price-current">{{ item.final_price | money }}</span>
+                </div>
+                <div class="cart-item__quantity">
+                  <form method="post" action="/cart/change">
+                    <input type="hidden" name="id" value="{{ item.key }}">
+                    <div class="quantity-selector">
+                      <button type="button" class="quantity-btn" data-qty-minus>−</button>
+                      <input type="number" name="quantity" value="{{ item.quantity }}" min="0" class="quantity-input">
+                      <button type="button" class="quantity-btn" data-qty-plus>+</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div class="cart-item__total">
+                {{ item.final_line_price | money }}
+              </div>
+              <a href="/cart/change?id={{ item.key }}&quantity=0" class="cart-item__remove" aria-label="Rimuovi">
+                ✕
+              </a>
+            </div>
+          {%- endfor -%}
+        </div>
+
+
+        <div class="cart-page__summary">
+          {%- if settings.cart_gift_text != blank -%}
+            <div class="cart-page__gift">
+              🎁 {{ settings.cart_gift_text }}
+            </div>
+          {%- endif -%}
+
+          <div class="cart-page__free-shipping">
+            🚚 {{ settings.cart_free_shipping_text }}
+          </div>
+
+          <div class="cart-page__totals">
+            {%- if cart.total_discount > 0 -%}
+              <div class="cart-page__row">
+                <span>Sconto</span>
+                <span class="cart-page__discount">-{{ cart.total_discount | money }}</span>
+              </div>
+            {%- endif -%}
+            <div class="cart-page__row cart-page__row--total">
+              <span>Totale</span>
+              <span class="cart-page__total-price">{{ cart.total_price | money }}</span>
+            </div>
+          </div>
+
+          <div class="cart-page__discount-reminder">
+            💰 Usa il codice <strong>{{ settings.discount_code }}</strong> al checkout per {{ settings.discount_percentage }} di sconto!
+          </div>
+
+          {%- if settings.cart_show_trust -%}
+            <div class="cart-page__trust">
+              {% render 'trust-badges' %}
+            </div>
+          {%- endif -%}
+
+          <form method="post" action="/cart">
+            <button type="submit" name="checkout" class="btn btn--primary btn--large btn--full">
+              Completa l'Acquisto — {{ cart.total_price | money }}
+            </button>
+          </form>
+
+          <p class="cart-page__secure-text">🔒 Transazione 100% sicura e protetta</p>
+        </div>
+      </div>
+    {%- else -%}
+      <div class="cart-page__empty">
+        <h1>Il tuo carrello è vuoto</h1>
+        <p>Non hai ancora aggiunto prodotti al carrello.</p>
+        <a href="/" class="btn btn--primary btn--large">Scopri i Prodotti</a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Carrello Principale",
+  "class": "main-cart-section",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,41 @@
+<section class="account-page">
+  <div class="container">
+    <h1>Il mio Account</h1>
+    <p>Bentornato, {{ customer.first_name }}!</p>
+    <a href="{{ routes.account_logout_url }}" class="btn btn--secondary">Esci</a>
+
+    <h2>Cronologia Ordini</h2>
+    {%- if customer.orders.size > 0 -%}
+      <table class="account-orders">
+        <thead>
+          <tr>
+            <th>Ordine</th>
+            <th>Data</th>
+            <th>Stato</th>
+            <th>Totale</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%- for order in customer.orders -%}
+            <tr>
+              <td><a href="{{ order.customer_url }}">{{ order.name }}</a></td>
+              <td>{{ order.created_at | date: "%d/%m/%Y" }}</td>
+              <td>{{ order.fulfillment_status_label }}</td>
+              <td>{{ order.total_price | money }}</td>
+            </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+    {%- else -%}
+      <p>Non hai ancora effettuato ordini.</p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Account",
+  "class": "main-account-section",
+  "settings": []
+}
+{% endschema %}
