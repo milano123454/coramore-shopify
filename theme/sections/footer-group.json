@@ -1,0 +1,27 @@
+{
+  "type": "footer",
+  "name": "Footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "info": {
+          "type": "link_column",
+          "settings": {
+            "title": "Informazioni",
+            "links": "Spedizione e Consegna|/policies/shipping-policy\nResi e Rimborsi|/policies/refund-policy\nGaranzia Prodotti|#\nChi Siamo|#\nContattaci|#"
+          }
+        },
+        "legal": {
+          "type": "link_column",
+          "settings": {
+            "title": "Legale",
+            "links": "Privacy Policy|/policies/privacy-policy\nTermini e Condizioni|/policies/terms-of-service\nCookie Policy|#\nDiritto di Recesso|#"
+          }
+        }
+      },
+      "block_order": ["info", "legal"]
+    }
+  },
+  "order": ["footer"]
+}

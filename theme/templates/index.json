@@ -1,0 +1,128 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "eyebrow": "Nuovo · Collezione Diamond 2025",
+        "title_part1": "La Borsa che",
+        "title_italic": "Completa",
+        "title_part2": "Ogni Look",
+        "lede": "Eleganza trapuntata, portafoglio abbinato incluso. Disponibile in 4 colori esclusivi.",
+        "show_rating": true,
+        "rating_value": "4.9/5",
+        "rating_count": "1.247 clienti soddisfatti",
+        "price_now": "€49",
+        "price_was": "€89",
+        "price_discount": "-45%",
+        "cta_label": "Acquista Ora",
+        "cta2_label": "",
+        "promo_text": "<p>Usa il codice <strong>REGALO</strong> per €10 extra di sconto</p>",
+        "media_badge": "★ Trustpilot 4.9"
+      },
+      "blocks": {
+        "trust-1": { "type": "trust", "settings": { "label": "Spedizione Gratuita" } },
+        "trust-2": { "type": "trust", "settings": { "label": "Reso 30 Giorni" } },
+        "trust-3": { "type": "trust", "settings": { "label": "Pagamento Sicuro" } }
+      },
+      "block_order": ["trust-1", "trust-2", "trust-3"]
+    },
+    "trust": {
+      "type": "trust-badges",
+      "blocks": {
+        "b1": { "type": "badge", "settings": { "icon": "truck",  "title": "Spedizione Gratuita", "description": "Consegna in 2-4 giorni" } },
+        "b2": { "type": "badge", "settings": { "icon": "return", "title": "Reso in 30 Giorni",  "description": "Rimborso completo garantito" } },
+        "b3": { "type": "badge", "settings": { "icon": "shield", "title": "Pagamento Sicuro",  "description": "SSL 256-bit · Tutti i metodi" } },
+        "b4": { "type": "badge", "settings": { "icon": "medal",  "title": "Garanzia 2 Anni",   "description": "Su ogni prodotto acquistato" } }
+      },
+      "block_order": ["b1", "b2", "b3", "b4"]
+    },
+    "showcase": {
+      "type": "product-collection",
+      "settings": {
+        "eyebrow": "La Collezione",
+        "title": "Diamond Tote · 4 Colori",
+        "lede": "Ogni colore con portafoglio abbinato incluso. Scegli il tuo.",
+        "show_bestseller": true
+      },
+      "blocks": {
+        "c1": { "type": "card", "settings": { "color": "Nero Classico",  "image_fallback": "product-nero.png",    "badge": "BESTSELLER", "title": "Diamond Tote Bag", "subtitle": "+ Portafoglio Incluso Gratis", "price_now": "€49", "price_was": "€89", "discount": "-45%" } },
+        "c2": { "type": "card", "settings": { "color": "Marrone Cognac", "image_fallback": "product-marrone.png", "title": "Diamond Tote Bag", "subtitle": "+ Portafoglio Incluso Gratis", "price_now": "€49", "price_was": "€89", "discount": "-45%" } },
+        "c3": { "type": "card", "settings": { "color": "Viola Prugna",   "image_fallback": "product-viola.png",   "title": "Diamond Tote Bag", "subtitle": "+ Portafoglio Incluso Gratis", "price_now": "€49", "price_was": "€89", "discount": "-45%" } },
+        "c4": { "type": "card", "settings": { "color": "Verde Hunter",   "image_fallback": "product-verde.png",   "title": "Diamond Tote Bag", "subtitle": "+ Portafoglio Incluso Gratis", "price_now": "€49", "price_was": "€89", "discount": "-45%" } }
+      },
+      "block_order": ["c1", "c2", "c3", "c4"]
+    },
+    "benefits": {
+      "type": "benefits",
+      "settings": {
+        "eyebrow": "I Vantaggi",
+        "title": "Perché Sceglierla"
+      },
+      "blocks": {
+        "b1": { "type": "benefit", "settings": { "symbol": "◈", "title": "Pelle Vegana Premium", "text": "Materiale PU di alta qualità: morbido al tatto, resistente all'uso quotidiano e cruelty-free." } },
+        "b2": { "type": "benefit", "settings": { "symbol": "◉", "title": "Portafoglio Incluso", "text": "Abbinato perfettamente alla borsa. Valore €29, incluso gratis in ogni ordine." } },
+        "b3": { "type": "benefit", "settings": { "symbol": "▣", "title": "Capienza XXL", "text": "Scomparto principale capiente + apertura frontale espandibile per oggetti extra." } },
+        "b4": { "type": "benefit", "settings": { "symbol": "◌", "title": "Garanzia 2 Anni", "text": "Sostituzione gratuita in caso di difetti di produzione. Assistenza italiana inclusa." } }
+      },
+      "block_order": ["b1", "b2", "b3", "b4"]
+    },
+    "reviews": {
+      "type": "reviews",
+      "settings": {
+        "eyebrow": "Recensioni",
+        "title": "Lo Dicono le Nostre Clienti",
+        "rating": "4.9/5",
+        "subtitle": "Basato su 1.247 recensioni verificate"
+      },
+      "blocks": {
+        "r1": { "type": "review", "settings": { "avatar_filename": "review-giulia.jpg",  "name": "Giulia B.",  "location": "Milano", "date": "15 maggio 2025", "text": "Qualità eccezionale, il portafoglio incluso è un tocco di classe. Spedizione velocissima, arrivata in 2 giorni. La consiglio a tutte!", "variant": "Nero" } },
+        "r2": { "type": "review", "settings": { "avatar_filename": "review-martina.jpg", "name": "Martina R.", "location": "Roma",   "date": "3 maggio 2025",  "text": "Elegante e capiente. La uso ogni giorno per l'ufficio ed è perfetta. La pelle vegana è morbidissima. Acquisto assolutamente consigliato!", "variant": "Marrone" } },
+        "r3": { "type": "review", "settings": { "avatar_filename": "review-elena.jpg",   "name": "Elena F.",   "location": "Torino", "date": "28 aprile 2025", "text": "Ho usato il codice sconto, un vero affare per una borsa di questa qualità! I colori sono esattamente come in foto. Super soddisfatta!", "variant": "Verde" } }
+      },
+      "block_order": ["r1", "r2", "r3"]
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {
+        "eyebrow": "Domande Frequenti",
+        "title": "Hai Dubbi?"
+      },
+      "blocks": {
+        "q1": { "type": "faq", "settings": { "question": "Quando riceverò il mio ordine?",      "answer": "<p>Spediamo entro 24 ore lavorative dalla conferma dell'ordine. La consegna avviene in 2-4 giorni lavorativi su tutto il territorio italiano, con tracking incluso. Spedizione gratuita su tutti gli ordini.</p>" } },
+        "q2": { "type": "faq", "settings": { "question": "Il portafoglio è davvero incluso?",    "answer": "<p>Sì, ogni Diamond Tote Bag viene spedita con il portafoglio abbinato dello stesso colore. Il valore del portafoglio è di €29 ed è completamente <strong>gratuito</strong> con l'acquisto della borsa.</p>" } },
+        "q3": { "type": "faq", "settings": { "question": "Come funziona il reso?",               "answer": "<p>Hai 30 giorni dalla ricezione per restituire il prodotto. Il reso è gratuito e semplice: ti basta scriverci a info@luminamilano.it e riceverai un'etichetta prepagata. Rimborso garantito entro 5-7 giorni lavorativi dal ricevimento.</p>" } },
+        "q4": { "type": "faq", "settings": { "question": "Come funziona il codice REGALO?",      "answer": "<p>Inserisci il codice <strong>REGALO</strong> al checkout per ottenere €10 di sconto extra sul tuo ordine. Si applica automaticamente al carrello e si cumula con la promozione attiva. Valido per un utilizzo per cliente.</p>" } },
+        "q5": { "type": "faq", "settings": { "question": "I pagamenti sono sicuri?",             "answer": "<p>Assolutamente. Utilizziamo crittografia SSL 256-bit per tutte le transazioni. Accettiamo VISA, MasterCard, PayPal e Apple Pay. I dati di pagamento non vengono mai memorizzati sui nostri server.</p>" } },
+        "q6": { "type": "faq", "settings": { "question": "Posso contattare il servizio clienti?", "answer": "<p>Certamente. Il nostro team italiano è disponibile dal lunedì al venerdì, 9:00-18:00. Scrivici a info@luminamilano.it o chiamaci al +39 02 1234567. Risposta entro 24 ore.</p>" } }
+      },
+      "block_order": ["q1", "q2", "q3", "q4", "q5", "q6"]
+    },
+    "cta": {
+      "type": "cta-banner",
+      "settings": {
+        "eyebrow": "Offerta a Tempo Limitato",
+        "title": "Approfitta dell'Offerta Oggi",
+        "lede": "Disponibilità limitata · Solo 8 pezzi rimasti · Portafoglio Incluso Gratis",
+        "show_countdown": true,
+        "countdown_label": "Offerta scade in:",
+        "countdown_minutes": 15,
+        "price_now": "€49",
+        "price_was": "€89",
+        "discount": "-45%",
+        "cta_label": "Acquista Ora — Spedizione Gratuita",
+        "promo": "<p>Usa il codice <strong>REGALO</strong> al checkout per €10 extra di sconto</p>"
+      }
+    },
+    "trust-bottom": {
+      "type": "trust-badges",
+      "blocks": {
+        "tb1": { "type": "badge", "settings": { "icon": "truck",  "title": "Spedizione Gratuita", "description": "Su tutti gli ordini" } },
+        "tb2": { "type": "badge", "settings": { "icon": "return", "title": "Reso in 30 Giorni",  "description": "Gratuito e semplice" } },
+        "tb3": { "type": "badge", "settings": { "icon": "shield", "title": "Pagamento Sicuro",   "description": "SSL 256-bit" } },
+        "tb4": { "type": "badge", "settings": { "icon": "medal",  "title": "Garanzia 2 Anni",    "description": "Su ogni prodotto" } }
+      },
+      "block_order": ["tb1", "tb2", "tb3", "tb4"]
+    }
+  },
+  "order": ["hero", "trust", "showcase", "benefits", "reviews", "faq", "cta", "trust-bottom"]
+}

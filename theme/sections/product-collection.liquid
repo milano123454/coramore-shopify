@@ -1,0 +1,108 @@
+{%- liquid
+  assign collection_handle = section.settings.collection
+  assign use_blocks = true
+  if collection_handle != blank
+    assign coll = collections[collection_handle]
+    if coll and coll.products.size > 0
+      assign use_blocks = false
+    endif
+  endif
+-%}
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-head">
+      {%- if section.settings.eyebrow != blank -%}
+        <div class="section-head__eyebrow">{{ section.settings.eyebrow }}</div>
+      {%- endif -%}
+      <h2 class="section-head__title">{{ section.settings.title }}</h2>
+      {%- if section.settings.lede != blank -%}
+        <p class="section-head__lede">{{ section.settings.lede }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="showcase-grid">
+      {%- if use_blocks == false -%}
+        {%- for product in coll.products limit: 4 -%}
+          {%- assign card_badge = '' -%}
+          {%- if forloop.first and section.settings.show_bestseller -%}{%- assign card_badge = 'BESTSELLER' -%}{%- endif -%}
+          {% render 'product-card', product: product, badge: card_badge %}
+        {%- endfor -%}
+      {%- else -%}
+        {%- for block in section.blocks -%}
+          {%- assign s = block.settings -%}
+          <a class="product-card" href="{{ s.link | default: '#' }}" {{ block.shopify_attributes }}>
+            <div class="product-card__media">
+              {%- if s.image != blank -%}
+                <img src="{{ s.image | image_url: width: 800 }}"
+                     alt="{{ s.color | escape }} {{ s.title | escape }}"
+                     loading="lazy"
+                     width="800" height="800">
+              {%- else -%}
+                <img src="{{ s.image_fallback | default: 'product-nero.png' | asset_url }}"
+                     alt="{{ s.title | escape }}"
+                     loading="lazy"
+                     width="800" height="800">
+              {%- endif -%}
+              {%- if s.badge != blank -%}<span class="product-card__badge">{{ s.badge }}</span>{%- endif -%}
+              {%- if s.discount != blank -%}<span class="product-card__discount">{{ s.discount }}</span>{%- endif -%}
+            </div>
+            <div class="product-card__body">
+              {%- if s.color != blank -%}<div class="product-card__color">{{ s.color }}</div>{%- endif -%}
+              <h3 class="product-card__title">{{ s.title }}</h3>
+              {%- if s.subtitle != blank -%}
+                <div class="product-card__subtitle">{{ s.subtitle }}</div>
+              {%- endif -%}
+              <div class="product-card__price">
+                <span class="now">{{ s.price_now }}</span>
+                {%- if s.price_was != blank -%}<span class="was">{{ s.price_was }}</span>{%- endif -%}
+                {%- if s.discount != blank -%}<span class="off">{{ s.discount }}</span>{%- endif -%}
+              </div>
+            </div>
+          </a>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Showcase prodotti",
+  "tag": "section",
+  "class": "shopify-section--showcase",
+  "settings": [
+    { "type": "text",       "id": "eyebrow",         "label": "Eyebrow",          "default": "La Collezione" },
+    { "type": "text",       "id": "title",           "label": "Titolo",           "default": "Diamond Tote · 4 Colori" },
+    { "type": "textarea",   "id": "lede",            "label": "Sottotitolo",      "default": "Ogni colore con portafoglio abbinato incluso. Scegli il tuo." },
+    { "type": "collection", "id": "collection",      "label": "Collezione (opzionale)", "info": "Se selezionata, sostituisce le card qui sotto con i primi 4 prodotti." },
+    { "type": "checkbox",   "id": "show_bestseller", "label": "Badge Bestseller sul primo", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card prodotto",
+      "settings": [
+        { "type": "image_picker", "id": "image",          "label": "Immagine" },
+        { "type": "text",         "id": "image_fallback", "label": "Asset fallback (filename)", "default": "product-nero.png" },
+        { "type": "text",         "id": "color",          "label": "Colore (eyebrow)", "default": "Nero Classico" },
+        { "type": "text",         "id": "title",          "label": "Titolo",        "default": "Diamond Tote Bag" },
+        { "type": "text",         "id": "subtitle",       "label": "Sottotitolo",   "default": "+ Portafoglio Incluso Gratis" },
+        { "type": "text",         "id": "price_now",      "label": "Prezzo attuale","default": "€49" },
+        { "type": "text",         "id": "price_was",      "label": "Prezzo precedente","default": "€89" },
+        { "type": "text",         "id": "discount",       "label": "Sconto",        "default": "-45%" },
+        { "type": "text",         "id": "badge",          "label": "Badge (es. BESTSELLER)" },
+        { "type": "url",          "id": "link",           "label": "Link" }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "card", "settings": { "color": "Nero Classico",  "image_fallback": "product-nero.png",    "badge": "BESTSELLER" } },
+      { "type": "card", "settings": { "color": "Marrone Cognac", "image_fallback": "product-marrone.png" } },
+      { "type": "card", "settings": { "color": "Viola Prugna",   "image_fallback": "product-viola.png" } },
+      { "type": "card", "settings": { "color": "Verde Hunter",   "image_fallback": "product-verde.png" } }
+    ]
+  },
+  "presets": [{ "name": "Showcase prodotti", "category": "Lumina Milano" }]
+}
+{% endschema %}

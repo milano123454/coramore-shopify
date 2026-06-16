@@ -1,0 +1,251 @@
+{%- liquid
+  assign p = product
+  assign on_sale = false
+  if p and p.compare_at_price > p.price
+    assign on_sale = true
+  endif
+  assign current = p.selected_or_first_available_variant
+-%}
+
+<section class="product container">
+  {%- if p == blank -%}
+    <div style="padding:80px 20px; text-align:center;">
+      <h1 class="section-head__title">Anteprima Pagina Prodotto</h1>
+      <p class="section-head__lede" style="margin-top:16px; max-width:560px; margin-left:auto; margin-right:auto;">
+        Questa è l'anteprima del template prodotto.<br>
+        Crea un prodotto in <strong>Shopify Admin → Prodotti</strong> e assegnagli questo template per vederlo qui.
+      </p>
+      <a class="btn btn--primary btn--lg" style="margin-top:24px;" href="{{ routes.root_url }}">Torna alla Home</a>
+    </div>
+  {%- else -%}
+    <nav class="product__breadcrumb">
+      <a href="{{ routes.root_url }}">Home</a>
+      <span class="sep">/</span>
+      {%- if collection -%}
+        <a href="{{ collection.url }}">{{ collection.title }}</a>
+        <span class="sep">/</span>
+      {%- endif -%}
+      <span>{{ p.title }}</span>
+    </nav>
+
+    <div class="product__layout">
+      <!-- GALLERY -->
+      <div class="product__gallery">
+        <div class="product__media-main" data-product-media>
+          {%- if on_sale -%}
+            {%- assign diff = p.compare_at_price | minus: p.price -%}
+            {%- assign pct = diff | times: 100 | divided_by: p.compare_at_price -%}
+            <span class="product__discount-badge">-{{ pct }}%</span>
+          {%- endif -%}
+          {%- if section.settings.show_bestseller -%}
+            <span class="product__bestseller-badge">{{ section.settings.bestseller_label | default: 'BESTSELLER' }}</span>
+          {%- endif -%}
+          {%- if p.featured_media -%}
+            <img src="{{ p.featured_media | image_url: width: 1200 }}"
+                 alt="{{ p.featured_media.alt | default: p.title | escape }}"
+                 width="1200"
+                 height="1200"
+                 loading="eager">
+          {%- else -%}
+            <img src="{{ section.settings.fallback_image | default: 'product-nero.png' | asset_url }}"
+                 alt="{{ p.title | escape }}"
+                 width="1200"
+                 height="1200">
+          {%- endif -%}
+        </div>
+
+        {%- if p.media.size > 1 -%}
+          <div class="product__thumbs">
+            {%- for media in p.media limit: 4 -%}
+              <div class="product__thumb {% if forloop.first %}is-active{% endif %}" data-thumb data-src="{{ media | image_url: width: 1200 }}">
+                <img src="{{ media | image_url: width: 200 }}" alt="" loading="lazy" width="200" height="200">
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <!-- INFO -->
+      <div class="product__info">
+        {%- if section.settings.eyebrow != blank -%}
+          <div class="product__eyebrow">{{ section.settings.eyebrow }}</div>
+        {%- endif -%}
+
+        <h1 class="product__title">{{ p.title }}</h1>
+
+        {%- if section.settings.subtitle != blank -%}
+          <div class="product__subtitle">{{ section.settings.subtitle }}</div>
+        {%- endif -%}
+
+        <div class="product__rating">
+          {% render 'star-rating', rating: 5 %}
+          <strong>{{ section.settings.rating | default: '4.9' }}</strong>
+          <span>({{ section.settings.review_count | default: '1247' }} recensioni)</span>
+          <span class="verified">{% render 'icon-check' %} Acquisto Verificato</span>
+        </div>
+
+        <div class="product__pricing">
+          <span class="now" data-product-price>{{ current.price | money }}</span>
+          {%- if on_sale -%}
+            <span class="was" data-product-compare>{{ current.compare_at_price | money }}</span>
+            {%- assign diff = current.compare_at_price | minus: current.price -%}
+            <span class="save">RISPARMIA {{ diff | money }}</span>
+          {%- endif -%}
+        </div>
+
+        {%- if section.settings.show_countdown -%}
+          <div class="product__urgency" data-countdown data-minutes="{{ section.settings.countdown_minutes | default: 15 }}">
+            <strong>Offerta a tempo limitato</strong> · scade in
+            <span data-countdown-min>15</span>:<span data-countdown-sec>00</span>
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.show_stock -%}
+          <div class="product__stock">
+            Solo <strong>{{ section.settings.stock_count | default: 8 }}</strong> disponibili · Disponibilità limitata
+          </div>
+        {%- endif -%}
+
+        <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" data-product-form>
+          <input type="hidden" name="id" value="{{ current.id }}">
+
+          {%- for option in p.options_with_values -%}
+            <div class="product__option">
+              <span class="product__option-label">
+                {{ option.name }}: <span class="selected" data-selected-variant>{{ option.selected_value }}</span>
+              </span>
+              {%- assign opt_lower = option.name | downcase -%}
+              {%- if opt_lower == 'color' or opt_lower == 'colore' -%}
+                <div class="color-swatches" data-variant-radios>
+                  {%- for value in option.values -%}
+                    {%- assign swatch_color = '#1A1A1A' -%}
+                    {%- assign val_lower = value | downcase -%}
+                    {%- if val_lower contains 'nero' or val_lower contains 'black' -%}
+                      {%- assign swatch_color = '#1A1A1A' -%}
+                    {%- elsif val_lower contains 'marrone' or val_lower contains 'cognac' or val_lower contains 'brown' -%}
+                      {%- assign swatch_color = '#8B5A3C' -%}
+                    {%- elsif val_lower contains 'viola' or val_lower contains 'plum' or val_lower contains 'purple' -%}
+                      {%- assign swatch_color = '#6B3F5C' -%}
+                    {%- elsif val_lower contains 'verde' or val_lower contains 'hunter' or val_lower contains 'green' -%}
+                      {%- assign swatch_color = '#1C352D' -%}
+                    {%- endif -%}
+                    <label class="color-swatch">
+                      <input type="radio" name="options[{{ option.name }}]" value="{{ value | escape }}"
+                        {% if option.selected_value == value %}checked{% endif %}>
+                      <span class="color-swatch__circle" style="background:{{ swatch_color }};"></span>
+                      <span class="color-swatch__label">{{ value }}</span>
+                    </label>
+                  {%- endfor -%}
+                </div>
+              {%- else -%}
+                <select name="options[{{ option.name }}]" class="product__select">
+                  {%- for value in option.values -%}
+                    <option value="{{ value | escape }}" {% if option.selected_value == value %}selected{% endif %}>{{ value }}</option>
+                  {%- endfor -%}
+                </select>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+
+          {%- if section.settings.show_promo -%}
+            <div class="product__promo">
+              Usa il codice <strong>REGALO</strong> al checkout per ottenere <strong>€10 di sconto extra</strong>
+            </div>
+          {%- endif -%}
+
+          <div class="product__atc-row">
+            <div class="qty-selector" data-qty-stepper>
+              <button type="button" data-qty-down aria-label="Diminuisci">−</button>
+              <input type="number" name="quantity" value="1" min="1">
+              <button type="button" data-qty-up aria-label="Aumenta">+</button>
+            </div>
+            <button type="submit" class="btn btn--primary btn--lg product__atc"{% unless current.available %} disabled{% endunless %}>
+              {%- if current.available -%}
+                {{ section.settings.atc_label | default: 'Aggiungi al Carrello' }}
+              {%- else -%}
+                Esaurito
+              {%- endif -%}
+            </button>
+          </div>
+
+          <div class="product__trust-row">
+            <div class="item">{% render 'icon-shield' %}<div>Pagamento Sicuro</div></div>
+            <div class="item">{% render 'icon-truck' %}<div>Spedizione Gratuita</div></div>
+            <div class="item">{% render 'icon-return' %}<div>Reso 30 Giorni</div></div>
+          </div>
+        </form>
+
+        <script type="application/json" data-variants-json>
+          [
+            {%- for v in p.variants -%}
+              {
+                "id": {{ v.id }},
+                "title": {{ v.title | json }},
+                "price": {{ v.price }},
+                "compare_at_price": {{ v.compare_at_price | default: 0 }},
+                "available": {{ v.available }},
+                "options": {{ v.options | json }}
+              }{%- unless forloop.last -%},{%- endunless -%}
+            {%- endfor -%}
+          ]
+        </script>
+
+        <div class="product__accordion" data-accordion>
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'detail' -%}
+              <div class="faq-item" data-accordion-item {{ block.shopify_attributes }}>
+                <button type="button" class="faq-item__trigger" data-accordion-trigger>
+                  <span style="font:inherit;">{{ block.settings.title }}</span>
+                  <span class="faq-item__chevron">{% render 'icon-chevron' %}</span>
+                </button>
+                <div class="faq-item__panel rte">
+                  {{ block.settings.content }}
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Pagina prodotto",
+  "tag": "section",
+  "class": "shopify-section--main-product",
+  "settings": [
+    { "type": "text",     "id": "eyebrow",          "label": "Eyebrow",                  "default": "Portafoglio Incluso · Bestseller" },
+    { "type": "text",     "id": "subtitle",         "label": "Sottotitolo",              "default": "con Portafoglio Abbinato Incluso" },
+    { "type": "text",     "id": "rating",           "label": "Rating",                   "default": "4.9" },
+    { "type": "text",     "id": "review_count",     "label": "Numero recensioni",        "default": "1247" },
+    { "type": "text",     "id": "atc_label",        "label": "Testo bottone Aggiungi al Carrello", "default": "Aggiungi al Carrello" },
+    { "type": "checkbox", "id": "show_bestseller",  "label": "Mostra badge Bestseller",  "default": true },
+    { "type": "text",     "id": "bestseller_label", "label": "Testo badge",              "default": "BESTSELLER" },
+    { "type": "checkbox", "id": "show_countdown",   "label": "Mostra countdown",         "default": true },
+    { "type": "number",   "id": "countdown_minutes","label": "Minuti countdown",         "default": 15 },
+    { "type": "checkbox", "id": "show_stock",       "label": "Mostra disponibilità limitata", "default": true },
+    { "type": "number",   "id": "stock_count",      "label": "Pezzi rimasti",            "default": 8 },
+    { "type": "checkbox", "id": "show_promo",       "label": "Mostra box codice REGALO", "default": true },
+    { "type": "text",     "id": "fallback_image",   "label": "Immagine fallback (filename)", "default": "product-nero.png" }
+  ],
+  "blocks": [
+    {
+      "type": "detail",
+      "name": "Accordion / Dettaglio",
+      "settings": [
+        { "type": "text",     "id": "title",   "label": "Titolo",     "default": "Cosa Include" },
+        { "type": "richtext", "id": "content", "label": "Contenuto",  "default": "<p>Ogni ordine include la borsa e il portafoglio abbinato.</p>" }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "detail", "settings": { "title": "Cosa Include", "content": "<p>Ogni ordine include:</p><ul><li>1× Diamond Tote Bag in pelle vegana premium</li><li>1× Portafoglio abbinato (valore €29) — incluso gratis</li><li>Sacchetto in cotone per la conservazione</li><li>Cartolina di benvenuto firmata</li></ul>" } },
+      { "type": "detail", "settings": { "title": "Materiali e Dimensioni", "content": "<p><strong>Materiale esterno:</strong> pelle vegana PU premium, morbida e resistente.<br><strong>Fodera interna:</strong> tessuto satinato con tasca con zip.<br><strong>Dimensioni:</strong> 38cm × 30cm × 14cm.<br><strong>Manici:</strong> 25cm di altezza, comodi a spalla.<br><strong>Peso:</strong> 0,9 kg.</p>" } },
+      { "type": "detail", "settings": { "title": "Spedizione e Reso", "content": "<p><strong>Spedizione gratuita</strong> su tutti gli ordini, consegna in 2-4 giorni lavorativi.<br><strong>Reso gratuito</strong> entro 30 giorni dalla ricezione, rimborso completo garantito.<br><strong>Pagamento sicuro</strong> con SSL 256-bit.</p>" } }
+    ]
+  }
+}
+{% endschema %}

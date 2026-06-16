@@ -1,0 +1,28 @@
+<section class="section section--white">
+  <div class="container">
+    <h1 class="section-head__title text-center" style="margin-bottom:48px;">Le Nostre Collezioni</h1>
+    <div class="showcase-grid">
+      {%- for collection in collections -%}
+        {%- if collection.handle != 'frontpage' -%}
+          <a class="product-card" href="{{ collection.url }}">
+            <div class="product-card__media">
+              {%- if collection.image -%}
+                <img src="{{ collection.image | image_url: width: 800 }}" alt="{{ collection.title | escape }}" loading="lazy">
+              {%- elsif collection.featured_image -%}
+                <img src="{{ collection.featured_image | image_url: width: 800 }}" alt="{{ collection.title | escape }}" loading="lazy">
+              {%- endif -%}
+            </div>
+            <div class="product-card__body">
+              <h3 class="product-card__title">{{ collection.title }}</h3>
+              <div class="product-card__subtitle">{{ collection.products_count }} prodotti</div>
+            </div>
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Lista collezioni", "settings": [] }
+{% endschema %}

@@ -1,0 +1,54 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Lumina Milano",
+    "theme_version": "1.0.0",
+    "theme_author": "Coramore",
+    "theme_documentation_url": "https://github.com/milano123454/coramore-shopify",
+    "theme_support_url": "https://github.com/milano123454/coramore-shopify/issues"
+  },
+
+  {
+    "name": "Colori",
+    "settings": [
+      { "type": "header",  "content": "Brand & Sfondo" },
+      { "type": "color", "id": "color_bg",       "label": "Sfondo principale", "default": "#FAF9F6" },
+      { "type": "color", "id": "color_card",     "label": "Sfondo card",       "default": "#FFFFFF" },
+      { "type": "color", "id": "color_primary",  "label": "Primario (verde)",  "default": "#1C352D" },
+      { "type": "color", "id": "color_text",     "label": "Testo principale",  "default": "#1A1A1A" },
+      { "type": "color", "id": "color_secondary","label": "Testo secondario",  "default": "#555555" },
+      { "type": "color", "id": "color_muted",    "label": "Testo muto",        "default": "#888888" },
+      { "type": "color", "id": "color_border",   "label": "Bordi",             "default": "#E5E5E5" },
+      { "type": "header","content": "Accenti" },
+      { "type": "color", "id": "color_gold",     "label": "Oro",        "default": "#D4AF37" },
+      { "type": "color", "id": "color_gold_light","label":"Oro chiaro", "default": "#F2E8CE" },
+      { "type": "color", "id": "color_urgency",  "label": "Urgenza/sconto", "default": "#B33939" }
+    ]
+  },
+
+  {
+    "name": "Tipografia",
+    "settings": [
+      { "type": "paragraph", "content": "I font sono caricati automaticamente. Puoi personalizzare via CSS modificando theme.css." },
+      { "type": "font_picker", "id": "font_heading", "label": "Font heading", "default": "cormorant_garamond_n4" },
+      { "type": "font_picker", "id": "font_body",    "label": "Font body",    "default": "manrope_n4" }
+    ]
+  },
+
+  {
+    "name": "Identità",
+    "settings": [
+      { "type": "image_picker", "id": "logo",         "label": "Logo (opzionale)" },
+      { "type": "range",        "id": "logo_width",   "label": "Larghezza logo (px)", "min": 60, "max": 240, "step": 10, "unit": "px", "default": 140 },
+      { "type": "image_picker", "id": "favicon",      "label": "Favicon" },
+      { "type": "image_picker", "id": "share_image",  "label": "Immagine social" }
+    ]
+  },
+
+  {
+    "name": "Layout",
+    "settings": [
+      { "type": "range", "id": "container_width", "label": "Larghezza max container (px)", "min": 1000, "max": 1440, "step": 20, "unit": "px", "default": 1200 }
+    ]
+  }
+]

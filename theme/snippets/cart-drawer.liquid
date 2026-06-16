@@ -1,0 +1,60 @@
+{%- comment -%}
+  Cart drawer (slide-in panel). Populated client-side via /cart.js.
+  Assumes a top-bar trigger with [data-cart-toggle].
+{%- endcomment -%}
+<div class="cart-overlay" data-cart-overlay aria-hidden="true"></div>
+<aside class="cart-drawer" data-cart-drawer aria-label="Carrello" role="dialog" aria-modal="true">
+  <div class="cart-drawer__header">
+    <h2 class="cart-drawer__title">{{ 'cart.title' | t | default: 'Il Tuo Carrello' }}</h2>
+    <button type="button" class="icon-button cart-drawer__close" data-cart-close aria-label="Chiudi">
+      {% render 'icon-close' %}
+    </button>
+  </div>
+
+  <div class="cart-drawer__shipping">
+    {{ 'cart.free_shipping_notice' | t | default: 'Spedizione Gratuita su tutti gli ordini' }}
+  </div>
+
+  <div class="cart-drawer__body" data-cart-body>
+    {%- if cart.item_count > 0 -%}
+      {%- for item in cart.items -%}
+        <div class="cart-line" data-line-key="{{ item.key }}">
+          <div class="cart-line__media">
+            {%- if item.image -%}
+              <img src="{{ item.image | image_url: width: 160 }}" alt="{{ item.product.title | escape }}" loading="lazy">
+            {%- endif -%}
+          </div>
+          <div>
+            <div class="cart-line__title">{{ item.product.title }}</div>
+            {%- unless item.variant.title contains 'Default' -%}
+              <div class="cart-line__variant">{{ item.variant.title }}</div>
+            {%- endunless -%}
+            <div class="qty-selector" style="height:36px;">
+              <button type="button" data-qty-down>−</button>
+              <input type="number" min="0" value="{{ item.quantity }}" data-line-qty>
+              <button type="button" data-qty-up>+</button>
+            </div>
+          </div>
+          <div style="text-align:right;">
+            <div class="cart-line__price">{{ item.final_line_price | money }}</div>
+            <a href="#" class="cart-line__remove" data-line-remove>Rimuovi</a>
+          </div>
+        </div>
+      {%- endfor -%}
+    {%- else -%}
+      <div class="cart-drawer__empty">
+        <p>{{ 'cart.empty' | t | default: 'Il carrello è vuoto' }}</p>
+        <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary">{{ 'cart.discover' | t | default: 'Scopri la collezione' }}</a>
+      </div>
+    {%- endif -%}
+  </div>
+
+  <div class="cart-drawer__footer" data-cart-footer{% if cart.item_count == 0 %} style="display:none;"{% endif %}>
+    <div class="cart-drawer__totals">
+      <span>Totale</span>
+      <span class="total" data-cart-total>{{ cart.total_price | money }}</span>
+    </div>
+    <a href="{{ routes.cart_url }}/checkout" class="btn btn--primary btn--full btn--lg">Checkout</a>
+    <a href="{{ routes.cart_url }}" class="btn btn--outline btn--full" style="margin-top:8px;">Vai al Carrello</a>
+  </div>
+</aside>
