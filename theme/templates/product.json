@@ -1,0 +1,230 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "container_size": "lg",
+        "product_info_size": 40,
+        "show_sticky_add_to_cart": true,
+        "center_basic_info": false,
+        "desktop_media_layout": "carousel_thumbnails_left",
+        "desktop_media_grid_gap": 20,
+        "mobile_controls": "dots",
+        "enable_media_autoplay": false,
+        "enable_video_looping": true,
+        "enable_image_zoom": true,
+        "max_image_zoom_level": 3
+      },
+      "blocks": {
+        "badges": {
+          "type": "badges",
+          "settings": {}
+        },
+        "title": {
+          "type": "title",
+          "settings": {
+            "heading_tag": "h1"
+          }
+        },
+        "rating": {
+          "type": "rating",
+          "settings": {
+            "show_empty": true,
+            "rating_mode": "rating"
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_taxes_notice": false
+          }
+        },
+        "feature_wallet": {
+          "type": "feature_with_icon",
+          "settings": {
+            "text": "<p><strong>Portafoglio incluso</strong> &middot; abbinato alla borsa &middot; valore &euro;29</p>",
+            "icon": "picto-gift",
+            "icon_width": 22,
+            "background": "#F2E8CE",
+            "text_color": "#1C352D",
+            "border_color": "#D4AF37"
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "hide_sold_out_variants": false,
+            "selector_style": "block",
+            "swatch_selector_style": "swatch"
+          }
+        },
+        "quantity": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_payment_button": true,
+            "show_gift_card_recipient": false
+          }
+        },
+        "inventory": {
+          "type": "inventory",
+          "settings": {
+            "show_in_stock_quantity": true,
+            "low_inventory_threshold": 10,
+            "show_progress_bar": true,
+            "progress_bar_max_value": 50
+          }
+        },
+        "trust_shipping": {
+          "type": "feature_with_icon",
+          "settings": {
+            "text": "<p>Spedizione gratuita &middot; consegna 2-4 giorni</p>",
+            "icon": "picto-delivery-truck",
+            "icon_width": 18,
+            "background": "#FFFFFF",
+            "text_color": "#1A1A1A",
+            "border_color": "#E5E5E5"
+          }
+        },
+        "trust_return": {
+          "type": "feature_with_icon",
+          "settings": {
+            "text": "<p>Reso 30 giorni &middot; rimborso garantito</p>",
+            "icon": "picto-return",
+            "icon_width": 18,
+            "background": "#FFFFFF",
+            "text_color": "#1A1A1A",
+            "border_color": "#E5E5E5"
+          }
+        },
+        "trust_secure": {
+          "type": "feature_with_icon",
+          "settings": {
+            "text": "<p>Pagamento sicuro &middot; SSL 256-bit</p>",
+            "icon": "picto-lock",
+            "icon_width": 18,
+            "background": "#FFFFFF",
+            "text_color": "#1A1A1A",
+            "border_color": "#E5E5E5"
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+            "collapse_content": false,
+            "show_below_gallery": false
+          }
+        },
+        "accordion1": {
+          "type": "accordion",
+          "settings": {
+            "title": "Cosa Include",
+            "icon": "picto-box",
+            "content": "<p>Ogni ordine include:</p><ul><li>1&times; Diamond Tote Bag in pelle vegana premium</li><li>1&times; Portafoglio abbinato (valore &euro;29) — incluso gratis</li><li>Sacchetto in cotone per la conservazione</li><li>Cartolina di benvenuto firmata</li></ul>",
+            "show_below_gallery": false
+          }
+        },
+        "accordion2": {
+          "type": "accordion",
+          "settings": {
+            "title": "Materiali e Dimensioni",
+            "icon": "picto-info",
+            "content": "<p><strong>Materiale esterno:</strong> pelle vegana PU premium, morbida e resistente.<br><strong>Fodera interna:</strong> tessuto satinato con tasca con zip.<br><strong>Dimensioni:</strong> 38cm &times; 30cm &times; 14cm.<br><strong>Manici:</strong> 25cm di altezza.<br><strong>Peso:</strong> 0,9 kg.</p>",
+            "show_below_gallery": false
+          }
+        },
+        "accordion3": {
+          "type": "accordion",
+          "settings": {
+            "title": "Spedizione e Reso",
+            "icon": "picto-delivery-truck",
+            "content": "<p><strong>Spedizione gratuita</strong> su tutti gli ordini, consegna in 2-4 giorni lavorativi.<br><strong>Reso gratuito</strong> entro 30 giorni dalla ricezione, rimborso completo garantito.<br><strong>Pagamento sicuro</strong> con SSL 256-bit.</p>",
+            "show_below_gallery": false
+          }
+        },
+        "share": {
+          "type": "share_buttons",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "badges",
+        "title",
+        "rating",
+        "price",
+        "feature_wallet",
+        "variant_picker",
+        "quantity",
+        "buy_buttons",
+        "inventory",
+        "trust_shipping",
+        "trust_return",
+        "trust_secure",
+        "description",
+        "accordion1",
+        "accordion2",
+        "accordion3",
+        "share"
+      ]
+    },
+    "reviews": {
+      "type": "testimonials",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "separate_section_with_border": false,
+        "auto_rotate_between_testimonials": false,
+        "cycle_speed": 5,
+        "font_size_factor": 1,
+        "subheading": "<p>RECENSIONI VERIFICATE</p>",
+        "title": "<p>4.9/5 da 1.247 clienti</p>"
+      },
+      "blocks": {
+        "r1": {
+          "type": "testimonial",
+          "settings": {
+            "content": "<p>Qualit&agrave; eccezionale, il portafoglio incluso &egrave; un tocco di classe. Spedizione velocissima, arrivata in 2 giorni.</p>",
+            "author": "<p>Giulia B. &middot; Milano &middot; Variante: Nero</p>"
+          }
+        },
+        "r2": {
+          "type": "testimonial",
+          "settings": {
+            "content": "<p>Elegante e capiente. La uso ogni giorno per l'ufficio ed &egrave; perfetta. La pelle vegana &egrave; morbidissima.</p>",
+            "author": "<p>Martina R. &middot; Roma &middot; Variante: Marrone</p>"
+          }
+        },
+        "r3": {
+          "type": "testimonial",
+          "settings": {
+            "content": "<p>Ho usato il codice sconto, un vero affare per una borsa di questa qualit&agrave;! Super soddisfatta!</p>",
+            "author": "<p>Elena F. &middot; Torino &middot; Variante: Verde</p>"
+          }
+        }
+      },
+      "block_order": ["r1", "r2", "r3"]
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "separate_section_with_border": false,
+        "show_categories": false,
+        "subheading": "<p>DOMANDE FREQUENTI</p>",
+        "title": "<p>Hai Dubbi?</p>",
+        "content": ""
+      },
+      "blocks": {
+        "q1": { "type": "question", "settings": { "question": "<p>Quando ricever&ograve; il mio ordine?</p>", "answer": "<p>Spediamo entro 24 ore lavorative. Consegna in 2-4 giorni lavorativi. Spedizione gratuita.</p>" } },
+        "q2": { "type": "question", "settings": { "question": "<p>Il portafoglio &egrave; davvero incluso?</p>", "answer": "<p>S&igrave;, ogni Diamond Tote Bag include il portafoglio abbinato. Valore &euro;29, <strong>completamente gratuito</strong>.</p>" } },
+        "q3": { "type": "question", "settings": { "question": "<p>Come funziona il reso?</p>", "answer": "<p>Hai 30 giorni per il reso gratuito. Scrivici a info@luminamilano.it per l'etichetta prepagata.</p>" } },
+        "q4": { "type": "question", "settings": { "question": "<p>Come funziona il codice REGALO?</p>", "answer": "<p>Inserisci <strong>REGALO</strong> al checkout per &euro;10 di sconto extra.</p>" } }
+      },
+      "block_order": ["q1", "q2", "q3", "q4"]
+    }
+  },
+  "order": ["main", "reviews", "faq"]
+}

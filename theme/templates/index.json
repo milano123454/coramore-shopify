@@ -1,0 +1,352 @@
+{
+  "sections": {
+    "hero": {
+      "type": "image-with-text-overlay",
+      "settings": {
+        "color_scheme": "scheme-4",
+        "image_size": "lg",
+        "allow_transparent_header": false,
+        "reveal_on_scroll": true,
+        "remove_vertical_spacing": true,
+        "content_width": "md",
+        "overlay_color": "#1A1A1A",
+        "overlay_opacity": 35
+      },
+      "blocks": {
+        "subheading": {
+          "type": "subheading",
+          "settings": {
+            "text": "<p>NUOVO &middot; COLLEZIONE DIAMOND 2025</p>"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "text": "<p>La Borsa che <em>Completa</em> Ogni Look</p>",
+            "heading_tag": "h1"
+          }
+        },
+        "richtext": {
+          "type": "richtext",
+          "settings": {
+            "content": "<p>Eleganza trapuntata, portafoglio abbinato incluso. Disponibile in 4 colori esclusivi.</p><p><strong>&euro;49</strong> &nbsp; <s>&euro;89</s> &nbsp; -45%</p>"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "style": "primary",
+            "text": "Acquista Ora",
+            "url": "/collections/all"
+          }
+        }
+      },
+      "block_order": [
+        "subheading",
+        "heading",
+        "richtext",
+        "button"
+      ]
+    },
+    "trust-band": {
+      "type": "multi-column",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "separate_section_with_border": false,
+        "columns_per_row": 4,
+        "stack_on_mobile": false,
+        "content_alignment": "center",
+        "text_alignment": "center",
+        "spacing": "sm"
+      },
+      "blocks": {
+        "tb1": {
+          "type": "image_with_text",
+          "settings": {
+            "title": "<p>Spedizione Gratuita</p>",
+            "heading_tag": "h3",
+            "content": "<p>Consegna in 2-4 giorni</p>"
+          }
+        },
+        "tb2": {
+          "type": "image_with_text",
+          "settings": {
+            "title": "<p>Reso 30 Giorni</p>",
+            "heading_tag": "h3",
+            "content": "<p>Rimborso completo garantito</p>"
+          }
+        },
+        "tb3": {
+          "type": "image_with_text",
+          "settings": {
+            "title": "<p>Pagamento Sicuro</p>",
+            "heading_tag": "h3",
+            "content": "<p>SSL 256-bit &middot; Tutti i metodi</p>"
+          }
+        },
+        "tb4": {
+          "type": "image_with_text",
+          "settings": {
+            "title": "<p>Garanzia 2 Anni</p>",
+            "heading_tag": "h3",
+            "content": "<p>Su ogni prodotto acquistato</p>"
+          }
+        }
+      },
+      "block_order": [
+        "tb1",
+        "tb2",
+        "tb3",
+        "tb4"
+      ]
+    },
+    "showcase": {
+      "type": "multi-column",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "separate_section_with_border": false,
+        "columns_per_row": 4,
+        "stack_on_mobile": false,
+        "content_alignment": "start",
+        "text_alignment": "start",
+        "spacing": "md",
+        "subheading": "<p>LA COLLEZIONE</p>",
+        "title": "<p>Diamond Tote &middot; 4 Colori</p>"
+      },
+      "blocks": {
+        "c1": {
+          "type": "image_with_text",
+          "settings": {
+            "title": "<p>Nero Classico</p>",
+            "heading_tag": "h3",
+            "content": "<p><strong>Diamond Tote Bag</strong><br>+ Portafoglio Incluso Gratis<br><strong>&euro;49</strong> <s>&euro;89</s> &middot; -45%</p>",
+            "link_text": "Scopri",
+            "link_url": "/products/diamond-tote-bag-nero"
+          }
+        },
+        "c2": {
+          "type": "image_with_text",
+          "settings": {
+            "title": "<p>Marrone Cognac</p>",
+            "heading_tag": "h3",
+            "content": "<p><strong>Diamond Tote Bag</strong><br>+ Portafoglio Incluso Gratis<br><strong>&euro;49</strong> <s>&euro;89</s> &middot; -45%</p>",
+            "link_text": "Scopri",
+            "link_url": "/products/diamond-tote-bag-marrone"
+          }
+        },
+        "c3": {
+          "type": "image_with_text",
+          "settings": {
+            "title": "<p>Viola Prugna</p>",
+            "heading_tag": "h3",
+            "content": "<p><strong>Diamond Tote Bag</strong><br>+ Portafoglio Incluso Gratis<br><strong>&euro;49</strong> <s>&euro;89</s> &middot; -45%</p>",
+            "link_text": "Scopri",
+            "link_url": "/products/diamond-tote-bag-viola"
+          }
+        },
+        "c4": {
+          "type": "image_with_text",
+          "settings": {
+            "title": "<p>Verde Hunter</p>",
+            "heading_tag": "h3",
+            "content": "<p><strong>Diamond Tote Bag</strong><br>+ Portafoglio Incluso Gratis<br><strong>&euro;49</strong> <s>&euro;89</s> &middot; -45%</p>",
+            "link_text": "Scopri",
+            "link_url": "/products/diamond-tote-bag-verde"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ]
+    },
+    "benefits": {
+      "type": "multi-column",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "separate_section_with_border": false,
+        "columns_per_row": 4,
+        "stack_on_mobile": false,
+        "content_alignment": "center",
+        "text_alignment": "center",
+        "spacing": "md",
+        "subheading": "<p>I VANTAGGI</p>",
+        "title": "<p>Perch&eacute; Sceglierla</p>"
+      },
+      "blocks": {
+        "b1": {
+          "type": "image_with_text",
+          "settings": {
+            "title": "<p>Pelle Vegana Premium</p>",
+            "heading_tag": "h3",
+            "content": "<p>Materiale PU di alta qualit&agrave;: morbido al tatto, resistente all'uso quotidiano e cruelty-free.</p>"
+          }
+        },
+        "b2": {
+          "type": "image_with_text",
+          "settings": {
+            "title": "<p>Portafoglio Incluso</p>",
+            "heading_tag": "h3",
+            "content": "<p>Abbinato perfettamente alla borsa. Valore &euro;29, incluso gratis in ogni ordine.</p>"
+          }
+        },
+        "b3": {
+          "type": "image_with_text",
+          "settings": {
+            "title": "<p>Capienza XXL</p>",
+            "heading_tag": "h3",
+            "content": "<p>Scomparto principale capiente + apertura frontale espandibile per oggetti extra.</p>"
+          }
+        },
+        "b4": {
+          "type": "image_with_text",
+          "settings": {
+            "title": "<p>Garanzia 2 Anni</p>",
+            "heading_tag": "h3",
+            "content": "<p>Sostituzione gratuita in caso di difetti di produzione. Assistenza italiana inclusa.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4"
+      ]
+    },
+    "reviews": {
+      "type": "testimonials",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "separate_section_with_border": false,
+        "auto_rotate_between_testimonials": false,
+        "cycle_speed": 5,
+        "font_size_factor": 1,
+        "subheading": "<p>RECENSIONI</p>",
+        "title": "<p>Lo Dicono le Nostre Clienti</p>"
+      },
+      "blocks": {
+        "r1": {
+          "type": "testimonial",
+          "settings": {
+            "content": "<p>Qualit&agrave; eccezionale, il portafoglio incluso &egrave; un tocco di classe. Spedizione velocissima, arrivata in 2 giorni. La consiglio a tutte!</p>",
+            "author": "<p>Giulia B. &middot; Milano &middot; Variante: Nero</p>"
+          }
+        },
+        "r2": {
+          "type": "testimonial",
+          "settings": {
+            "content": "<p>Elegante e capiente. La uso ogni giorno per l'ufficio ed &egrave; perfetta. La pelle vegana &egrave; morbidissima. Acquisto assolutamente consigliato!</p>",
+            "author": "<p>Martina R. &middot; Roma &middot; Variante: Marrone</p>"
+          }
+        },
+        "r3": {
+          "type": "testimonial",
+          "settings": {
+            "content": "<p>Ho usato il codice sconto, un vero affare per una borsa di questa qualit&agrave;! I colori sono esattamente come in foto. Super soddisfatta!</p>",
+            "author": "<p>Elena F. &middot; Torino &middot; Variante: Verde</p>"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3"
+      ]
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "separate_section_with_border": false,
+        "show_categories": false,
+        "subheading": "<p>DOMANDE FREQUENTI</p>",
+        "title": "<p>Hai Dubbi?</p>",
+        "content": ""
+      },
+      "blocks": {
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "<p>Quando ricever&ograve; il mio ordine?</p>",
+            "answer": "<p>Spediamo entro 24 ore lavorative dalla conferma dell'ordine. La consegna avviene in 2-4 giorni lavorativi su tutto il territorio italiano, con tracking incluso. Spedizione gratuita su tutti gli ordini.</p>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "<p>Il portafoglio &egrave; davvero incluso?</p>",
+            "answer": "<p>S&igrave;, ogni Diamond Tote Bag viene spedita con il portafoglio abbinato dello stesso colore. Il valore del portafoglio &egrave; di &euro;29 ed &egrave; completamente <strong>gratuito</strong> con l'acquisto della borsa.</p>"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "<p>Come funziona il reso?</p>",
+            "answer": "<p>Hai 30 giorni dalla ricezione per restituire il prodotto. Il reso &egrave; gratuito e semplice: ti basta scriverci a info@luminamilano.it e riceverai un'etichetta prepagata. Rimborso garantito entro 5-7 giorni lavorativi dal ricevimento.</p>"
+          }
+        },
+        "q4": {
+          "type": "question",
+          "settings": {
+            "question": "<p>Come funziona il codice REGALO?</p>",
+            "answer": "<p>Inserisci il codice <strong>REGALO</strong> al checkout per ottenere &euro;10 di sconto extra sul tuo ordine. Si applica automaticamente al carrello e si cumula con la promozione attiva. Valido per un utilizzo per cliente.</p>"
+          }
+        },
+        "q5": {
+          "type": "question",
+          "settings": {
+            "question": "<p>I pagamenti sono sicuri?</p>",
+            "answer": "<p>Assolutamente. Utilizziamo crittografia SSL 256-bit per tutte le transazioni. Accettiamo VISA, MasterCard, PayPal e Apple Pay. I dati di pagamento non vengono mai memorizzati sui nostri server.</p>"
+          }
+        },
+        "q6": {
+          "type": "question",
+          "settings": {
+            "question": "<p>Posso contattare il servizio clienti?</p>",
+            "answer": "<p>Certamente. Il nostro team italiano &egrave; disponibile dal luned&igrave; al venerd&igrave;, 9:00-18:00. Scrivici a info@luminamilano.it o chiamaci al +39 02 1234567. Risposta entro 24 ore.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6"
+      ]
+    },
+    "cta-countdown": {
+      "type": "countdown",
+      "settings": {
+        "color_scheme": "scheme-3",
+        "separate_section_with_border": false,
+        "image_size": "auto",
+        "subheading": "<p>OFFERTA A TEMPO LIMITATO</p>",
+        "title": "<p>Approfitta dell'Offerta Oggi</p>",
+        "content": "<p>Disponibilit&agrave; limitata &middot; Solo 8 pezzi rimasti &middot; Portafoglio Incluso Gratis</p><p><strong>&euro;49</strong> &nbsp; <s>&euro;89</s> &nbsp; <strong>-45%</strong></p><p>Usa il codice <strong>REGALO</strong> al checkout per &euro;10 extra di sconto</p>",
+        "button_link": "/collections/all",
+        "button_text": "Acquista Ora — Spedizione Gratuita",
+        "expiration_date": "",
+        "expiration_behavior": "leave",
+        "timer_position": "end",
+        "animate_number": true,
+        "overlay_color": "#1C352D",
+        "overlay_opacity": 0
+      },
+      "blocks": {}
+    }
+  },
+  "order": [
+    "hero",
+    "trust-band",
+    "showcase",
+    "benefits",
+    "reviews",
+    "faq",
+    "cta-countdown"
+  ]
+}

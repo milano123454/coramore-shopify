@@ -1,0 +1,58 @@
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "custom_liquid_trust": {
+      "type": "custom-liquid",
+      "settings": {
+        "color_scheme": "scheme-3",
+        "separate_section_with_border": false,
+        "remove_vertical_spacing": false,
+        "remove_horizontal_spacing": false,
+        "liquid": "<style>\n  .lumina-trust-band {\n    display: grid;\n    grid-template-columns: repeat(2, 1fr);\n    gap: 20px 12px;\n    max-width: 700px;\n    margin: 0 auto;\n    padding: 36px 20px;\n    text-align: center;\n  }\n  @media (min-width: 700px) {\n    .lumina-trust-band { grid-template-columns: repeat(4, 1fr); gap: 8px; padding: 32px 20px; }\n  }\n  .lumina-trust-item { display: flex; flex-direction: column; align-items: center; gap: 8px; }\n  .lumina-trust-item svg { width: 26px; height: 26px; stroke: #D4AF37; fill: none; stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; }\n  .lumina-trust-item strong { display: block; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #ffffff; font-weight: 600; }\n  .lumina-trust-item span { display: block; font-size: 11px; color: rgba(255,255,255,0.65); letter-spacing: 0.04em; }\n</style>\n<div class=\"lumina-trust-band\">\n  <div class=\"lumina-trust-item\">\n    <svg viewBox=\"0 0 24 24\"><path d=\"M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2\"/><path d=\"M15 18H9\"/><path d=\"M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14\"/><circle cx=\"17\" cy=\"18\" r=\"2\"/><circle cx=\"7\" cy=\"18\" r=\"2\"/></svg>\n    <strong>Spedizione Gratuita</strong><span>Su tutti gli ordini</span>\n  </div>\n  <div class=\"lumina-trust-item\">\n    <svg viewBox=\"0 0 24 24\"><path d=\"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8\"/><path d=\"M3 3v5h5\"/></svg>\n    <strong>Reso 30 Giorni</strong><span>Gratuito e semplice</span>\n  </div>\n  <div class=\"lumina-trust-item\">\n    <svg viewBox=\"0 0 24 24\"><rect width=\"18\" height=\"11\" x=\"3\" y=\"11\" rx=\"2\" ry=\"2\"/><path d=\"M7 11V7a5 5 0 0 1 10 0v4\"/></svg>\n    <strong>Pagamento Sicuro</strong><span>SSL 256-bit</span>\n  </div>\n  <div class=\"lumina-trust-item\">\n    <svg viewBox=\"0 0 24 24\"><path d=\"m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526\"/><circle cx=\"12\" cy=\"8\" r=\"6\"/></svg>\n    <strong>Garanzia 2 Anni</strong><span>Su ogni prodotto</span>\n  </div>\n</div>",
+        "text_alignment": "center"
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "brand_text": {
+          "type": "text",
+          "settings": {
+            "title": "LUMINA MILANO",
+            "content": "<p>Milano · Paris · London</p><p>Borse premium con design italiano, materiali eco-sostenibili e qualità artigianale. Eleganza per ogni giorno.</p><p>info@luminamilano.it<br>+39 02 1234567</p>",
+            "enable_follow_on_shop": false
+          }
+        },
+        "links_info": {
+          "type": "links",
+          "settings": {
+            "menu": "footer-informazioni",
+            "show_menu_title": true,
+            "menu_title": "Informazioni"
+          }
+        },
+        "links_legal": {
+          "type": "links",
+          "settings": {
+            "menu": "footer-legale",
+            "show_menu_title": true,
+            "menu_title": "Legale"
+          }
+        }
+      },
+      "block_order": ["brand_text", "links_info", "links_legal"],
+      "settings": {
+        "color_scheme": "scheme-3",
+        "separate_section_with_border": false,
+        "show_social_media": false,
+        "show_payment_icons": true,
+        "show_country_selector": false,
+        "show_country_name": false,
+        "show_country_flag": false,
+        "show_locale_selector": false
+      }
+    }
+  },
+  "order": ["custom_liquid_trust", "footer"]
+}
