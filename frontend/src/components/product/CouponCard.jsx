@@ -3,6 +3,7 @@ import confetti from "canvas-confetti";
 import { motion } from "framer-motion";
 import { Check, Clock, Tag } from "lucide-react";
 import { toast } from "sonner";
+import site from "@/config/site";
 import { useCart } from "@/context/CartContext";
 
 // Premium dashed coupon card: shimmer, APPLY -> APPLIED ✓, live countdown
@@ -34,7 +35,7 @@ export const CouponCard = ({ coupon }) => {
       spread: 75,
       startVelocity: 32,
       origin: r ? { x: (r.left + r.width / 2) / window.innerWidth, y: r.top / window.innerHeight } : { y: 0.6 },
-      colors: ["#F2542D", "#00B67A", "#FFA8C5", "#121212"],
+      colors: site.theme?.confetti ?? ["#C58A94", "#00B67A", "#FFA8C5", "#40312C"],
     });
     toast.success(coupon.successToast);
   };
@@ -52,8 +53,8 @@ export const CouponCard = ({ coupon }) => {
         </div>
       </div>
 
-      <div className="mt-4 flex items-stretch gap-3">
-        <div className="flex flex-1 items-center justify-center rounded-xl border border-dashed border-ink/25 bg-cream px-4 py-3 font-mono text-lg font-black tracking-[0.2em]" data-testid="coupon-code">
+      <div className="mt-4 flex flex-wrap items-stretch gap-3">
+        <div className="flex min-w-0 flex-1 items-center justify-center rounded-xl border border-dashed border-ink/25 bg-cream px-3 py-3 font-mono text-base font-black tracking-[0.14em] sm:px-4 sm:text-lg" data-testid="coupon-code">
           {coupon.code}
         </div>
         <motion.button
@@ -61,7 +62,7 @@ export const CouponCard = ({ coupon }) => {
           onClick={apply}
           disabled={state !== "idle"}
           whileTap={{ scale: 0.96 }}
-          className={`flex min-w-32 items-center justify-center gap-2 rounded-xl px-6 font-display text-base font-bold text-white transition-colors duration-300 ${state === "done" ? "bg-trustpilot" : "bg-ink hover:bg-flame"} disabled:cursor-default`}
+          className={`flex min-h-11 min-w-28 items-center justify-center gap-2 rounded-xl px-5 font-display text-base font-bold text-white transition-colors duration-300 ${state === "done" ? "bg-trustpilot" : "bg-ink hover:bg-flame"} disabled:cursor-default`}
           data-testid="coupon-apply-button"
         >
           {state === "applying" ? (
@@ -80,9 +81,9 @@ export const CouponCard = ({ coupon }) => {
         <Clock size={13} className="text-flame" />
         {coupon.expiryLabel}
         <span className="flex items-center gap-0.5 font-mono text-sm font-black text-flame">
-          <motion.span key={mm} initial={{ y: -6, opacity: 0 }} animate={{ y: 0, opacity: 1 }}>{mm}</motion.span>
+          <motion.span key={`m-${mm}`} initial={{ y: -6, opacity: 0 }} animate={{ y: 0, opacity: 1 }}>{mm}</motion.span>
           :
-          <motion.span key={ss} initial={{ y: -6, opacity: 0 }} animate={{ y: 0, opacity: 1 }}>{ss}</motion.span>
+          <motion.span key={`s-${ss}`} initial={{ y: -6, opacity: 0 }} animate={{ y: 0, opacity: 1 }}>{ss}</motion.span>
         </span>
       </div>
     </div>

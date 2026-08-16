@@ -14,9 +14,9 @@ export const VideoReviews = ({ data, eyebrowColor = "text-flame" }) => {
   };
 
   return (
-    <section className="mx-auto max-w-7xl px-5 py-16 md:px-10 md:py-28" data-testid="video-reviews-section">
+    <section className="container-sc py-16 md:py-28" data-testid="video-reviews-section">
       <Reveal>
-        <p className={`text-xs font-bold uppercase tracking-[0.25em] ${eyebrowColor}`} data-testid="video-reviews-eyebrow">{data.eyebrow}</p>
+        <p className={`text-sm font-bold uppercase tracking-[0.25em] ${eyebrowColor}`} data-testid="video-reviews-eyebrow">{data.eyebrow}</p>
         <div className="mt-3 flex items-end justify-between gap-6">
           <div>
             <h2 className="font-display text-3xl font-black tracking-tight md:text-5xl" data-testid="video-reviews-heading">{data.heading}</h2>
@@ -29,7 +29,7 @@ export const VideoReviews = ({ data, eyebrowColor = "text-flame" }) => {
         </div>
       </Reveal>
 
-      <div ref={trackRef} className="scrollbar-hide -mx-5 mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-2 md:-mx-10 md:px-10" data-testid="video-reviews-track">
+      <div ref={trackRef} className="scrollbar-hide -mx-4 mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 md:-mx-6 md:px-6 lg:-mx-12 lg:px-12" data-testid="video-reviews-track">
         {data.items.map((v, i) => (
           <button
             key={i}
@@ -45,7 +45,7 @@ export const VideoReviews = ({ data, eyebrowColor = "text-flame" }) => {
             <span className="absolute inset-x-0 bottom-0 p-5">
               <TrustpilotStars value={v.stars} size={12} gap={2} />
               <span className="mt-2 block font-display text-lg font-bold text-white">{v.name}</span>
-              <span className="block text-xs leading-snug text-white/70">{v.quote}</span>
+              <span className="block text-sm leading-snug text-white/70">{v.quote}</span>
             </span>
           </button>
         ))}

@@ -13,9 +13,9 @@ export const BrandStory = () => {
 
   return (
     <section ref={ref} className="bg-ink text-cream" data-testid="brand-story-section">
-      <div className="mx-auto max-w-7xl px-5 py-20 md:px-10 md:py-32">
+      <div className="container-sc py-20 md:py-32">
         <Reveal>
-          <p className="text-xs font-bold uppercase tracking-[0.3em] text-flame" data-testid="brand-story-eyebrow">{d.eyebrow}</p>
+          <p className="text-sm font-bold uppercase tracking-[0.25em] text-flame" data-testid="brand-story-eyebrow">{d.eyebrow}</p>
           <h2 className="mt-4 max-w-2xl font-display text-3xl font-black tracking-tight md:text-5xl" data-testid="brand-story-title">{d.title}</h2>
         </Reveal>
 

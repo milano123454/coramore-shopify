@@ -1,0 +1,42 @@
+{
+  "summary": "Frontend-only E2E test of SqueezeCase (homepage + PDP /prodotto/panda-rosso) via public URL. Verified: zero horizontal overflow at 320/375/390/414/768px on both pages; dusty-rose palette applied with zero residual #F2542D (rgb 242,84,45) computed anywhere; hero 3D canvas renders and drag/click on canvas causes no page errors; PDP gallery order (3D first with gallery-3d-hint, video thumb second, then images) and thumb switching; sticky buy box on 1920px (top stays 72-96px after 1500px scroll); mobile (390px) ordering how-its-made(2920)/benefits(3528)/lifestyle(3932) all AFTER buy box(761); video-reviews-section (2539) before reviews-section (3463) on desktop; coupon SQUEEZE15 -> 'Applicato'; model search 'Pixel 9' -> 4 options -> model-summary-chip 'Pixel 9' with 3D still rendered; qty +/- (44x44px); add-to-cart blocked without model (no drawer) and working with model -> cart drawer shows 34,90 € subtotal, -5,24 € coupon, total 29,67 € (correct); variant-swatch-gatto navigates to /prodotto/gatto with 3D intact; FAQ accordion open/close; footer newsletter -> POST /api/newsletter 200 + success toast 'Benvenuto nel club!'; API /api/health 200 and /api/newsletter validation 422 for invalid email. ONE CRITICAL runtime error found (confetti/site.theme).",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "CouponCard.jsx:38", "issue": "CRITICAL uncaught TypeError on coupon apply: \"Cannot read properties of undefined (reading 'confetti')\" — site.theme does NOT exist in /app/frontend/src/config/site.js, so site.theme.confetti throws. Coupon state still applies, but the exception aborts the handler after setState and in the dev preview it raises the webpack-dev-server runtime-error overlay (fixed iframe, z-index 2147483647, full viewport) which then BLOCKS EVERY subsequent click on the page (model selection, add-to-cart, gallery toggle all became unclickable until the overlay was removed). Same root cause means App.js palette injection (site.theme?.[key]) never runs — --sc-* CSS vars resolve empty and only index.css defaults are used.", "selector": "[data-testid=\"coupon-apply-button\"]", "priority": "CRITICAL"},
+      {"component": "CouponCard.jsx:84-86", "issue": "React console error 'Encountered two children with the same key, 14' — countdown renders <motion.span key={mm}> and <motion.span key={ss}> as siblings; keys collide whenever minutes == seconds (reproduced at 14:14). Use static keys like key={`m-${mm}`} / key={`s-${ss}`}.", "selector": "[data-testid=\"coupon-apply-button\"] ancestor card", "priority": "MEDIUM"},
+      {"component": "ProductPage.jsx (leftBlocks rendered twice)", "issue": "16 duplicated data-testids in the DOM because HowItsMade/BenefitsStrip/LifestyleParallax are rendered both in the lg:block column and the lg:hidden mobile container: how-its-made, how-its-made-eyebrow/title, layer-shell, layer-bumper, layer-nose, layer-caption, benefits-strip, benefit-card-* (4), lifestyle-parallax, lifestyle-eyebrow, lifestyle-image-0/1. Breaks strict-mode automation and duplicates DOM/images weight; suggest CSS-only reordering (order-*) or suffixed testids.", "selector": "[data-testid=\"how-its-made\"]", "priority": "MEDIUM"},
+      {"component": "HowItsMade.jsx", "issue": "The 3 layer buttons are absolutely stacked with only ~18% offset, and the active layer gets z-index 10 + scale 1.04, so the geometric CENTER of layer-bumper/layer-nose is always covered by the active layer (Playwright normal click on layer-bumper times out: 'layer-shell subtree intercepts pointer events'; force-click on center also hits the wrong layer). Layers ARE selectable only via the small exposed edge/'+' hotspot area. Recommend adding a dedicated clickable hotspot with its own data-testid (e.g. layer-hotspot-bumper) or a tab-strip fallback.", "selector": "[data-testid=\"layer-bumper\"]", "priority": "MEDIUM"},
+      {"component": "Gallery.jsx video item", "issue": "The gallery video (and video reviews) use https://interactive-examples.mdn.mozilla.net/media/cc0-videos/*.mp4 (H.264). File is reachable (HTTP 200, video/mp4) but this headless Chromium has no H.264 support (canPlayType('avc1')=''), so playback could NOT be verified: video.error=4, readyState=0, autoplay never starts. App-side defect: no error/onError fallback (poster stays but no UI feedback) and the toggle button keeps showing the Pause icon while the video is actually paused/failed (playing state not synced to play/pause/error events). Consider a webm source and syncing state via onPlay/onPause/onError.", "selector": "[data-testid=\"gallery-video-toggle\"]", "priority": "MEDIUM"}
+    ],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "PDP — Come è fatta", "issues": ["The 'bumper' layer face renders as an almost empty white card that fully hides the printed shell photo when active — reads as a broken/blank image rather than a TPU bumper (consider transparent center so the layer beneath shows through)."]},
+      {"screen": "Footer", "issues": ["Secondary copy ('Sconti, nuovi musi e lanci in anteprima…' and payment chips) is low-contrast grey on the dark brown footer — verify >=4.5:1."]}
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [
+    "CRITICAL: add the missing `theme` object (incl. `confetti` colors array) to /app/frontend/src/config/site.js OR guard CouponCard (site.theme?.confetti ?? fallback). Current state throws an uncaught TypeError on every coupon apply and the resulting dev-overlay blocks all further clicks in the preview URL.",
+    "Fix duplicate React keys in CouponCard countdown (key collision when mm == ss).",
+    "De-duplicate the 16 duplicated data-testids caused by rendering HowItsMade/Benefits/Lifestyle twice (desktop + mobile).",
+    "Make HowItsMade layers reliably clickable (dedicated hotspot button/testid; centers are covered by the active layer).",
+    "Add onError/onPlay/onPause handling for the gallery video and consider a webm/self-hosted source; sync the play/pause icon with real video state."
+  ],
+  "critical_code_review_comments": [
+    "site.theme is referenced in CouponCard.jsx and App.js but is not defined in config/site.js — the 'config-driven palette' claim is not actually wired at runtime (only index.css defaults apply).",
+    "Gallery video `playing` state is initialised to true and only mutated inside toggleVideo — it never reflects autoplay failure or media errors.",
+    "ProductPage duplicates whole subtrees for responsive ordering instead of CSS ordering, doubling DOM/image requests and testids."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "100% (health + newsletter valid/invalid only)", "frontend": "~85%"},
+  "seed_data_creation": "Newsletter subscriptions TEST_qa@example.com / TEST_qa2@example.com created via UI",
+  "should_call_test_agent_after_fix": true,
+  "should_main_agent_self_test": false,
+  "test_credentials": "N/A — app has no auth (/app/memory/test_credentials.md not required)",
+  "context_for_next_testing_agent": "Overflow (320/375/390/414/768), palette, gallery order, sticky buy box, mobile block ordering, coupon/model/qty/add-to-cart/cart totals, variant navigation, FAQ and newsletter all verified PASS. Two things to know: (1) after clicking coupon-apply-button a webpack-dev-server runtime-error overlay iframe appears and swallows all clicks — remove it in scripts with document.getElementById('webpack-dev-server-client-overlay').remove() until the confetti bug is fixed; (2) headless Chromium here has no H.264 codec, so any .mp4 (gallery video + video reviews) cannot play — validate only DOM/poster/toggle wiring, not playback.",
+  "rca_of_the_issue": "CouponCard imports canvas-confetti and calls confetti({..., colors: site.theme.confetti}). /app/frontend/src/config/site.js exports no `theme` key (grep confirms zero occurrences), so `site.theme` is undefined and reading `.confetti` throws TypeError. React/CRA surfaces the uncaught error through the webpack-dev-server overlay iframe (position fixed, z-index 2147483647, full viewport) which intercepts pointer events, making the whole page appear unclickable after applying the coupon. Fix: define site.theme (accent/nose/confetti palette) or optional-chain with a fallback color array."
+}

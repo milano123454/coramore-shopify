@@ -30,6 +30,23 @@ export const site = {
     tagline: "La cover che si coccola",
   },
 
+  // Palette del sito (modificabile): tutti i colori UI derivano da qui
+  theme: {
+    accent: "#C58A94",
+    accentDark: "#B27380",
+    cta: "#BC5A6F",
+    ctaDark: "#A3465B",
+    background: "#FAF6F2",
+    surface: "#F2EAE4",
+    text: "#40312C",
+    muted: "#8B7A73",
+    trustpilot: "#00B67A",
+    klarna: "#FFA8C5",
+    noseFrom: "#E9B4BC",
+    noseTo: "#DE9CA7",
+    confetti: ["#C58A94", "#00B67A", "#FFA8C5", "#40312C"],
+  },
+
   nav: {
     links: [
       { label: "Home", href: "/" },
@@ -53,7 +70,7 @@ export const site = {
     model3d: {
       textureUrl: IMG.pandaRosso2,
       caseColor: "#241f1b",
-      noseColor: "#e89aa4",
+      nose: { color: "#4a342b", scale: 1.08, flat: 1 },
       cameraHint: "Premimi!",
     },
     marquee: [
@@ -203,15 +220,32 @@ export const site = {
       popular: ["iPhone 16 Pro", "iPhone 15", "Galaxy S24", "Pixel 9", "iPhone 14", "Galaxy S25 Ultra"],
     },
 
+    // Forma 3D della cover per ogni modello: layout fotocamera per marca + proporzioni per taglia
+    phone3d: {
+      cameras: { apple: "square", xiaomi: "square", samsung: "pill", google: "bar" },
+      sizes: [
+        { keywords: ["pro max", "plus", "ultra", "fold", "xl"], w: 1.07, h: 1.05 },
+        { keywords: ["mini", "se (", "9a", "8a", "7a", "a15", "a35", "a55"], w: 0.94, h: 0.92 },
+        { keywords: ["flip"], w: 0.96, h: 0.9 },
+      ],
+    },
+
+    gallery3d: { hint: "Trascina per ruotare · Premi il naso", thumbLabel: "3D" },
+    galleryVideo: {
+      src: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+      poster: IMG.nasoMacro,
+      label: "Video",
+    },
+
     variants: [
-      { id: "panda-rosso", name: "Panda Rosso", colorName: "Ruggine", rating: 4.9, reviewsCount: 812, inStock: true, image: IMG.pandaRosso, gallery: [IMG.pandaRosso, IMG.pandaRosso2, IMG.smartphoneMano, IMG.nasoMacro] },
-      { id: "gatto", name: "Gatto", colorName: "Tigrato", rating: 4.8, reviewsCount: 634, inStock: true, image: IMG.gatto, gallery: [IMG.gatto, IMG.smartphoneMano, IMG.nasoMacro] },
-      { id: "carlino", name: "Carlino", colorName: "Nero", rating: 4.9, reviewsCount: 557, inStock: true, image: IMG.carlino, gallery: [IMG.carlino, IMG.nasoMacro, IMG.smartphoneMano] },
-      { id: "panda", name: "Panda", colorName: "Bianco & Nero", rating: 4.8, reviewsCount: 421, inStock: true, image: IMG.panda, gallery: [IMG.panda, IMG.smartphoneMano, IMG.nasoMacro] },
-      { id: "koala", name: "Koala", colorName: "Grigio", rating: 4.7, reviewsCount: 389, inStock: false, image: IMG.koala, gallery: [IMG.koala, IMG.nasoMacro, IMG.smartphoneMano] },
-      { id: "coniglio", name: "Coniglio", colorName: "Crema", rating: 4.9, reviewsCount: 342, inStock: true, image: IMG.coniglio, gallery: [IMG.coniglio, IMG.smartphoneMano, IMG.nasoMacro] },
-      { id: "fennec", name: "Fennec", colorName: "Sabbia", rating: 4.8, reviewsCount: 268, inStock: true, image: IMG.fennec, gallery: [IMG.fennec, IMG.nasoMacro, IMG.smartphoneMano] },
-      { id: "lontra", name: "Lontra", colorName: "Marrone", rating: 4.9, reviewsCount: 197, inStock: true, image: IMG.lontra, gallery: [IMG.lontra, IMG.smartphoneMano, IMG.nasoMacro] },
+      { id: "panda-rosso", name: "Panda Rosso", colorName: "Ruggine", rating: 4.9, reviewsCount: 812, inStock: true, image: IMG.pandaRosso, gallery: [IMG.pandaRosso, IMG.pandaRosso2, IMG.smartphoneMano, IMG.nasoMacro], caseColor: "#241f1b", nose: { color: "#4a342b", scale: 1.05, flat: 1 } },
+      { id: "gatto", name: "Gatto", colorName: "Tigrato", rating: 4.8, reviewsCount: 634, inStock: true, image: IMG.gatto, gallery: [IMG.gatto, IMG.smartphoneMano, IMG.nasoMacro], caseColor: "#2a2320", nose: { color: "#e2a3ab", scale: 0.85, flat: 0.9, pos: [0, -0.45] } },
+      { id: "carlino", name: "Carlino", colorName: "Nero", rating: 4.9, reviewsCount: 557, inStock: true, image: IMG.carlino, gallery: [IMG.carlino, IMG.nasoMacro, IMG.smartphoneMano], caseColor: "#1f1b19", nose: { color: "#26201d", scale: 1.2, flat: 0.85 } },
+      { id: "panda", name: "Panda", colorName: "Bianco & Nero", rating: 4.8, reviewsCount: 421, inStock: true, image: IMG.panda, gallery: [IMG.panda, IMG.smartphoneMano, IMG.nasoMacro], caseColor: "#efe9e1", nose: { color: "#241f1d", scale: 1.15, flat: 0.95 } },
+      { id: "koala", name: "Koala", colorName: "Grigio", rating: 4.7, reviewsCount: 389, inStock: false, image: IMG.koala, gallery: [IMG.koala, IMG.nasoMacro, IMG.smartphoneMano], caseColor: "#8d8781", nose: { color: "#33281f", scale: 1.35, flat: 1 } },
+      { id: "coniglio", name: "Coniglio", colorName: "Crema", rating: 4.9, reviewsCount: 342, inStock: true, image: IMG.coniglio, gallery: [IMG.coniglio, IMG.smartphoneMano, IMG.nasoMacro], caseColor: "#efe4d8", nose: { color: "#e8a7ae", scale: 0.75, flat: 0.85 } },
+      { id: "fennec", name: "Fennec", colorName: "Sabbia", rating: 4.8, reviewsCount: 268, inStock: true, image: IMG.fennec, gallery: [IMG.fennec, IMG.nasoMacro, IMG.smartphoneMano], caseColor: "#d9c3a3", nose: { color: "#2b2018", scale: 0.8, flat: 0.9 } },
+      { id: "lontra", name: "Lontra", colorName: "Marrone", rating: 4.9, reviewsCount: 197, inStock: true, image: IMG.lontra, gallery: [IMG.lontra, IMG.smartphoneMano, IMG.nasoMacro], caseColor: "#4a382b", nose: { color: "#3b2b20", scale: 1.1, flat: 0.95 } },
     ],
 
     bestSellerIds: ["panda-rosso", "gatto", "carlino", "panda", "coniglio", "fennec"],
@@ -229,6 +263,31 @@ export const site = {
       textBefore: "Ordina entro",
       textAfter: "e ricevi",
       deliveredByLabel: "consegna stimata",
+    },
+
+    howItsMade: {
+      eyebrow: "Come è fatta",
+      title: "Tre strati, un solo nasino",
+      layers: [
+        { id: "shell", title: "Scocca stampata HD", caption: "Retro rigido in policarbonato con stampa fotografica HD anti-graffio e anti-UV: i colori restano vividi per anni, anche con uso quotidiano." },
+        { id: "bumper", title: "Bumper morbido in TPU", caption: "Il perimetro flessibile assorbe gli urti e rende la cover facile da montare, con bordi rialzati di 1,2 mm che proteggono schermo e fotocamera." },
+        { id: "nose", title: "Naso in silicone food-grade", caption: "Il cuore di SqueezeCase: un cuscinetto 3D ultra-morbido, atossico e senza odori, testato per oltre 100.000 schiacciate." },
+      ],
+    },
+
+    benefits: [
+      { icon: "feather", title: "Leggerissima", text: "Solo 38 grammi: non senti il peso, senti solo il nasino." },
+      { icon: "shield", title: "Anti-urto", text: "Protezione testata con cadute da 2 metri di altezza." },
+      { icon: "sparkles", title: "Anti-stress", text: "Un piccolo rituale tattile che calma davvero." },
+      { icon: "magnet", title: "MagSafe ready", text: "Compatibile con ricarica wireless e MagSafe." },
+    ],
+
+    lifestyle: {
+      eyebrow: "Nella vita vera",
+      images: [
+        { src: IMG.lifestyle1, alt: "Persona che usa lo smartphone con la cover SqueezeCase" },
+        { src: IMG.lifestyle2, alt: "Cover SqueezeCase nella vita quotidiana" },
+      ],
     },
 
     accordions: [

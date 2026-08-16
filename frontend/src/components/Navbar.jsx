@@ -17,7 +17,7 @@ export const Navbar = () => {
 
   return (
     <header className={`fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow] duration-300 ${scrolled ? "bg-cream/80 shadow-[0_1px_0_rgba(18,18,18,0.08)] backdrop-blur-xl" : "bg-transparent"}`} data-testid="navbar">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 md:h-20 md:px-10">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:h-20 md:px-6 lg:px-12">
         <Link to="/" className="font-display text-2xl font-black tracking-tight" data-testid="nav-logo">
           Squeeze<span className="text-flame">Case</span>
         </Link>

@@ -11,7 +11,7 @@ export const TrustpilotStars = ({ value = 5, size = 18, gap = 3, className = "",
           <span
             key={i}
             className="flex items-center justify-center rounded-[3px]"
-            style={{ width: box, height: box, background: `linear-gradient(90deg, #00B67A ${f * 100}%, #C9C9D4 ${f * 100}%)` }}
+            style={{ width: box, height: box, background: `linear-gradient(90deg, rgb(var(--sc-trustpilot)) ${f * 100}%, #DCD3CE ${f * 100}%)` }}
           >
             <Star size={size} fill="#fff" strokeWidth={0} color="#fff" />
           </span>

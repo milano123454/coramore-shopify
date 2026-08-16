@@ -115,7 +115,7 @@ export const ModelSelector = ({ config, selected, onSelect }) => {
                   <p className="mb-2 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-smoke"><History size={12} /> {config.recentLabel}</p>
                   <div className="flex flex-wrap gap-2">
                     {recents.map((m) => (
-                      <button key={m} onClick={() => pick(m)} className="rounded-full border border-ink/15 px-3.5 py-2 text-xs font-bold transition-colors hover:border-flame hover:text-flame" data-testid={`model-recent-${m.toLowerCase().replace(/[\s()+]/g, "-")}`}>
+                      <button key={m} onClick={() => pick(m)} className="rounded-full border border-ink/15 px-4 py-2.5 text-sm font-bold transition-colors hover:border-flame hover:text-flame" data-testid={`model-recent-${m.toLowerCase().replace(/[\s()+]/g, "-")}`}>
                         {m}
                       </button>
                     ))}
@@ -127,7 +127,7 @@ export const ModelSelector = ({ config, selected, onSelect }) => {
                 <p className="mb-2 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-smoke"><Flame size={12} className="text-flame" /> {config.popularLabel}</p>
                 <div className="flex flex-wrap gap-2">
                   {config.popular.map((m) => (
-                    <button key={m} onClick={() => pick(m)} className="rounded-full bg-ink px-3.5 py-2 text-xs font-bold text-white transition-colors hover:bg-flame" data-testid={`model-popular-${m.toLowerCase().replace(/[\s()+]/g, "-")}`}>
+                    <button key={m} onClick={() => pick(m)} className="rounded-full bg-ink px-4 py-2.5 text-sm font-bold text-white transition-colors hover:bg-flame" data-testid={`model-popular-${m.toLowerCase().replace(/[\s()+]/g, "-")}`}>
                       {m}
                     </button>
                   ))}
@@ -157,7 +157,7 @@ export const ModelSelector = ({ config, selected, onSelect }) => {
                   <button
                     key={f.name}
                     onClick={() => setFamilyName(f.name)}
-                    className={`flex shrink-0 items-center gap-1 rounded-lg px-3 py-2 text-xs font-bold transition-colors duration-150 ${family.name === f.name ? "bg-ink text-white" : "bg-cream text-smoke hover:text-ink"}`}
+                    className={`flex shrink-0 items-center gap-1 rounded-lg px-3 py-2.5 text-sm font-bold transition-colors duration-150 ${family.name === f.name ? "bg-ink text-white" : "bg-cream text-smoke hover:text-ink"}`}
                     data-testid={`model-family-${f.name.toLowerCase().replace(/\s/g, "-")}`}
                   >
                     {f.name} {family.name === f.name && <ChevronRight size={12} />}

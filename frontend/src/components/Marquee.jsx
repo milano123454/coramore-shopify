@@ -7,7 +7,7 @@ export const Marquee = ({ items, className = "" }) => (
       {[...items, ...items].map((item, i) => (
         <span key={i} className="flex items-center gap-12 whitespace-nowrap font-display text-xl font-bold uppercase tracking-tight text-ink/70 md:gap-20 md:text-3xl">
           {item}
-          <Sparkle size={18} className="text-flame" fill="#F2542D" />
+          <Sparkle size={18} className="text-flame" fill="currentColor" />
         </span>
       ))}
     </div>

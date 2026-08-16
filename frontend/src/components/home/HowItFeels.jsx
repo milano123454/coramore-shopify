@@ -31,9 +31,9 @@ export const HowItFeels = () => {
   return (
     <section ref={ref} id="come-si-sente" className="relative h-[220vh]" data-testid="how-it-feels-section">
       <div className="sticky top-0 flex min-h-screen items-center overflow-hidden">
-        <div className="mx-auto grid w-full max-w-7xl items-center gap-12 px-5 py-24 md:grid-cols-2 md:px-10">
+        <div className="container-sc grid items-center gap-12 py-24 md:grid-cols-2">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.3em] text-flame" data-testid="how-it-feels-eyebrow">{d.eyebrow}</p>
+            <p className="text-sm font-bold uppercase tracking-[0.25em] text-flame" data-testid="how-it-feels-eyebrow">{d.eyebrow}</p>
             <h2 className="mt-4 font-display text-3xl font-black leading-tight tracking-tight md:text-5xl" data-testid="how-it-feels-title">
               {d.title}
             </h2>
@@ -60,8 +60,13 @@ export const HowItFeels = () => {
             </div>
             {/* the squishing nose */}
             <motion.div
-              style={{ scaleX, scaleY }}
-              className="absolute left-1/2 top-1/2 h-32 w-32 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-[#f2b3bd] to-[#e89aa4] shadow-[inset_-6px_-8px_18px_rgba(0,0,0,0.18),0_18px_40px_rgba(232,154,164,0.5)] md:h-44 md:w-44"
+              style={{
+                scaleX,
+                scaleY,
+                background: "linear-gradient(135deg, rgb(var(--sc-nose-from)), rgb(var(--sc-nose-to)))",
+                boxShadow: "inset -6px -8px 18px rgba(0,0,0,0.18), 0 18px 40px rgb(var(--sc-nose-to) / 0.5)",
+              }}
+              className="absolute left-1/2 top-1/2 h-32 w-32 -translate-x-1/2 -translate-y-1/2 rounded-full md:h-44 md:w-44"
               data-testid="how-it-feels-nose"
             >
               <span className="absolute inset-0 rounded-full bg-gradient-to-tl from-transparent via-transparent to-white/50" />

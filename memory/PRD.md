@@ -48,3 +48,16 @@ Premium, high-converting e-commerce site for phone cases with a printed animal p
 - P1: Per-variant price override support in config
 - P2: Wishlist, product comparison, multi-language (IT/EN) switcher
 - P2: AI-generated hero textures per animal for consistent 3D look
+
+---
+## Update — 16 Jun 2026 · 3D interactivity + PDP/CTA fixes
+
+Fixed the 6 reported bugs (verified in browser + testing agent iteration_3, 13/13 scenarios pass):
+1. Real interactive 3D (rewrote `Case3DScene.jsx` `CaseRig`): custom pointer drag-to-rotate (mouse+touch) with inertia + continuous spring-back to front-facing angle; gentle idle sway (Math.sin) that stops on first interaction; pressable silicone nose with elastic spring squash (repeatable). Nose press guarded from triggering drag via module `noseHeldUntil` flag.
+2. Hero 3D enlarged & dominant (`Hero3D.jsx` h-[88vh], cameraZ 10.4 — fits without clipping at 1920).
+3. Design variant grid reachable on desktop — removed internal sticky `overflow-y-auto`/`max-h` scroll trap in `ProductPage.jsx`.
+4. Selecting a variant updates 3D texture + nose (colour/scale/shape, crossfade); phone model morphs shell + camera cutout. Per-variant `nose.pos` offset added in `site.js` (gatto tuned).
+5. Saturated CTA: new `theme.cta`/`theme.ctaDark` (#BC5A6F / #A3465B) → tailwind `cta` color, `shadow-cta`; applied to hero primary CTA, Acquista ora, newsletter button.
+6. Perf retained: lazy 3D after idle, IntersectionObserver frameloop pause, static fallback on reduced-motion/very-low-end. Hint pill shows only when live scene is ready.
+
+All content remains editable via `/app/frontend/src/config/site.js` (incl. theme.cta, nose.pos). Checkout still MOCKED.

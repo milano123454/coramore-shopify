@@ -6,7 +6,7 @@ export const FAQ = () => {
   const f = site.product.faq;
   return (
     <section id="faq" className="scroll-mt-24 bg-sand/50" data-testid="faq-section">
-      <div className="mx-auto max-w-3xl px-5 py-16 md:py-28">
+      <div className="mx-auto max-w-3xl px-4 py-16 md:px-6 md:py-28">
         <Reveal>
           <h2 className="text-center font-display text-3xl font-black tracking-tight md:text-5xl" data-testid="faq-heading">{f.heading}</h2>
         </Reveal>

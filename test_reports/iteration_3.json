@@ -1,0 +1,35 @@
+{
+  "summary": "Frontend-only retest of the 6 reported SqueezeCase bugs on the preview URL. Verified: real WebGL 3D case renders on home hero + PDP gallery (first item), drag-to-rotate with inertia and auto-return to front, repeatable nose squash/spring (3 presses measured via pixel width of nose silhouette: rest=175px -> pressed 226/244/253px -> restored 178/177/175px), hint pill only on live scene (absent under prefers-reduced-motion where the static fallback img renders), saturated rose CTAs (rgb(188,90,111) = bg-cta on both hero-cta-primary-link and buy-now-button), Design variant grid visible on desktop 1920 (8 swatches) and mobile 390, variant switching updates texture+nose (gatto=pink nose, carlino=dark nose) and case stays draggable, model gating + add-to-cart + toast + cart drawer + 15% coupon discount (34,90 -> 29,67 EUR) + mock checkout note, post-coupon interactivity intact (no blocking overlay), BuyBox and FAQ accordions open/close, reviews render (8 review cards). Horizontal overflow = 0 at 320/375/390/414/768 on both home and PDP. No console errors in any run.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "Hero3D / Case3DScene camera", "issue": "On desktop 1920x1080 the 3D case is clipped by the canvas: the shell top and bottom extend past the canvas bounds (canvas 588x993, cameraZ 9.4 + fov 38 gives ~6.47 world units of visible height vs 6.6 case height), so the case reads as cut off rather than fully framed.", "selector": "[data-testid=\"case-3d\"] canvas", "priority": "MEDIUM"},
+      {"component": "Case3DScene CaseRig", "issue": "Auto-return to the front angle is slow after a fast flick: measured ~4-5s to visually return to front (inertia decay 0.9/frame plus lerp factor dt*1.8 only after |v|<0.0016). At the 3s mark the case was still showing its dark back side.", "selector": "[data-testid=\"case-3d\"] canvas", "priority": "LOW"},
+      {"component": "Case3DScene Nose", "issue": "Nose position is fixed at the case centre (group position [0,0.15,0.62]) while each variant photo is cover-cropped differently, so on some designs (e.g. gatto) the silicone sphere floats over the background instead of sitting on the printed animal's nose.", "selector": "[data-testid=\"product-gallery\"] canvas", "priority": "MEDIUM"},
+      {"component": "Case3DScene pointer handling", "issue": "pointerdown on the nose mesh also triggers the canvas DOM drag listener (R3F stopPropagation does not stop the gl.domElement listener), so pressing the nose with any pointer movement also rotates the case.", "selector": "[data-testid=\"case-3d\"] canvas", "priority": "LOW"}
+    ],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Footer newsletter (all widths)", "issues": ["'Iscriviti' button uses light blush background with white text - weak contrast versus the darker CTA rose used elsewhere"]},
+      {"screen": "Homepage hero desktop", "issues": ["Large empty cream band above the hero copy at 1920x1080 while the 3D case overflows vertically - hero vertical balance is off"]}
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [
+    "Reduce hero 3D camera zoom (increase cameraZ or fov) so the whole case fits vertically in the hero canvas at 1920x1080",
+    "Speed up spring-back to front after a fast flick (raise lerp rate / start return earlier) - currently ~4-5s",
+    "Consider per-variant nose offset in site.js so the silicone nose lands on the printed animal's nose (visible mismatch on 'gatto')",
+    "Ignore/suppress canvas drag when the pointerdown target is the nose mesh"
+  ],
+  "critical_code_review_comments": [
+    "Case3DScene.jsx: nose squash uses a hand-rolled spring with dt clamped at 0.05 - on very low FPS the spring can overshoot; consider a stable critically-damped integration.",
+    "Nose press and rig drag both listen on the same pointerdown chain; guard the rig with a flag set by the nose handler."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "not tested (frontend-only request)", "frontend": "100% of the 13 requested scenarios verified; 4 cosmetic/UX defects found"},
+  "seed_data_creation": "none (no backend/auth)",
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Use wait_until='domcontentloaded' - networkidle never fires because of the continuous WebGL/dev-socket traffic. Screenshots returned by the tool are downscaled (1920 -> 1568), so compute nose coordinates from canvas bounding_box (nose ~ canvas centre X, y~543 at 1920x1080), not from screenshot pixels. Nose squash can be measured with PIL by counting the longest dark horizontal run in a 320x140 clip around the nose. variant-swatch-koala is disabled (out of stock) - use gatto/carlino. Cart checkout testid is 'cart-checkout-button' (not 'checkout-button'). Overflow verified 0 at 320/375/390/414/768 on / and /prodotto/panda-rosso.",
+  "rca_of_the_issue": "Previously reported post-coupon invisible overlay is fixed: after clicking coupon-apply-button, document.elementFromPoint at viewport centre returns the page content div (not an overlay) and subsequent clicks on variant swatches and model chips register normally. Remaining findings are camera framing/animation-tuning issues in Case3DScene/Hero3D, not blockers."
+}

@@ -28,16 +28,16 @@ export const Footer = () => {
 
   return (
     <footer className="bg-ink text-cream" data-testid="footer">
-      <div className="mx-auto max-w-7xl px-5 py-16 md:px-10 md:py-28">
+      <div className="container-sc py-16 md:py-28">
         <div className="grid gap-14 lg:grid-cols-[1.4fr_1fr_1fr]">
           <div>
             <p className="font-display text-4xl font-black tracking-tight md:text-5xl">
               Squeeze<span className="text-flame">Case</span>
             </p>
-            <p className="mt-3 text-sm text-cream/60">{site.brand.tagline}</p>
+            <p className="mt-3 text-sm text-cream/70">{site.brand.tagline}</p>
             <div className="mt-10">
               <p className="font-display text-2xl font-bold">{f.newsletter.title}</p>
-              <p className="mt-2 text-sm text-cream/60">{f.newsletter.text}</p>
+              <p className="mt-2 text-sm text-cream/70">{f.newsletter.text}</p>
               <form onSubmit={subscribe} className="mt-5 flex max-w-md gap-2">
                 <input
                   type="email"
@@ -49,7 +49,7 @@ export const Footer = () => {
                   data-testid="newsletter-email-input"
                   aria-label={f.newsletter.placeholder}
                 />
-                <button type="submit" disabled={loading} className="flex h-12 items-center gap-2 rounded-full bg-flame px-6 text-sm font-bold text-white transition-colors duration-200 hover:bg-flame-dark disabled:opacity-60" data-testid="newsletter-submit-button">
+                <button type="submit" disabled={loading} className="flex h-12 items-center gap-2 rounded-full bg-cta px-6 text-sm font-bold text-white transition-colors duration-200 hover:bg-cta-dark disabled:opacity-60" data-testid="newsletter-submit-button">
                   {f.newsletter.button} <ArrowRight size={16} />
                 </button>
               </form>
@@ -58,7 +58,7 @@ export const Footer = () => {
 
           {f.columns.map((col) => (
             <div key={col.title}>
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-cream/50">{col.title}</p>
+              <p className="text-sm font-bold uppercase tracking-[0.2em] text-cream/70">{col.title}</p>
               <ul className="mt-5 space-y-3">
                 {col.links.map((l) => (
                   <li key={l.label}>
@@ -78,7 +78,7 @@ export const Footer = () => {
           ))}
         </div>
 
-        <div className="mt-8 flex flex-col gap-3 border-t border-cream/10 pt-8 text-xs text-cream/50 md:flex-row md:items-center md:justify-between">
+        <div className="mt-8 flex flex-col gap-3 border-t border-cream/10 pt-8 text-xs text-cream/70 md:flex-row md:items-center md:justify-between">
           <p data-testid="footer-info">{f.info}</p>
           <p>{f.copyright}</p>
         </div>

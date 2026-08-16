@@ -34,7 +34,7 @@ export const ProductCard = ({ variant, price }) => {
         <Link to={`/prodotto/${variant.id}`} className="block">
           <div className="relative overflow-hidden rounded-[1.25rem]">
             <img src={variant.image} alt={`Cover ${variant.name} con nasino 3D`} loading="lazy" className="aspect-[4/5] w-full object-cover transition-transform duration-700 group-hover:scale-105" />
-            <span className="absolute left-3 top-3 rounded-full bg-destructive px-3 py-1 text-xs font-black text-white" data-testid={`product-badge-${variant.id}`}>
+            <span className="absolute left-3 top-3 rounded-full bg-flame px-3 py-1 text-xs font-black text-white" data-testid={`product-badge-${variant.id}`}>
               −{discount}%
             </span>
             {!variant.inStock && (
@@ -70,11 +70,11 @@ export const BestSellers = () => {
   const next = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
 
   return (
-    <section id="best-sellers" className="mx-auto max-w-7xl px-5 py-16 md:px-10 md:py-28" data-testid="best-sellers-section">
+    <section id="best-sellers" className="container-sc py-16 md:py-28" data-testid="best-sellers-section">
       <Reveal>
         <div className="flex items-end justify-between gap-6">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.3em] text-flame" data-testid="best-sellers-eyebrow">{d.eyebrow}</p>
+            <p className="text-sm font-bold uppercase tracking-[0.25em] text-flame" data-testid="best-sellers-eyebrow">{d.eyebrow}</p>
             <h2 className="mt-3 font-display text-3xl font-black tracking-tight md:text-5xl" data-testid="best-sellers-title">{d.title}</h2>
             <p className="mt-3 text-sm text-smoke md:text-base">{d.subtitle}</p>
           </div>

@@ -7,30 +7,49 @@
 
 @layer base {
   :root {
-    --background: 36 14% 96%;
-    --foreground: 0 0% 7%;
+    /* SqueezeCase palette — triplet RGB, sovrascritti a runtime da site.theme */
+    --sc-bg: 250 246 242;
+    --sc-surface: 242 234 228;
+    --sc-text: 64 49 44;
+    --sc-muted: 139 122 115;
+    --sc-accent: 197 138 148;
+    --sc-accent-dark: 178 115 128;
+    --sc-trustpilot: 0 182 122;
+    --sc-klarna: 255 168 197;
+    --sc-nose-from: 233 180 188;
+    --sc-nose-to: 222 156 167;
+    --sc-cta: 188 90 111;
+    --sc-cta-dark: 163 70 91;
+
+    --background: 29 44% 96%;
+    --foreground: 15 19% 21%;
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 7%;
+    --card-foreground: 15 19% 21%;
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 7%;
-    --primary: 0 0% 7%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 34 13% 90%;
-    --secondary-foreground: 0 0% 7%;
-    --muted: 34 13% 90%;
-    --muted-foreground: 0 0% 36%;
-    --accent: 12 88% 56%;
+    --popover-foreground: 15 19% 21%;
+    --primary: 15 19% 21%;
+    --primary-foreground: 30 40% 98%;
+    --secondary: 26 35% 92%;
+    --secondary-foreground: 15 19% 21%;
+    --muted: 26 35% 92%;
+    --muted-foreground: 18 9% 50%;
+    --accent: 350 34% 66%;
     --accent-foreground: 0 0% 100%;
-    --destructive: 0 72% 50%;
+    --destructive: 0 55% 52%;
     --destructive-foreground: 0 0% 98%;
-    --border: 30 8% 86%;
-    --input: 30 8% 86%;
-    --ring: 12 88% 56%;
+    --border: 23 26% 86%;
+    --input: 23 26% 86%;
+    --ring: 350 34% 66%;
     --radius: 0.75rem;
   }
 
   * {
     @apply border-border;
+  }
+
+  html,
+  body {
+    overflow-x: clip;
   }
 
   body {
@@ -40,12 +59,12 @@
   }
 
   ::selection {
-    background: #f2542d;
+    background: rgb(var(--sc-accent));
     color: #fff;
   }
 
   :focus-visible {
-    outline: 2px solid #f2542d;
+    outline: 2px solid rgb(var(--sc-accent));
     outline-offset: 2px;
   }
 }
@@ -56,6 +75,13 @@
   }
 }
 
+@layer components {
+  /* Sistema di spaziatura unico: 16px mobile / 24px tablet / 48px desktop */
+  .container-sc {
+    @apply mx-auto w-full max-w-7xl px-4 md:px-6 lg:px-12;
+  }
+}
+
 @layer utilities {
   .scrollbar-hide {
     -ms-overflow-style: none;
@@ -63,6 +89,12 @@
   }
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
+  }
+  .shadow-accent {
+    box-shadow: 0 10px 30px rgb(var(--sc-accent) / 0.35);
+  }
+  .shadow-cta {
+    box-shadow: 0 12px 34px rgb(var(--sc-cta) / 0.42);
   }
 }
 
@@ -98,8 +130,8 @@
 
 /* ---- coupon dashed border pulse ---- */
 @keyframes dashPulse {
-  0%, 100% { border-color: rgba(18, 18, 18, 0.25); }
-  50% { border-color: rgba(242, 84, 45, 0.55); }
+  0%, 100% { border-color: rgb(var(--sc-text) / 0.25); }
+  50% { border-color: rgb(var(--sc-accent) / 0.6); }
 }
 .coupon-border {
   animation: dashPulse 2.6s ease-in-out infinite;
@@ -112,6 +144,28 @@
 }
 .nose-hint {
   animation: noseHint 1.6s ease-in-out infinite;
+}
+
+/* ---- hotspot pulse (Come è fatta) ---- */
+@keyframes hotspotPulse {
+  0% { box-shadow: 0 0 0 0 rgb(var(--sc-accent) / 0.5); }
+  70% { box-shadow: 0 0 0 12px rgb(var(--sc-accent) / 0); }
+  100% { box-shadow: 0 0 0 0 rgb(var(--sc-accent) / 0); }
+}
+.hotspot-pulse {
+  animation: hotspotPulse 2.2s ease-out infinite;
+}
+
+/* ---- fallback statico 3D (reduced motion / low-end) ---- */
+@keyframes caseFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.case-float {
+  animation: caseFloat 5s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .case-float { animation: none; }
 }
 
 /* ---- gallery zoom ---- */

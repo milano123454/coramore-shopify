@@ -7,7 +7,7 @@ export const SocialProof = () => {
   const d = site.socialProof;
   return (
     <section className="border-y border-ink/10 bg-white" data-testid="social-proof-section">
-      <div className="mx-auto flex max-w-7xl flex-col items-center gap-8 px-5 py-14 md:flex-row md:justify-between md:px-10">
+      <div className="container-sc flex flex-col items-center gap-8 py-14 md:flex-row md:justify-between">
         <Reveal className="flex items-center gap-5">
           <p className="font-display text-6xl font-black tracking-tight" data-testid="social-proof-average">{d.average}</p>
           <div>

@@ -19,11 +19,10 @@ const scrollToReviews = () => {
   else document.querySelector("#recensioni")?.scrollIntoView({ behavior: "smooth" });
 };
 
-export const BuyBox = ({ variant, onVariantChange }) => {
+export const BuyBox = ({ variant, onVariantChange, model, onModelChange }) => {
   const p = site.product;
   const b = p.buyBox;
   const { addItem } = useCart();
-  const [model, setModel] = useState(null);
   const [qty, setQty] = useState(1);
 
   const discount = Math.round((1 - p.price.current / p.price.original) * 100);
@@ -62,7 +61,7 @@ export const BuyBox = ({ variant, onVariantChange }) => {
       <div className="flex items-center gap-4" data-testid="price-block">
         <span className="font-display text-4xl font-black tracking-tight text-flame" data-testid="price-current">{formatPrice(p.price.current)}</span>
         <span className="text-xl font-semibold text-smoke line-through" data-testid="price-original">{formatPrice(p.price.original)}</span>
-        <span className="rounded-full bg-destructive px-3 py-1 text-sm font-black text-white" data-testid="price-discount-badge">−{discount}%</span>
+        <span className="rounded-full bg-flame px-3 py-1 text-sm font-black text-white" data-testid="price-discount-badge">−{discount}%</span>
       </div>
 
       {/* 4 — Klarna instalments */}
@@ -75,7 +74,7 @@ export const BuyBox = ({ variant, onVariantChange }) => {
       <CouponCard coupon={p.coupon} />
 
       {/* 6 — Model selector */}
-      <ModelSelector config={p.models} selected={model} onSelect={setModel} />
+      <ModelSelector config={p.models} selected={model} onSelect={onModelChange} />
 
       {/* 7 — Variant swatches */}
       <VariantSelector variants={p.variants} selected={variant} onSelect={onVariantChange} label={b.variantLabel} />
@@ -84,17 +83,17 @@ export const BuyBox = ({ variant, onVariantChange }) => {
       <div className="space-y-3">
         <p className="text-sm font-bold">{b.quantityLabel}</p>
         <div className="flex gap-3">
-          <div className="flex items-center gap-4 rounded-full border border-ink/15 bg-white px-4 py-3" data-testid="quantity-selector">
-            <button onClick={() => setQty(Math.max(1, qty - 1))} aria-label="Diminuisci quantità" data-testid="qty-minus"><Minus size={16} /></button>
+          <div className="flex items-center rounded-full border border-ink/15 bg-white px-1" data-testid="quantity-selector">
+            <button onClick={() => setQty(Math.max(1, qty - 1))} className="flex h-11 w-11 items-center justify-center" aria-label="Diminuisci quantità" data-testid="qty-minus"><Minus size={16} /></button>
             <span className="w-6 text-center font-display text-lg font-black" data-testid="qty-value">{qty}</span>
-            <button onClick={() => setQty(qty + 1)} aria-label="Aumenta quantità" data-testid="qty-plus"><Plus size={16} /></button>
+            <button onClick={() => setQty(qty + 1)} className="flex h-11 w-11 items-center justify-center" aria-label="Aumenta quantità" data-testid="qty-plus"><Plus size={16} /></button>
           </div>
           <MagneticButton className="flex-1" testId="buy-now-magnetic">
             <motion.button
               whileTap={{ scale: 0.97 }}
               onClick={() => tryAdd(true)}
               disabled={!variant.inStock}
-              className="flex h-[52px] w-full items-center justify-center rounded-full bg-flame font-display text-lg font-bold text-white shadow-[0_10px_30px_rgba(242,84,45,0.35)] transition-colors duration-200 hover:bg-flame-dark disabled:bg-ink/30 disabled:shadow-none"
+              className="flex h-[52px] w-full items-center justify-center rounded-full bg-cta font-display text-lg font-bold text-white shadow-cta transition-colors duration-200 hover:bg-cta-dark disabled:bg-ink/30 disabled:shadow-none"
               data-testid="buy-now-button"
             >
               {variant.inStock ? b.buyNowLabel : b.soldOutLabel}

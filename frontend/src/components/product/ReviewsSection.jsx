@@ -3,7 +3,6 @@ import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight, Star, BadgeCheck } from "lucide-react";
 import TrustpilotStars from "@/components/TrustpilotStars";
 import Reveal from "@/components/Reveal";
-import VideoReviews from "@/components/VideoReviews";
 import site from "@/config/site";
 
 // Trustpilot-style summary widget with distribution bars
@@ -101,7 +100,7 @@ export const ReviewsSection = () => {
   const r = site.product.reviewsSection;
   return (
     <div id="recensioni" className="scroll-mt-24">
-      <section className="mx-auto max-w-7xl px-5 py-16 md:px-10 md:py-24" data-testid="reviews-section">
+      <section className="container-sc py-16 md:py-24" data-testid="reviews-section">
         <Reveal>
           <h2 className="font-display text-3xl font-black tracking-tight md:text-5xl" data-testid="reviews-heading">{r.heading}</h2>
           <p className="mt-3 text-sm text-smoke md:text-base">{r.subheading}</p>
@@ -113,7 +112,6 @@ export const ReviewsSection = () => {
           <TextReviewsCarousel reviews={r.textReviews} />
         </Reveal>
       </section>
-      <VideoReviews data={site.videoReviews} />
     </div>
   );
 };
