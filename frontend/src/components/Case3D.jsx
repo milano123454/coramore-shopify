@@ -21,24 +21,21 @@ export function getPhoneSpec(modelName, models, phone3d) {
 // 3D scene has mounted and is interactive.
 export default function Case3D({ textureUrl, caseColor, nose, modelName = null, autoRotate = true, placeholder, alt = "", className = "", cameraZ = 10.5, hint }) {
   const ref = useRef(null);
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(true);
   const [ready, setReady] = useState(false);
   const [sceneReady, setSceneReady] = useState(false);
 
-  const fallback = useMemo(() => {
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const lowEnd = (navigator.hardwareConcurrency || 8) <= 2 || (navigator.deviceMemory || 8) <= 1;
-    return reduced || lowEnd;
-  }, []);
+  // Genuine fallback ONLY for users who asked for reduced motion.
+  const fallback = useMemo(
+    () => window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+    []
+  );
 
+  // Mount the WebGL scene right after first paint (lazy chunk loads on demand).
   useEffect(() => {
     if (fallback) return;
-    if (window.requestIdleCallback) {
-      const id = window.requestIdleCallback(() => setReady(true), { timeout: 1200 });
-      return () => window.cancelIdleCallback(id);
-    }
-    const id = setTimeout(() => setReady(true), 350);
-    return () => clearTimeout(id);
+    const id = requestAnimationFrame(() => setReady(true));
+    return () => cancelAnimationFrame(id);
   }, [fallback]);
 
   useEffect(() => {
