@@ -1,0 +1,139 @@
+{
+  "project_meta": {
+    "brand_name": "SqueezeCase",
+    "language": "it",
+    "currency": "EUR (€)",
+    "app_type": "e-commerce (DTC premium landing + product page)",
+    "theme": "light"
+  },
+  "global_config_requirement": "EVERY element must be a configurable component driven by a central config file (e.g., src/config/site.js). No hardcoded content in components. All text must be in Italian.",
+  "colors": {
+    "archetype": "Organic & Earthy + High Contrast",
+    "background": "#F7F5F2",
+    "surface": "#FFFFFF",
+    "surface_alt": "#EAE7E0",
+    "text_primary": "#121212",
+    "text_secondary": "#5C5C5C",
+    "accent": "#F2542D",
+    "accent_hover": "#D9421E",
+    "trustpilot_green": "#00B67A",
+    "klarna_pink": "#FFA8C5",
+    "rules": [
+      "Use soft warm neutrals for structure.",
+      "Accent color (#F2542D) used SPARINGLY for primary CTAs and magnetic buttons only.",
+      "Never use generic full-screen gradients. Keep backgrounds solid and premium."
+    ]
+  },
+  "typography": {
+    "headings": {
+      "font": "Cabinet Grotesk, sans-serif",
+      "style": "Bold, characterful, tracking-tight, leading-none"
+    },
+    "body": {
+      "font": "Manrope, sans-serif",
+      "style": "Clean, highly readable, tracking-normal, leading-relaxed"
+    },
+    "rules": [
+      "No generic sans for headings.",
+      "Use fluid typography (text-4xl md:text-6xl+).",
+      "Use line-by-line Framer Motion reveal for hero text."
+    ]
+  },
+  "layouts": {
+    "spacing_strategy": "Generous Spacing Philosophy (p-8 to p-32). Mobile-first. Let elements breathe.",
+    "homepage": {
+      "hero": "100vh height. 3D interactive phone case (R3F) takes center/right. Left side: masked line-by-line text reveal (Italian), CTA overlay. Subtle parallax.",
+      "how_it_feels": "Scroll-driven section. Sticky left side with text. Right side showing a 3D nose or large image pressing down as user scrolls.",
+      "best_sellers": "Horizontal carousel. Product cards have 3D tilt on hover (framer-motion), price, discount badge, star rating.",
+      "social_proof": "Editorial Ribbon marquee. Pale background, dark earthy text, massive gaps. Aggregated rating, customers count, trust logos.",
+      "video_reviews": "Horizontal carousel of vertical 9:16 video cards. Play button overlay, stars, name.",
+      "brand_story": "Numbered manifesto chapters. Massive 1-column layout with huge numerals and negative space, revealing on scroll. Large cinematic image.",
+      "footer": "Generous padding (py-32). Newsletter, payment icons, shipping/returns info. Big typography for logo/CTA."
+    },
+    "product_page": {
+      "structure": "Split layout on desktop: Sticky gallery on left, scrolling buy box on right. Mobile: Stacked.",
+      "gallery": "Main image with zoom on hover. Thumbnails below/side. Floating Trustpilot-style review badge overlay (top-left).",
+      "buy_box": [
+        "Title and Trustpilot star row (scrolls to reviews on click).",
+        "Price block: Strikethrough original price, red discount badge.",
+        "Klarna instalments line (official pink styling).",
+        "Coupon Card: Premium dashed border (border-black/20), shimmer effect, 'APPLY' button (triggers confetti), live 15-min countdown.",
+        "Model Selector: Searchable (using Shadcn Combobox/Command pattern modified to look like chips), brand -> families -> model logic. Pinned recent/popular.",
+        "Color Variants: Swatches. Displays per-variant star rating.",
+        "Quantity and Magnetic 'Acquista Ora' / 'Aggiungi al Carrello' buttons. Sold-out state handling.",
+        "Trust Badges: 2x2 grid.",
+        "Delivery estimate: Live countdown line.",
+        "Accordions: What's included, materials, compatibility, care, shipping (using shadcn accordion)."
+      ],
+      "reviews_section": "Trustpilot widget with distribution bars. Text reviews carousel. Video reviews row with fullscreen player.",
+      "faq": "Accordion list specifically for phone-case questions."
+    }
+  },
+  "motion": {
+    "scroll": "Lenis smooth scrolling is MANDATORY. Give it momentum.",
+    "reveal": "Framer-motion scroll-reveals (fade-and-rise) on all major sections.",
+    "micro_interactions": "Magnetic buttons, cursor-follow effects (e.g., custom cursor saying 'Squeeze' over 3D model).",
+    "tactile_3d": "Clicking the nose in 3D scene triggers an elastic spring squish animation + hint animation on load.",
+    "coupon": "Confetti burst on successful coupon application."
+  },
+  "visual_enhancers": {
+    "borders_and_shadows": "Quiet luxury: 1px subtle borders (border-black/5), diffuse ambient shadows (shadow-sm). No heavy box-shadows.",
+    "textures": "Subtle grain texture overlay on the background to make it feel tactile and organic.",
+    "trustpilot": "Maintain recognizable green star squares (#00B67A) for instant trust.",
+    "klarna": "Maintain official pink logo styling (#FFA8C5) on the instalments line."
+  },
+  "3d_libraries": {
+    "core": "react-three-fiber, @react-three/drei, framer-motion-3d",
+    "implementation_steps": [
+      "Mock the phone case using a Box geometry with rounded corners in R3F.",
+      "Map a texture (animal face) to the front face.",
+      "Place a Sphere or Capsule geometry positioned exactly at the 'nose' of the animal.",
+      "Use framer-motion-3d or react-spring to animate the scaleZ and scaleX/Y of the nose onPointerDown to simulate a satisfying squish."
+    ],
+    "lighting": "Ensure scene is well-lit with ambientLight and directionalLight to show off the premium 'silicone' material."
+  },
+  "media": {
+    "image_urls": {
+      "product_prints": [
+        {"url": "https://images.pexels.com/photos/7788858/pexels-photo-7788858.jpeg", "description": "Black pug face - texture for case variant"},
+        {"url": "https://images.pexels.com/photos/29217040/pexels-photo-29217040.jpeg", "description": "Fawn pug face - texture for case variant"},
+        {"url": "https://images.unsplash.com/photo-1515002246390-7bf7e8f87b54", "description": "Cat face - texture for case variant"}
+      ],
+      "brand_story": [
+        {"url": "https://images.pexels.com/photos/7859172/pexels-photo-7859172.jpeg", "description": "Woman using smartphone - for lifestyle/story section"},
+        {"url": "https://images.pexels.com/photos/7984815/pexels-photo-7984815.jpeg", "description": "Elegant woman with phone - for how it feels section"}
+      ]
+    },
+    "rules": "Clip frames, spotlight treatments, avoid plain rectangles where possible. Use sophisticated image masking."
+  },
+  "component_instructions": {
+    "html_vs_shadcn": "Use raw HTML/Tailwind for marketing layouts (Hero, Bento grids). Use Shadcn JS components heavily customized for Accordions, Select, Carousel, Sheet (Cart), and Dialog.",
+    "cart": "Implement a slide-out cart drawer using Shadcn Sheet. Include mock totals and a mock checkout button.",
+    "file_extensions": "Use .jsx or .js for React components. Do not use .tsx.",
+    "testing": "All interactive elements MUST include `data-testid`."
+  },
+  "instructions_to_main_agent": [
+    "You MUST build this as a configurable platform. Create a central config object (e.g., src/config/site.js) containing ALL Italian text, product variants, price info, FAQs, etc.",
+    "Translate all placeholders to premium Italian (e.g., 'Aggiungi al Carrello', 'Come si sente', 'I più venduti'). Prices in EUR.",
+    "Focus heavily on the 'Buy Box' UX. It must feel extremely high-end, utilizing the requested features (Klarna, Coupon, Searchable model selector, Delivery countdown).",
+    "In the 3D scene, ensure lighting is good. The 'squish' interaction is the MVP feature; make the spring animation feel satisfying and elastic.",
+    "Strictly follow the color palette. No cheap gradients. Use pure #F7F5F2 for backgrounds and #FFFFFF for cards/buybox. Accent #F2542D for main CTA."
+  ],
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "You tend to converge toward generic, 'on distribution' outputs. In frontend design, this creates what users call the 'AI slop' aesthetic. Avoid this: make creative, distinctive frontends that surprise and delight.",
+    "Dark colors look good when used independently without gradients. DO NOT use dark colors as gradients.",
+    "Don't make generic centered layouts, simplistic gradients, and uniform styling.",
+    "Create depth through layered design elements with z-index hierarchy.",
+    "Use glass-morphism effects with backdrop filters (12-24px blur). DO NOT use complete transparent background in header, overlays, any surface that has content under it.",
+    "You MUST NOT apply universal transition (e.g., `transition: all`). This breaks transforms. Always add transitions for specific interactive elements.",
+    "You MUST NOT center align the app container. Do not add `.App { text-align: center; }`.",
+    "Always use modern button styles like pill-shaped, or sharp button with interaction animations & color relevant to the app style.",
+    "NEVER use AI assistant Emoji characters like 🤖🧠💭💡🔮🎯 etc for icons.",
+    "Every interaction needs micro-animations - hover states, transitions, parallax effects, and entrance animations. Static = dead.",
+    "Use 2-3x more spacing than feels comfortable. Cramped designs look cheap.",
+    "Subtle grain textures, noise overlays, custom cursors, selection states, and loading animations: separates good from extraordinary.",
+    "Main agent relies on these image URLs. Missing categories = main agent will use placeholder text which is FORBIDDEN.",
+    "Prioritize using pre-existing components from src/components/ui when applicable.",
+    "Use sonner for toasts (located in /app/src/components/ui/sonner.js or equivalent JS)."
+  ]
+}

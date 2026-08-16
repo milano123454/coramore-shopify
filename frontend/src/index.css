@@ -1,0 +1,125 @@
+@import url('https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@500,700,800,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 36 14% 96%;
+    --foreground: 0 0% 7%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 7%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 7%;
+    --primary: 0 0% 7%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 34 13% 90%;
+    --secondary-foreground: 0 0% 7%;
+    --muted: 34 13% 90%;
+    --muted-foreground: 0 0% 36%;
+    --accent: 12 88% 56%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 72% 50%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 30 8% 86%;
+    --input: 30 8% 86%;
+    --ring: 12 88% 56%;
+    --radius: 0.75rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-cream text-ink font-sans antialiased;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: #f2542d;
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid #f2542d;
+    outline-offset: 2px;
+  }
+}
+
+@layer base {
+  [data-debug-wrapper="true"] {
+    display: contents !important;
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ---- grain texture overlay ---- */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  pointer-events: none;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---- editorial marquee ---- */
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee 42s linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* ---- coupon shimmer ---- */
+@keyframes shimmer {
+  0% { transform: translateX(-120%) skewX(-12deg); }
+  60%, 100% { transform: translateX(220%) skewX(-12deg); }
+}
+.shimmer-sweep {
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+/* ---- coupon dashed border pulse ---- */
+@keyframes dashPulse {
+  0%, 100% { border-color: rgba(18, 18, 18, 0.25); }
+  50% { border-color: rgba(242, 84, 45, 0.55); }
+}
+.coupon-border {
+  animation: dashPulse 2.6s ease-in-out infinite;
+}
+
+/* ---- nose hint pulse ---- */
+@keyframes noseHint {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+}
+.nose-hint {
+  animation: noseHint 1.6s ease-in-out infinite;
+}
+
+/* ---- gallery zoom ---- */
+.zoom-img {
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---- lenis ---- */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
