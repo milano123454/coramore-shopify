@@ -1,0 +1,144 @@
+{
+  "theme_strategy": {
+    "mode": "light",
+    "description": "Vibrant Play meets Neo-Brutalism. A high-energy, tactile, and deeply personal aesthetic that avoids sterile corporate grays. It embraces solid 2px borders, hard block shadows, and off-grid overlapping elements to feel like a premium, intimate 'sticker book' or creator's scrapbook rather than a flagship tech store."
+  },
+  "typography": {
+    "fonts": {
+      "headings": "Clash Display, sans-serif",
+      "body": "Figtree, sans-serif",
+      "accent_handwritten": "Caveat, cursive"
+    },
+    "installation": "Import Google Fonts (Caveat, Figtree) and Fontshare (Clash Display) in index.css. Setup Tailwind theme to use these.",
+    "rules": {
+      "H1": "font-headings text-5xl md:text-6xl lg:text-7xl font-black tracking-tighter uppercase leading-none",
+      "H2": "font-headings text-4xl md:text-5xl font-bold tracking-tight",
+      "H3": "font-headings text-2xl md:text-3xl font-bold",
+      "body": "font-body text-base md:text-lg leading-relaxed font-medium",
+      "accent": "font-accent text-3xl md:text-4xl rotate[-2deg] text-primary"
+    }
+  },
+  "colors": {
+    "tailwind_vars": {
+      "--background": "43 100% 96%",
+      "--foreground": "0 0% 7%",
+      "--primary": "349 100% 65%",
+      "--primary-foreground": "0 0% 100%",
+      "--secondary": "144 80% 85%",
+      "--secondary-foreground": "0 0% 7%",
+      "--accent": "43 100% 80%",
+      "--accent-foreground": "0 0% 7%",
+      "--destructive": "0 84.2% 60.2%",
+      "--destructive-foreground": "0 0% 98%",
+      "--border": "0 0% 7%",
+      "--input": "0 0% 7%",
+      "--ring": "349 100% 65%",
+      "--radius": "0.75rem"
+    },
+    "palette_explanation": {
+      "background": "Warm Oat/Butter (#FFF9ED) - feels organic and friendly, avoiding harsh whites.",
+      "foreground": "Deep Ink (#111111) - bold contrast without the staleness of pure black.",
+      "primary": "Hot Coral/Pink (#FF4D6D) - youthful, punchy, acts as the energetic core.",
+      "secondary": "Minty Fresh (#B4F8C8) - perfect for contrast badges and playful highlights.",
+      "accent": "Warm Yellow (#FFE066) - used for stars, highlighters, and sticky notes."
+    },
+    "forbidden_colors": ["#7351B7", "#1B93A4", "cool grays", "corporate blues"]
+  },
+  "surfaces_and_borders": {
+    "global_border": "border-2 border-foreground",
+    "tactile_shadow": "shadow-[4px_4px_0px_0px_rgba(17,17,17,1)]",
+    "tactile_shadow_hover": "hover:shadow-[0px_0px_0px_0px_rgba(17,17,17,1)] hover:translate-y-[4px] hover:translate-x-[4px] transition-all",
+    "card_style": "bg-white border-2 border-foreground rounded-xl p-6 md:p-8 shadow-[4px_4px_0px_0px_rgba(17,17,17,1)]"
+  },
+  "components_instructions": {
+    "Buttons": {
+      "primary": "bg-primary text-white font-headings uppercase text-lg tracking-wide border-2 border-foreground rounded-full px-8 py-4 tactile_shadow tactile_shadow_hover",
+      "secondary": "bg-white text-foreground font-headings uppercase text-lg tracking-wide border-2 border-foreground rounded-full px-8 py-4 tactile_shadow tactile_shadow_hover"
+    },
+    "Badges_and_Tags": {
+      "trust_badge": "absolute top-4 right-4 bg-secondary text-foreground text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full border-2 border-foreground shadow-[2px_2px_0px_0px_rgba(17,17,17,1)] rotate-[-2deg]",
+      "discount_pill": "bg-primary text-white text-sm font-bold px-2 py-1 rounded-md border-2 border-foreground rotate-[3deg] inline-block"
+    },
+    "Inputs_and_Selectors": {
+      "style": "bg-white border-2 border-foreground rounded-lg p-3 focus:outline-none focus:ring-4 focus:ring-accent",
+      "model_selector_pill": "cursor-pointer border-2 border-foreground px-4 py-2 rounded-full font-medium transition-all",
+      "model_selector_active": "bg-foreground text-white shadow-[2px_2px_0px_0px_rgba(17,17,17,1)]"
+    }
+  },
+  "sections_instructions": {
+    "Header": "Sticky navigation. bg-background border-b-2 border-foreground z-50. Include playful brand logo in Clash Display text. Avoid hamburger on desktop.",
+    "Hero": "Asymmetrical layout (The 'Tetris' Grid). Left: massive text 'Not Just Another Case', supportive personal text, CTA. Right: Collage of the 'hero_product' overlapping with abstract geometric SVGs.",
+    "Marquee_Social_Proof": "Infinite marquee (react-fast-marquee). border-y-2 border-foreground bg-accent py-3. Text items separated by custom SVG stars: '10,000+ Happy Customers', 'As Seen On TikTok', 'Drop Tested 10ft', 'Owned by a Creator'.",
+    "Founder_Story": "Do NOT use a standard 'About Us' grid. Use generous spacing (p-12 md:p-24). Place a large polaroid-style frame of 'founder_story' image, slightly rotated (rotate-3). Overlap a decorative text box with 'accent_handwritten' font: 'I used to hide my phone. Now it’s my loudest statement. - Love, [Name]'.",
+    "Product_Page_Layout": {
+      "Structure": "Two distinct columns on desktop. Sticky right column.",
+      "Gallery": "Left column. Large main image with rounded-2xl border-2 border-foreground and trust badge overlay. Thumbnails below with hover-scale effect.",
+      "Header_Info": "Right column. H2 Title. 5 yellow stars + '(128 Reviews)' near the title.",
+      "Pricing": "Large struck-through original price (text-muted-foreground), bright primary discounted price, and discount_pill (% off).",
+      "Promos": "Klarna note with playful inline logo/text ('Pay in 4 with Klarna'). Coupon banner with active countdown ('SALE ENDS 04:32:10') with border-2 border-foreground bg-secondary p-3 rounded-lg my-4.",
+      "Variants": "Searchable phone model selector with a search input. Group pills by 'Apple' and 'Samsung'.",
+      "Delivery_Countdown": "Dynamic text: 'Order within 2 hrs 15 mins for dispatch today!' paired with a lucide-react Truck icon.",
+      "Actions": "Stacked buttons: Full width 'Add to Cart' (primary) and 'Buy Now' (secondary).",
+      "Trust_Row": "Row of small icons + text below CTAs (Free Shipping, Lifetime Warranty, Easy Returns).",
+      "FAQ": "Use shadcn accordion, styled with border-b-2 border-foreground. Remove default Vercel look."
+    },
+    "Reviews_Section": "Scrollable horizontal layout. Each card uses 'card_style'. Top of card has 'review_customer' image (w-12 h-12 rounded-full border-2 border-foreground), name, 5 stars. Body has a short, punchy review."
+  },
+  "image_urls": {
+    "founder_story": {
+      "url": "https://images.unsplash.com/photo-1662850886700-4ec19bd30d11?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1OTV8MHwxfHNlYXJjaHwxfHx5b3VuZyUyMHdvbWFuJTIwc21pbGluZyUyMHBvcnRyYWl0JTIwd2FybXxlbnwwfHx8fDE3ODY5NjIxOTd8MA&ixlib=rb-4.1.0&q=85",
+      "description": "Warm, authentic portrait of the founder smiling, with hair pulled back.",
+      "category": "Brand Story / About"
+    },
+    "hero_product": {
+      "url": "https://images.pexels.com/photos/8633814/pexels-photo-8633814.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "description": "Hand holding a smartphone with a creative and artistic case featuring various stickers.",
+      "category": "Hero Section"
+    },
+    "featured_product_gallery_main": {
+      "url": "https://images.unsplash.com/photo-1535157412991-2ef801c1748b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODF8MHwxfHNlYXJjaHwxfHxhZXN0aGV0aWMlMjBwaG9uZSUyMGNhc2UlMjBsaWZlc3R5bGV8ZW58MHx8fHwxNzg2OTYyMTk3fDA&ixlib=rb-4.1.0&q=85",
+      "description": "Four assorted-color iPhone cases. Good for showing variety/options.",
+      "category": "Product Gallery Main"
+    },
+    "featured_product_lifestyle": {
+      "url": "https://images.unsplash.com/photo-1613294064031-8935937266f4?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODF8MHwxfHNlYXJjaHwyfHxhZXN0aGV0aWMlMjBwaG9uZSUyMGNhc2UlMjBsaWZlc3R5bGV8ZW58MHx8fHwxNzg2OTYyMTk3fDA&ixlib=rb-4.1.0&q=85",
+      "description": "Woman in black leather jacket holding blue iphone case. Very Gen-Z.",
+      "category": "Product Gallery Lifestyle Shot"
+    },
+    "review_customer_1": {
+      "url": "https://images.unsplash.com/photo-1605170444329-61aa23227b07?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzh8MHwxfHNlYXJjaHwxfHx0ZWVuYWdlJTIwZ2lybCUyMG1pcnJvciUyMHNlbGZpZSUyMHBob25lfGVufDB8fHx8MTc4Njk2MjE5N3ww&ixlib=rb-4.1.0&q=85",
+      "description": "Teenage girl taking a mirror selfie sitting on a yellow chair.",
+      "category": "Customer Reviews"
+    },
+    "review_customer_2": {
+      "url": "https://images.unsplash.com/photo-1695753640148-0c7b3bcd3b2b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzh8MHwxfHNlYXJjaHwyfHx0ZWVuYWdlJTIwZ2lybCUyMG1pcnJvciUyMHNlbGZpZSUyMHBob25lfGVufDB8fHx8MTc4Njk2MjE5N3ww&ixlib=rb-4.1.0&q=85",
+      "description": "A woman taking a selfie with her cell phone in a blue top.",
+      "category": "Customer Reviews"
+    },
+    "review_customer_3": {
+      "url": "https://images.unsplash.com/photo-1608053874785-fc090a84eb2f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzh8MHwxfHNlYXJjaHwzfHx0ZWVuYWdlJTIwZ2lybCUyMG1pcnJvciUyMHNlbGZpZSUyMHBob25lfGVufDB8fHx8MTc4Njk2MjE5N3ww&ixlib=rb-4.1.0&q=85",
+      "description": "Woman in pink hoodie taking a mirror selfie.",
+      "category": "Customer Reviews"
+    }
+  },
+  "animations_and_motion": {
+    "libraries_required": ["framer-motion", "react-fast-marquee", "lucide-react"],
+    "commands": "yarn add framer-motion react-fast-marquee lucide-react",
+    "micro_interactions": {
+      "buttons": "Squish effect on click: scale down to 0.95 and remove the hard shadow.",
+      "product_images": "Hover over product images triggers a slight scale (1.02) and a tilt (rotate -1deg or 1deg)."
+    }
+  },
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "You tend to converge toward generic, 'on distribution' outputs. Avoid this: make creative, distinctive frontends that surprise and delight.",
+    "Do NOT make generic centered layouts, simplistic gradients, and uniform styling. Use the defined tactile neo-brutalist shadows and offset alignments.",
+    "Create depth through layered design elements with z-index hierarchy and absolute positioning of stickers/badges.",
+    "You MUST NOT apply universal transition. Eg: `transition: all`.",
+    "You MUST NOT center align the app container, ie do not add `.App { text-align: center; }` in the css file.",
+    "Every interaction needs micro-animations - hover states, transitions, and entrance animations.",
+    "Use 2-3x more spacing than feels comfortable. Cramped designs look cheap.",
+    "NEVER use AI assistant Emoji characters like 🤖🧠💭💡🔮🎯 etc for icons. Use lucide-react.",
+    "All interactive and key informational elements MUST include a `data-testid` attribute (e.g., `data-testid=\"buy-now-button\"`).",
+    "DO NOT use complete `transparent` background in header, overlays, any surface that has content under it."
+  ]
+}

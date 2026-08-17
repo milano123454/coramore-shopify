@@ -1,0 +1,24 @@
+# SqueezeCase — PRD
+
+## Original Problem Statement
+Build a Shopify-style store for SqueezeCase, a creator-led phone case brand fronted by a young woman (Maya) who overcame bullying through motivational YouTube content. Must feel personal, warm, crafted — not a corporate tech retailer. Bold distinctive palette/typography, small personal touches, playful micro-animations. Home page (hero, story, featured product, social proof strip) + full product page (gallery w/ trust badge, star rating, discount %, Klarna note, coupon countdown, searchable phone model selector grouped by brand, delivery countdown w/ daily cutoff, Buy Now/Add to Cart, trust badges, FAQ accordion, scrollable photo reviews), shared header/footer, everything editable.
+
+## User Personas
+- Teen/young-adult buyer who discovered Maya via YouTube/TikTok; buys for identity + protection.
+- Gift buyer (friend/sibling) touched by the brand story.
+
+## Architecture
+- Backend: FastAPI + MongoDB (`site_content` collection, single `key: "main"` doc). `GET /api/content` (lazy-seeds from `content_seed.py`), `PUT /api/content` (full-doc replace — editability).
+- Frontend: React + Tailwind + framer-motion + shadcn accordion + sonner. Routes: `/` (Home), `/product/:slug` (ProductPage). CartContext for cart count. All page content fetched from `/api/content`.
+- Design: neo-brutalist "sticker book" — Warm Oat bg, Hot Coral primary, Mint secondary, Warm Yellow accents; Clash Display / Figtree / Caveat; 2px borders + hard offset shadows. Guidelines at /app/design_guidelines.json.
+
+## Implemented (2026-07-11)
+- Home: asymmetric hero w/ sticker badges + squiggle underline, marquee social proof strip, founder story w/ polaroid + handwritten quote card, featured product w/ % off, closing CTA.
+- Product page: gallery + thumbnails + trust badge overlay, stars + review count, price strike + 30% pill, Klarna pill, coupon banner w/ live countdown + copy-to-clipboard, searchable model selector (Apple/Samsung/Google), delivery countdown vs 2pm cutoff (recalculates today/tomorrow), Add to Cart (updates header cart badge + toast), Buy Now (demo toast), trust badge row, FAQ accordion, horizontally scrollable photo reviews.
+- Shared sticky header w/ cart count, footer w/ handwritten note.
+- Verified: API curl, full product flow (search→select→add→cart count), FAQ, reviews, countdowns.
+
+## Backlog
+- P0: none blocking.
+- P1: real cart drawer + checkout (Stripe), cart persistence (localStorage/DB), more products/collection grid, admin edit UI for content (currently API-only).
+- P2: wishlist, order tracking page, UGC photo upload for reviews, i18n.

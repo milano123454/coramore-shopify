@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --background: 43 100% 96%;
+        --foreground: 0 0% 7%;
+        --card: 0 0% 100%;
+        --card-foreground: 0 0% 7%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 0 0% 7%;
+        --primary: 349 100% 65%;
+        --primary-foreground: 0 0% 100%;
+        --secondary: 144 80% 85%;
+        --secondary-foreground: 0 0% 7%;
+        --muted: 43 55% 90%;
+        --muted-foreground: 0 0% 35%;
+        --accent: 43 100% 80%;
+        --accent-foreground: 0 0% 7%;
+        --destructive: 0 84.2% 60.2%;
+        --destructive-foreground: 0 0% 98%;
+        --border: 0 0% 7%;
+        --input: 0 0% 7%;
+        --ring: 349 100% 65%;
+        --radius: 0.75rem;
+    }
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+    body {
+        @apply bg-background text-foreground font-body;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    ::selection {
+        background: hsl(var(--accent));
+        color: hsl(var(--foreground));
+    }
+}
+
+@layer components {
+    .tactile-shadow {
+        box-shadow: 4px 4px 0px 0px rgba(17, 17, 17, 1);
+    }
+    .tactile-shadow-sm {
+        box-shadow: 2px 2px 0px 0px rgba(17, 17, 17, 1);
+    }
+    .tactile-btn {
+        @apply border-2 border-foreground tactile-shadow transition-transform transition-shadow duration-150;
+    }
+    .tactile-btn:hover {
+        box-shadow: 0px 0px 0px 0px rgba(17, 17, 17, 1);
+        transform: translate(4px, 4px);
+    }
+    .tactile-btn:active {
+        transform: translate(4px, 4px) scale(0.97);
+    }
+}
+
+.marquee-track {
+    animation: marquee 24s linear infinite;
+}
+.marquee-track:hover {
+    animation-play-state: paused;
+}
+@keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+@keyframes float-slow {
+    0%, 100% { transform: translateY(0) rotate(var(--float-rot, 0deg)); }
+    50% { transform: translateY(-10px) rotate(var(--float-rot, 0deg)); }
+}
+.float-slow {
+    animation: float-slow 5s ease-in-out infinite;
+}
+
+.reviews-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--primary)) transparent;
+}
+.reviews-scroll::-webkit-scrollbar {
+    height: 8px;
+}
+.reviews-scroll::-webkit-scrollbar-thumb {
+    background: hsl(var(--primary));
+    border-radius: 999px;
+    border: 2px solid hsl(var(--background));
+}
+
+@layer base {
+    [data-debug-wrapper="true"] {
+        display: contents !important;
+    }
+
+    [data-debug-wrapper="true"] > * {
+        margin-left: inherit;
+        margin-right: inherit;
+        margin-top: inherit;
+        margin-bottom: inherit;
+        padding-left: inherit;
+        padding-right: inherit;
+        padding-top: inherit;
+        padding-bottom: inherit;
+        column-gap: inherit;
+        row-gap: inherit;
+        gap: inherit;
+        border-left-width: inherit;
+        border-right-width: inherit;
+        border-top-width: inherit;
+        border-bottom-width: inherit;
+        border-left-style: inherit;
+        border-right-style: inherit;
+        border-top-style: inherit;
+        border-bottom-style: inherit;
+        border-left-color: inherit;
+        border-right-color: inherit;
+        border-top-color: inherit;
+        border-bottom-color: inherit;
+    }
+}
