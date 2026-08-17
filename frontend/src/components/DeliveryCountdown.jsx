@@ -3,7 +3,7 @@ import { Truck } from "lucide-react";
 
 const pad = (n) => String(n).padStart(2, "0");
 
-const DeliveryCountdown = ({ cutoffHour = 14, cutoffLabel = "2pm" }) => {
+const DeliveryCountdown = ({ cutoffHour = 14, cutoffLabel = "2pm", compact = false }) => {
   const [info, setInfo] = useState(null);
 
   useEffect(() => {
@@ -31,6 +31,23 @@ const DeliveryCountdown = ({ cutoffHour = 14, cutoffLabel = "2pm" }) => {
   }, [cutoffHour]);
 
   if (!info) return null;
+
+  if (compact) {
+    return (
+      <div data-testid="delivery-countdown" className="flex items-center gap-2 text-sm font-semibold">
+        <span className="bg-accent border-2 border-foreground rounded-full p-1.5">
+          <Truck size={14} />
+        </span>
+        <p>
+          Order within{" "}
+          <span data-testid="delivery-timer" className="text-primary font-bold tabular-nums">
+            {pad(info.h)}h {pad(info.m)}m {pad(info.s)}s
+          </span>{" "}
+          for dispatch {info.day}
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div

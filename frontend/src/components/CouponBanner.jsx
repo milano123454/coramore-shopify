@@ -4,7 +4,7 @@ import { toast } from "sonner";
 
 const pad = (n) => String(n).padStart(2, "0");
 
-const CouponBanner = ({ coupon }) => {
+const CouponBanner = ({ coupon, mode = "product", applied = false, onApply }) => {
   const [remaining, setRemaining] = useState("");
 
   useEffect(() => {
@@ -41,14 +41,35 @@ const CouponBanner = ({ coupon }) => {
         <TicketPercent size={18} />
         <span>{coupon.message}</span>
       </div>
-      <div className="flex items-center gap-2">
-        <button
-          data-testid="coupon-code-chip"
-          onClick={copyCode}
-          className="flex items-center gap-1.5 bg-white border-2 border-dashed border-foreground rounded-md px-3 py-1 font-bold text-sm hover:bg-accent transition-colors"
-        >
-          {coupon.code} <Copy size={14} />
-        </button>
+      <div className="flex items-center gap-2 flex-wrap">
+        {mode === "cart" ? (
+          <>
+            <span
+              data-testid="coupon-code-label"
+              className="bg-white border-2 border-dashed border-foreground rounded-md px-3 py-1 font-bold text-sm"
+            >
+              {coupon.code}
+            </span>
+            <button
+              data-testid="coupon-apply-button"
+              onClick={onApply}
+              disabled={applied}
+              className={`border-2 border-foreground rounded-md px-3 py-1 text-sm font-bold transition-colors ${
+                applied ? "bg-foreground text-white cursor-default" : "bg-primary text-white hover:bg-accent hover:text-foreground"
+              }`}
+            >
+              {applied ? "Applied" : "Apply discount"}
+            </button>
+          </>
+        ) : (
+          <button
+            data-testid="coupon-code-chip"
+            onClick={copyCode}
+            className="flex items-center gap-1.5 bg-white border-2 border-dashed border-foreground rounded-md px-3 py-1 font-bold text-sm hover:bg-accent transition-colors"
+          >
+            {coupon.code} <Copy size={14} />
+          </button>
+        )}
         <span data-testid="coupon-countdown" className="font-headings font-semibold text-sm tabular-nums bg-foreground text-white rounded-md px-2.5 py-1">
           {remaining}
         </span>

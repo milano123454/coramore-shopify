@@ -3,7 +3,7 @@ import { ShoppingBag } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 
 const Header = () => {
-  const { count } = useCart();
+  const { count, openDrawer } = useCart();
 
   return (
     <header data-testid="site-header" className="sticky top-0 z-50 bg-background border-b-2 border-foreground">
@@ -19,6 +19,7 @@ const Header = () => {
         </nav>
         <button
           data-testid="cart-button"
+          onClick={openDrawer}
           className="relative tactile-btn bg-white rounded-full p-2.5 md:p-3"
           aria-label="Cart"
         >

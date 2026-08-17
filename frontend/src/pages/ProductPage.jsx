@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ShieldCheck, Truck, RotateCcw, ShoppingBag, Zap } from "lucide-react";
 import { toast } from "sonner";
@@ -16,7 +16,8 @@ const TRUST_ICONS = { truck: Truck, shield: ShieldCheck, refresh: RotateCcw };
 
 const ProductPage = () => {
   const { slug } = useParams();
-  const { addToCart } = useCart();
+  const navigate = useNavigate();
+  const { addToCart, openDrawer } = useCart();
   const [content, setContent] = useState(null);
   const [selectedModel, setSelectedModel] = useState(null);
   const [activeImage, setActiveImage] = useState(0);
@@ -43,7 +44,7 @@ const ProductPage = () => {
       return;
     }
     addToCart(product, selectedModel);
-    toast.success(`${product.name} (${selectedModel}) added to your bag`);
+    openDrawer();
   };
 
   const handleBuyNow = () => {
@@ -52,7 +53,7 @@ const ProductPage = () => {
       return;
     }
     addToCart(product, selectedModel);
-    toast.info("Checkout is a demo for now — but your taste is very real.");
+    navigate("/cart");
   };
 
   return (

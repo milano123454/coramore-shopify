@@ -23,6 +23,14 @@ Build a Shopify-style store for SqueezeCase, a creator-led phone case brand fron
 - Multi-design catalog: 4 products (The Brave One / The Wild One leopard / The Bold One tiger / The Quirky One cow-Y2K), each with own price, rating, review count, gallery, tagline, Klarna note.
 - Homepage "Choose your design" section (#designs): staggered rotated polaroid cards w/ % off sticker, name, rating, price → links to each /product/:slug. Header "Shop" nav now points to /#designs.
 
+## Implemented (2026-07-11, iteration 3 — cart experience)
+- CartContext: quantities, line items (slug+model merge), subtotal/count, drawer open state, coupon applied, upsell claimed; items persisted to localStorage (`squeezecase_cart`).
+- Cart drawer (slide-out, opens from header cart icon + after Add to Cart): compact line items (image/name/model/qty stepper/remove), free-shipping progress, cart-mode coupon (code + Apply discount + countdown), compact delivery countdown, subtotal + discount, Proceed to Checkout (uses editable `cart.checkoutUrl`; demo toast when empty).
+- Cart page (/cart, Buy Now navigates here): line-item card, upsell gift block (editable giftName/text/minutes, own countdown, claim toggle, expired state), compact 3-quote reviews strip, sticky summary card (free shipping, coupon, delivery, totals, checkout, trust row), playful empty states on both drawer + page.
+- Shared components: CartLineItem, FreeShippingBar; CouponBanner + DeliveryCountdown gained cart/compact modes (product page unchanged).
+- Seed: `coupon.percent` + `cart` config block (threshold, checkoutUrl, labels, upsell) — all editable via PUT /api/content.
+- Verified: add→drawer opens, qty stepper, coupon −15%, free-shipping qualify, upsell claim, cart survives reload, remove→empty state, drawer-from-header empty state.
+
 ## Backlog
 - P0: none blocking.
 - P1: real cart drawer + checkout (Stripe), cart persistence (localStorage/DB), more products/collection grid, admin edit UI for content (currently API-only).

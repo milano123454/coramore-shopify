@@ -138,7 +138,23 @@ DEFAULT_CONTENT = {
     ],
     "coupon": {
         "code": "BRAVE15",
-        "message": "Extra 15% off — today only"
+        "message": "Extra 15% off — today only",
+        "percent": 15
+    },
+    "cart": {
+        "freeShippingThreshold": 25,
+        "checkoutUrl": "",
+        "checkoutLabel": "Proceed to Checkout",
+        "emptyTitle": "your bag is feeling light",
+        "emptySubtext": "No cases in here yet — your phone is naked and afraid.",
+        "emptyCta": "Choose your design",
+        "upsell": {
+            "enabled": True,
+            "giftName": "Maya's sticker pack",
+            "headline": "a little bonus, on us",
+            "text": "Complete your order before the timer runs out and we'll toss a free sticker pack into your parcel — automatically, no code needed.",
+            "minutes": 10
+        }
     },
     "delivery": {
         "cutoffHour": 14,
