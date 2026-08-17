@@ -200,6 +200,72 @@ const Home = () => {
         </div>
       </section>
 
+      {/* CHOOSE YOUR DESIGN */}
+      <section id="designs" data-testid="designs-section" className="max-w-7xl mx-auto px-4 md:px-8 py-16 md:py-28">
+        <motion.div {...fadeUp} className="mb-12 md:mb-16">
+          <p className="font-accent text-2xl text-primary -rotate-1">pick your fighter</p>
+          <h2 className="font-headings text-4xl md:text-5xl font-bold tracking-tight">Choose your design</h2>
+          <p className="text-base md:text-lg font-medium text-foreground/80 max-w-xl mt-3">
+            Same indestructible case, four different personalities. Which one sounds like you?
+          </p>
+        </motion.div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {content.products.map((p, i) => {
+            const rotations = ["-rotate-2", "rotate-1", "-rotate-1", "rotate-2"];
+            const offsets = ["lg:mt-0", "lg:mt-10", "lg:mt-3", "lg:mt-12"];
+            const pOff = Math.round((1 - p.price / p.compareAt) * 100);
+            return (
+              <motion.div
+                key={p.slug}
+                initial={{ opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.5, delay: i * 0.08 }}
+                className={offsets[i % 4]}
+              >
+                <Link
+                  to={`/product/${p.slug}`}
+                  data-testid={`design-card-${p.slug}`}
+                  className={`block bg-white border-2 border-foreground rounded-2xl p-3 tactile-shadow hover:rotate-0 hover:-translate-y-1 transition-transform ${rotations[i % 4]}`}
+                >
+                  <div className="relative">
+                    <img
+                      src={p.images[0]}
+                      alt={p.name}
+                      loading="lazy"
+                      className="rounded-xl w-full h-56 object-cover border-2 border-foreground"
+                    />
+                    <span className="absolute -top-3 -right-2 bg-primary text-white text-xs font-bold px-2 py-1 rounded-md border-2 border-foreground rotate-6">
+                      {pOff}% OFF
+                    </span>
+                  </div>
+                  <div className="px-1 pt-4 pb-1 space-y-2">
+                    <p data-testid={`design-name-${p.slug}`} className="font-headings text-xl font-bold">{p.name}</p>
+                    <div className="flex items-center gap-1.5">
+                      <Stars rating={p.rating} size={12} />
+                      <span className="text-xs font-semibold text-muted-foreground">
+                        {p.rating} · {p.reviewCount.toLocaleString()}
+                      </span>
+                    </div>
+                    <div className="flex items-baseline gap-2">
+                      <span data-testid={`design-price-${p.slug}`} className="font-headings text-lg font-bold text-primary">
+                        {p.currency}{p.price.toFixed(2)}
+                      </span>
+                      <span className="text-sm text-muted-foreground line-through font-semibold">
+                        {p.currency}{p.compareAt.toFixed(2)}
+                      </span>
+                    </div>
+                    <span className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wide border-2 border-foreground rounded-full px-3 py-1 bg-accent tactile-shadow-sm">
+                      Peek the details <ArrowRight size={12} />
+                    </span>
+                  </div>
+                </Link>
+              </motion.div>
+            );
+          })}
+        </div>
+      </section>
+
       {/* CLOSING CTA */}
       <section data-testid="closing-cta" className="max-w-5xl mx-auto px-4 md:px-8 py-16 md:py-24 text-center">
         <motion.div {...fadeUp} className="space-y-6">

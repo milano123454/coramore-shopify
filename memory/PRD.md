@@ -18,6 +18,11 @@ Build a Shopify-style store for SqueezeCase, a creator-led phone case brand fron
 - Shared sticky header w/ cart count, footer w/ handwritten note.
 - Verified: API curl, full product flow (search→select→add→cart count), FAQ, reviews, countdowns.
 
+## Implemented (2026-07-11, iteration 2)
+- Product page: removed top-right "DROP-TESTED 10 FT" image overlay; added compact top-left sticker-style review pill (stars + rating + comma-formatted count, e.g. "4.9 · 3,214 reviews").
+- Multi-design catalog: 4 products (The Brave One / The Wild One leopard / The Bold One tiger / The Quirky One cow-Y2K), each with own price, rating, review count, gallery, tagline, Klarna note.
+- Homepage "Choose your design" section (#designs): staggered rotated polaroid cards w/ % off sticker, name, rating, price → links to each /product/:slug. Header "Shop" nav now points to /#designs.
+
 ## Backlog
 - P0: none blocking.
 - P1: real cart drawer + checkout (Stripe), cart persistence (localStorage/DB), more products/collection grid, admin edit UI for content (currently API-only).

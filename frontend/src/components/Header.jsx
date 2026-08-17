@@ -14,7 +14,7 @@ const Header = () => {
         </Link>
         <nav className="hidden md:flex items-center gap-8 font-semibold text-sm uppercase tracking-wide">
           <a href="/#story" data-testid="nav-story" className="hover:text-primary transition-colors">Her Story</a>
-          <Link to="/product/the-brave-one" data-testid="nav-shop" className="hover:text-primary transition-colors">Shop</Link>
+          <a href="/#designs" data-testid="nav-shop" className="hover:text-primary transition-colors">Shop</a>
           <a href="/product/the-brave-one#reviews" data-testid="nav-reviews" className="hover:text-primary transition-colors">Reviews</a>
         </nav>
         <button

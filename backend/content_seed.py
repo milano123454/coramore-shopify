@@ -47,7 +47,7 @@ DEFAULT_CONTENT = {
             "compareAt": 49.99,
             "currency": "$",
             "rating": 4.9,
-            "reviewCount": 128,
+            "reviewCount": 3214,
             "images": [
                 "https://images.unsplash.com/photo-1535157412991-2ef801c1748b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODF8MHwxfHNlYXJjaHwxfHxhZXN0aGV0aWMlMjBwaG9uZSUyMGNhc2UlMjBsaWZlc3R5bGV8ZW58MHx8fHwxNzg2OTYyMTk3fDA&ixlib=rb-4.1.0&q=85",
                 "https://images.unsplash.com/photo-1613294064031-8935937266f4?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODF8MHwxfHNlYXJjaHwyfHxhZXN0aGV0aWMlMjBwaG9uZSUyMGNhc2UlMjBsaWZlc3R5bGV8ZW58MHx8fHwxNzg2OTYyMTk3fDA&ixlib=rb-4.1.0&q=85",
@@ -60,6 +60,75 @@ DEFAULT_CONTENT = {
                 "Designed by Maya, packed by hand with a thank-you note"
             ],
             "klarnaNote": "or 4 interest-free payments of $8.75 with"
+        },
+        {
+            "slug": "the-wild-one",
+            "name": "The Wild One",
+            "tagline": "Leopard print for the loud-and-proud days. Glossy, grippy, and absolutely not subtle.",
+            "badge": "Drop-tested 10 ft",
+            "price": 32.99,
+            "compareAt": 44.99,
+            "currency": "$",
+            "rating": 4.8,
+            "reviewCount": 1876,
+            "images": [
+                "https://images.unsplash.com/photo-1636132426044-394d8272e8cf?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NTZ8MHwxfHNlYXJjaHwxfHxsZW9wYXJkJTIwcHJpbnQlMjBwaG9uZSUyMGNhc2V8ZW58MHx8fHwxNzg2OTYzMDY5fDA&ixlib=rb-4.1.0&q=85",
+                "https://images.pexels.com/photos/374117/pexels-photo-374117.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+                "https://images.unsplash.com/photo-1613294064031-8935937266f4?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODF8MHwxfHNlYXJjaHwyfHxhZXN0aGV0aWMlMjBwaG9uZSUyMGNhc2UlMjBsaWZlc3R5bGV8ZW58MHx8fHwxNzg2OTYyMTk3fDA&ixlib=rb-4.1.0&q=85"
+            ],
+            "features": [
+                "Leopard print that refuses to whisper",
+                "Military-grade shock absorption (yes, actually drop-tested)",
+                "Scratch-proof glossy art print",
+                "Raised edges protect camera + screen"
+            ],
+            "klarnaNote": "or 4 interest-free payments of $8.25 with"
+        },
+        {
+            "slug": "the-bold-one",
+            "name": "The Bold One",
+            "tagline": "Orange tiger stripes that walk into the room before you do. Same shockproof guts, extra roar.",
+            "badge": "Drop-tested 10 ft",
+            "price": 36.99,
+            "compareAt": 49.99,
+            "currency": "$",
+            "rating": 4.9,
+            "reviewCount": 941,
+            "images": [
+                "https://images.unsplash.com/photo-1706684890132-9ce414970e19?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMjh8MHwxfHNlYXJjaHwyfHx0aWdlciUyMHBob25lJTIwY2FzZXxlbnwwfHx8fDE3ODY5NjMwNjB8MA&ixlib=rb-4.1.0&q=85",
+                "https://images.pexels.com/photos/15889798/pexels-photo-15889798.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+                "https://images.unsplash.com/photo-1613294064031-8935937266f4?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODF8MHwxfHNlYXJjaHwyfHxhZXN0aGV0aWMlMjBwaG9uZSUyMGNhc2UlMjBsaWZlc3R5bGV8ZW58MHx8fHwxNzg2OTYyMTk3fDA&ixlib=rb-4.1.0&q=85"
+            ],
+            "features": [
+                "Tiger stripes with main-character energy",
+                "Military-grade shock absorption (yes, actually drop-tested)",
+                "Scratch-proof glossy art print",
+                "Raised edges protect camera + screen"
+            ],
+            "klarnaNote": "or 4 interest-free payments of $9.25 with"
+        },
+        {
+            "slug": "the-quirky-one",
+            "name": "The Quirky One",
+            "tagline": "Y2K cow print chaos in the best way. For the ones who never blend in (and don't want to).",
+            "badge": "Drop-tested 10 ft",
+            "price": 29.99,
+            "compareAt": 39.99,
+            "currency": "$",
+            "rating": 4.7,
+            "reviewCount": 1204,
+            "images": [
+                "https://images.unsplash.com/photo-1678930427302-381e63fbe826?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1OTN8MHwxfHNlYXJjaHwyfHxjb2xvcmZ1bCUyMHBsYXlmdWwlMjBwaG9uZSUyMGNhc2V8ZW58MHx8fHwxNzg2OTYzMDYwfDA&ixlib=rb-4.1.0&q=85",
+                "https://images.pexels.com/photos/15228842/pexels-photo-15228842.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+                "https://images.pexels.com/photos/8633814/pexels-photo-8633814.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+            ],
+            "features": [
+                "Cow print that started three conversations today",
+                "Military-grade shock absorption (yes, actually drop-tested)",
+                "Scratch-proof glossy art print",
+                "Raised edges protect camera + screen"
+            ],
+            "klarnaNote": "or 4 interest-free payments of $7.50 with"
         }
     ],
     "models": [

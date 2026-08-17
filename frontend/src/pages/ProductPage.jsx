@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { BadgeCheck, ShieldCheck, Truck, RotateCcw, ShoppingBag, Zap } from "lucide-react";
+import { ShieldCheck, Truck, RotateCcw, ShoppingBag, Zap } from "lucide-react";
 import { toast } from "sonner";
 import { getContent } from "@/lib/api";
 import { useCart } from "@/context/CartContext";
@@ -68,10 +68,11 @@ const ProductPage = () => {
               className="w-full h-[380px] md:h-[520px] object-cover"
             />
             <span
-              data-testid="product-trust-badge"
-              className="absolute top-4 right-4 bg-secondary text-foreground text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-full border-2 border-foreground tactile-shadow-sm -rotate-2 inline-flex items-center gap-1.5"
+              data-testid="product-review-badge"
+              className="absolute top-4 left-4 bg-white border-2 border-foreground rounded-full px-3 py-1.5 tactile-shadow-sm -rotate-2 inline-flex items-center gap-1.5"
             >
-              <BadgeCheck size={14} /> {product.badge}
+              <Stars rating={product.rating} size={11} />
+              <span className="text-xs font-bold whitespace-nowrap">{product.rating} · {product.reviewCount.toLocaleString()} reviews</span>
             </span>
           </div>
           <div className="flex gap-3 mt-4">
